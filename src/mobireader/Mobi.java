@@ -6,17 +6,13 @@ package mobireader;
 
 import com.google.common.io.Files;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOError;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.HashMap;
 import nl.flotsam.preon.Codec;
 import nl.flotsam.preon.Codecs;
 import nl.flotsam.preon.DecodingException;
-import nl.flotsam.preon.annotation.BoundNumber;
-import nl.flotsam.preon.annotation.BoundString;
+
 /**
  *
  * @author att
@@ -54,7 +50,6 @@ public class Mobi {
         int size = 0;
         boolean is_number = false;
         String number = "";
-        String type = "";
         for(int i = 0; i < headerFormat.length(); i++)
         {
             char c = headerFormat.charAt(i);
