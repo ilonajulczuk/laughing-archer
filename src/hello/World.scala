@@ -1,9 +1,9 @@
 package hello
 
-import mobireader.Book
 import swing._
+import mobireader.Book
+import analysis.SummaryTool
 object World extends SimpleSwingApplication{
-
 	
 
 	val db = new SqliteDatabaseHandler("my_books.db");
@@ -24,6 +24,7 @@ object World extends SimpleSwingApplication{
     def top = new MainFrame {
     	title = "ComboBoxes Demo"
     			contents = ui
+    	new SummaryTool().main()
     }
 
 }

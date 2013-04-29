@@ -104,10 +104,10 @@ public class Mobi {
     }
     
     Header parseHeader(){
-        String headerfmt = "32shhIIIIII4s4sIIH";
-        int headerlen = calcsize(headerfmt);
-        String headerData = this.contents.substring(this.offset,
-                                                    this.offset+headerlen);
+        //String headerfmt = "32shhIIIIII4s4sIIH";
+        //int headerlen = calcsize(headerfmt);
+        //String headerData = this.contents.substring(this.offset,
+         //                                           this.offset+headerlen);
         
         Header parsedHeader = new Header(); //createHeaderBasedOn(headerData);
         
