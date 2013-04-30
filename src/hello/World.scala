@@ -35,11 +35,9 @@ object World extends SimpleSwingApplication{
     	}
 	}
     
-    
-    
     def top = new MainFrame {
     	minimumSize = new Dimension(400, 200)
-    	title = "ComboBoxes Demo"
+    	title = "Mobireader Lib"
     			contents = new BoxPanel(Orientation.Horizontal) {
     			
     			contents += firstBox

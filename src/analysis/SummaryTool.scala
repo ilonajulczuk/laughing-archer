@@ -12,10 +12,7 @@ import scala.collection.mutable.DoubleLinkedList
 class SummaryTool {
 
 	def splitContentToSentences(content: String) = {
-
 		content.replaceAll("\n", ". ").split("\\. ").filterNot(x => x.matches("\\W+")).filterNot(x => x == "")
-
-
 	}
         
 	def splitContentToParagraphs(content: String) = {
@@ -23,7 +20,6 @@ class SummaryTool {
 	}
         
 	def sentencesIntersection(sent1: String, sent2: String) : Double = {
-		
 		//split the sentence into words/tokens
         val s1 = sent1.split(" ").toSet
         val s2 = sent2.split(" ").toSet
