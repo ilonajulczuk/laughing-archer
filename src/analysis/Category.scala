@@ -1,13 +1,21 @@
 package analysis
 
 class CategoryTree() {	
-	var root = new MultiBranch("Root")
+	var root = new Category("Root")
+	
 	override def toString(): String = {
 		var description = "Root"
-		description += root.namesOfChildren.mkString("\n")
+		description += root.namesOfSubcategories.mkString("\n")
 		//Algorithm isn't so easy...
 		description
 	}
+	
+	def addSubcategories(newCategories: Iterable[String]) {
+		root.addSubcategories(newCategories)
+	}
+	
+	def namesOfSubcategories() = root.namesOfSubcategories()
+	def apply(subcatName: String) = root.subcategories(subcatName)
 }
 
 sealed abstract class Node(val value: String) {
@@ -21,39 +29,39 @@ sealed abstract class Node(val value: String) {
 
 
 import scala.collection.mutable.Map
-class MultiBranch(override val value: String)
+class Category(override val value: String)
      extends Node(value) {
 	
-	var children = Map[String, MultiBranch]()
+	var subcategories = Map[String, Category]()
 	
-	def replaceChild(name :String, newChild: MultiBranch)
+	def replaceSubcategory(name :String, newChild: Category)
 	{
-		children(name) = newChild
+		subcategories(name) = newChild
 	}
 	
-	def namesOfChildren() = children.keys
+	def namesOfSubcategories() = subcategories.keys
 	
-	def hasChildren(): Boolean = !children.isEmpty
+	def hasChildren(): Boolean = !subcategories.isEmpty
 	
-	def addChild(child: MultiBranch){
-		if (children.keys.exists(x => x == child.value))
-				replaceChild(child.value, child)
-		children += (child.value -> child)
+	def addSubcategory(cat: Category){
+		if (subcategories.keys.exists(x => x == cat.value))
+				replaceSubcategory(cat.value, cat)
+		subcategories += (cat.value -> cat)
 	}
 	
-	def addChild(childName: String){
-		if (children.keys.exists(x => x == childName))
-				replaceChild(childName, new MultiBranch(childName))
-		children += (childName -> new MultiBranch(childName))
+	def addSubcategory(categoryName: String){
+		if (subcategories.keys.exists(x => x == categoryName))
+				replaceSubcategory(categoryName, new Category(categoryName))
+		subcategories += (categoryName -> new Category(categoryName))
 	}
 	
-	def addChildren(children: Iterable[String]) {
-		for(child <- children) {
-			addChild(child)
+	def addSubcategories(newCategories: Iterable[String]) {
+		for(subcategory <- newCategories) {
+			addSubcategory(subcategory)
 		}
 	}
 	
-	def apply(childName: String) = children(childName)
+	def apply(subcatName: String) = subcategories(subcatName)
   def replace(fn: Node => Node): Node = {
     val newSelf = fn(this)
     if (this eq newSelf) {
