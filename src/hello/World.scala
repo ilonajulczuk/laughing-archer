@@ -8,9 +8,9 @@ import analysis.SummaryTool
 object World extends SimpleSwingApplication{
 	
 
-	val db = new SqliteDatabaseHandler("my_books.db");
+	val db = new DBHandler("my_books.db");
 	db.createTablesInDB();
-	db.addBooks(Book.createSomeExamples());
+	db.addBooks(Book.createSomeExamples );
     var myBooks = db.getAllBooks();
     
     var categories = new CategoryTree
