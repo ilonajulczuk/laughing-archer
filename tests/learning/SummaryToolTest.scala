@@ -2,7 +2,6 @@ package learning
 
 import analysis.SummaryTool
 
-
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 import scala.collection.mutable.Stack
