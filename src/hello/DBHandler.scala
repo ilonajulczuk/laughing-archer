@@ -29,6 +29,7 @@ class StatementBuilderA
 		prepareStatement(connection,"insert or replace into " +
 					"authors(name, additional_info) values( ?, ?)")        
 
+	//TODO checkout, if replacing really works as supposed to
 	def addBookStatement(connection: Connection) =  
 		prepareStatement(connection, "insert or replace into books(title, author_name," +
 						 " path_to_content, description, category) values( ?, ?, ?, ?, ?)")
