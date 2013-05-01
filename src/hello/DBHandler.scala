@@ -72,9 +72,9 @@ class DBHandler(databaseFile: String)
 
 	import scala.collection.JavaConverters._
 
-	def addBooks(books: ArrayList[Book]) = {
-		val list = books.asScala.toList
-				list.foreach(addBook)
+	def addBooks(books: List[Book]) = {
+		
+				books.foreach(addBook)
 	}
 
 	def addBook(book: Book) = {
@@ -155,10 +155,10 @@ class DBHandler(databaseFile: String)
 
 		val stat = statBld.getAllBooksStatement(connection);
 		val rs = stat.executeQuery();
-		val books = new ArrayList[Book]();
+		val books = List[Book]();
 		while(rs.next())
 		{
-			books.add(makeBookFromResultSet(rs));
+			books :+ (makeBookFromResultSet(rs));
 		}
 		rs.close();
 		connection.close()

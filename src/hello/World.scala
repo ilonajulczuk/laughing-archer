@@ -6,23 +6,39 @@ import mobireader.Book
 import analysis.SummaryTool
 
 object World extends SimpleSwingApplication{
-	
-
 	val db = new DBHandler("my_books.db");
-	db.createTablesInDB();
-	db.addBooks(Book.createSomeExamples );
+	db.createTablesInDB()
+    
+    def createLibrary() = {
+    	val path = "/example/library/"
+    	val author = new Author("John Doe")
+    	List(new Book("Dynamics", author, path, "", "Physics"),
+    			new Book("Calculus for dummies", author, path, "Easy", "Math"),
+    			new Book("Worms", author, path, "Bleh", "Biology"),
+    			new Book("Algebra for dummies", author, path, "Easy", "Math"),
+    			new Book("Birds", author, path, "Nice", "Biology"),
+    			new Book("Black magic", author, path, "Hard", "Math"),
+    			new Book("True love", author, path, "Boring", "Fiction"))
+    }
+    val library = createLibrary()
+    assert(library.size > 0, "Library not generated")
+    db.addBooks(library)
     var myBooks = db.getAllBooks();
     
+    assert(myBooks.size > 0)
     var categories = new CategoryTree
     categories.addSubcategories(List("Science", "Fiction", "Art"))
     categories("Science").addSubcategories(List("Math", "Physics", "Biology"))
     
 	lazy val firstBox = new BoxPanel(Orientation.Vertical) {
-    	var titles = new Array[String](myBooks.size)
-    	for ( i <- 0 to myBooks.size -1) {
-    		titles(i) = myBooks.get(i).getTitle()
+    	var titles = 
+    	for { book <- myBooks}
+    	{
+    		contents += new Label(book.getTitle)
+    		contents += new Label(book.category)
+    		println("adding book: " + book.getTitle)
     	}
-    	contents += new ComboBox(titles)
+    	
     	
 	}
     
