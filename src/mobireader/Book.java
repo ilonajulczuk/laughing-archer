@@ -18,7 +18,8 @@ public class Book {
     String content = "";
     String pathToContent = "";
     Boolean isContentFetched = false;
-    
+    public String description = "";
+    public String category = "";
     
     public Book(String title, Author author, Date timestamp)
     {
@@ -41,6 +42,17 @@ public class Book {
         this.timestamp = new Date();
         this.pathToContent = pathToContent;
     }
+    
+    public Book(String title, Author author, String pathToContent, String category, String description)
+    {
+        this.title = title;
+        this.author = author;
+        this.timestamp = new Date();
+        this.pathToContent = pathToContent;
+        this.category = category;
+        this.description = description;
+    }
+    
     public String getContent()
     {
         return this.content;

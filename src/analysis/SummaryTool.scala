@@ -75,8 +75,6 @@ class SummaryTool {
         	Map("nothing" -> 0.0)
         }
         
-        
-        
     }
 	
 	def getBestSentence(paragraph: String, sentencesMap: Map[String, Double]): String = {
