@@ -23,8 +23,14 @@ object World extends SimpleSwingApplication{
     val library = createLibrary()
     assert(library.size > 0, "Library not generated")
     db.addBooks(library)
-    var myBooks = db.getAllBooks();
     
+    db.addBook(new Book("True love", new Author("John Doe"),
+    		"/example/library/", "Boring", "Fiction"))
+    def trueLove = db.findBook("True love")	
+    
+    assert(trueLove.getAuthor.getName == "John Doe", "True love has wrong author")
+    
+    var myBooks = db.getAllBooks();
     assert(myBooks.size > 0)
     var categories = new CategoryTree
     categories.addSubcategories(List("Science", "Fiction", "Art"))

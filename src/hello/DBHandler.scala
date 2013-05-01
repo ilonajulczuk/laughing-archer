@@ -73,8 +73,7 @@ class DBHandler(databaseFile: String)
 	import scala.collection.JavaConverters._
 
 	def addBooks(books: List[Book]) = {
-		
-				books.foreach(addBook)
+		books.foreach(addBook)
 	}
 
 	def addBook(book: Book) = {
@@ -155,11 +154,13 @@ class DBHandler(databaseFile: String)
 
 		val stat = statBld.getAllBooksStatement(connection);
 		val rs = stat.executeQuery();
-		val books = List[Book]();
+		var books = List[Book]();
+		assert(rs.next(), "ResultSet doesn't have next in get all books")
 		while(rs.next())
 		{
-			books :+ (makeBookFromResultSet(rs));
+			books = books :+ (makeBookFromResultSet(rs));
 		}
+		assert(books.size > 0, "No books found in db")
 		rs.close();
 		connection.close()
 		books;
