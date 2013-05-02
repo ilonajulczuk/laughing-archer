@@ -1,5 +1,0 @@
-package hello
-
-object Fluf {
-
-}
