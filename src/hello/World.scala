@@ -60,6 +60,7 @@ object World extends SimpleSwingApplication{
     		table.update(i, 3, book.description)
     		table.update(i, 4, book.category)
     	}
+    	table.selectionBackground =new Color(240, 150, 190)
     	val scrollTable = new ScrollPane(table)
     	contents += scrollTable
 	}
