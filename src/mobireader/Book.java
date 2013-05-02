@@ -43,7 +43,7 @@ public class Book {
         this.pathToContent = pathToContent;
     }
     
-    public Book(String title, Author author, String pathToContent, String category, String description)
+    public Book(String title, Author author, String pathToContent, String description, String category)
     {
         this.title = title;
         this.author = author;

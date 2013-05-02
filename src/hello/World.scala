@@ -17,18 +17,18 @@ object World extends SimpleSwingApplication{
     			new Book("Worms", author, path, "Bleh", "Biology"),
     			new Book("Algebra for dummies", author, path, "Easy", "Math"),
     			new Book("Birds", author, path, "Nice", "Biology"),
-    			new Book("Black magic", author, path, "Hard", "Math"),
-    			new Book("True love", author, path, "Boring", "Fiction"))
+    			new Book("Black magic", author, path, "Hard", "Math")
+    			)
     }
     val library = createLibrary()
     assert(library.size > 0, "Library not generated")
     db.addBooks(library)
     
-    db.addBook(new Book("True love", new Author("John Doe"),
-    		"/example/library/", "Boring", "Fiction"))
-    def trueLove = db.findBook("True love")	
+    db.findBookByCategory("Math")
+    db.findBooksByAuthor(new Author("John Doe"))
+    def blackMagic = db.findBook("Black magic")	
     
-    assert(trueLove.getAuthor.getName == "John Doe", "True love has wrong author")
+    assert(blackMagic.category == "Math", "Is " + blackMagic.category + ", but should be " + "Math")
     
     var myBooks = db.getAllBooks();
     assert(myBooks.size > 0)
@@ -36,16 +36,36 @@ object World extends SimpleSwingApplication{
     categories.addSubcategories(List("Science", "Fiction", "Art"))
     categories("Science").addSubcategories(List("Math", "Physics", "Biology"))
     
+    
+    def createViewOfBook(book: Book) = {
+    	var bookView = List(new Label(book.getTitle))
+    	bookView = bookView :+ new Label(book.getAuthor().getName())
+    	bookView = bookView :+ new Label(book.getAuthor().getAdditionalInfo())
+    	bookView = bookView :+ new Label(book.description)
+    	bookView
+    }
+    
 	lazy val firstBox = new BoxPanel(Orientation.Vertical) {
-    	var titles = 
-    	for { book <- myBooks}
+    	for (categoryName <- categories.namesOfSubcategories)
     	{
-    		contents += new Label(book.getTitle)
-    		contents += new Label(book.category)
-    		println("adding book: " + book.getTitle)
+    		contents += new Label("Main category")
+    		contents += new Label(categoryName)
+    		for(category <- categories(categoryName).namesOfSubcategories)
+    		{
+    			contents += new Label(category)
+    			val books = db.findBookByCategory(category)
+    			println("In " + category + " is/are " + books.size + " books")
+    			for(book <- books)
+    			{
+    				val viewList = createViewOfBook(book)
+    				assert(!viewList.isEmpty, "View list is empty")
+    				for(item <- viewList)
+    					contents += item
+    				contents
+    			}
+    		}
+    		contents
     	}
-    	
-    	
 	}
     
     lazy val secondBox = new BoxPanel(Orientation.Vertical) {
@@ -65,7 +85,6 @@ object World extends SimpleSwingApplication{
     			contents += firstBox
     			contents += secondBox 
     	} 
-
     	new SummaryTool().main()
     }
 

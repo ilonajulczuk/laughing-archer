@@ -36,13 +36,13 @@ class StatementBuilderA
 
 	def findBookStatement(connection: Connection) =
 		prepareStatement(connection, "select b.title, b.author_name," +
-						 " b.path_to_content, b.category, b.description,"
+						 " b.path_to_content, b.description, b.category,"
 						 + " a.additional_info from books b left join authors a on"
 						 + " b.author_name = a.name where b.title=?")
 									
 	def findBookByCategoryStatement(connection: Connection) =
 		prepareStatement(connection, "select b.title, b.author_name, b.path_to_content," +
-						 " b.category, b.description,"
+						 " b.description, b.category,"
 						 + " a.additional_info from books b left join authors a on"
 						 + " b.author_name = a.name where b.category=?")
 
@@ -103,14 +103,15 @@ class DBHandler(databaseFile: String)
 		val author_name = rs.getString("author_name")
 		val info_about_author = rs.getString("additional_info")
 		val author = new Author(author_name, info_about_author)
-		new Book(title, author, path, category, description)
+		println(title, author, path, category, description)
+		new Book(title, author, path,  description, category)
 	}
 	
 	def findBook(title: String) = {
+		println("Finding book by title")
 		val connection = prepareConnection();
 		val stat= statBld.findBookStatement(connection);
 		stat.setString(1, title);
-		stat.executeQuery();
 		val rs = stat.executeQuery();
 		val book = makeBookFromResultSet(rs)
 		rs.close();
@@ -136,14 +137,15 @@ class DBHandler(databaseFile: String)
 	}
 	
 	def findBookByCategory(category: String) = {
+		println("Finding book by category")
 		val connection = prepareConnection()
-		val stat = statBld.findBookByCategoryStatement(connection);
-		stat.setString(1, category);
-		val rs = stat.executeQuery();
-		val books = new ArrayList[Book]();
+		val stat = statBld.findBookByCategoryStatement(connection)
+		stat.setString(1, category)
+		val rs = stat.executeQuery()
+		var books = List[Book]()
 		while(rs.next())
 		{
-			books.add(makeBookFromResultSet(rs))
+			books = books :+ makeBookFromResultSet(rs)
 		}
 		rs.close()
 		connection.close()
