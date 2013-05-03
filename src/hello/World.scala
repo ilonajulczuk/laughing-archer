@@ -49,6 +49,8 @@ object World extends SimpleSwingApplication{
     	bookView
     }
     
+    import swing.Reactions.Reaction
+    
 	val booksBox = new BoxPanel(Orientation.Vertical) {
     	
     	val table = new Table(50, 5)
@@ -70,9 +72,31 @@ object World extends SimpleSwingApplication{
 		val buttons = new FlowPanel()
 		{
 			contents += new Label("Don't you have enough books?")
-			contents += new Button("Choose file")
+			contents += new Button("Choose file") {
+				reactions += { case e => println("Button clicked")
+						val chooser = new FileChooser
+						val result = chooser.showOpenDialog(this)
+						if (result == FileChooser.Result.Approve)
+						{
+							val file = chooser.selectedFile
+							println(file)
+						}
+				}
+			}
+		}
+		val form = new FlowPanel()
+		{
+			contents += new Label("Title")
+			contents += new TextField(30)
+		}
+		val form2 = new FlowPanel()
+		{
+			contents += new Label("Author")
+			contents += new TextField(30)
 		}
 		contents += buttons
+		contents += form
+		contents += form2
 	}
 	
     val moreInfoAboutBookBox = new BoxPanel(Orientation.Vertical)
