@@ -22,15 +22,13 @@ import scalafx.scene.{Node, Scene}
 import scalafx.stage.{Stage, Popup}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
+import scalafx.collections.ObservableBuffer
+import scalafx.scene.text.Font
 
-
-/**
- * @author Jarek Sacha
- */
 object BigMain extends JFXApp {
 
   private val model = new AppModel()
-    
+  
   stage = new PrimaryStage {
     scene = new Scene(900, 600) {
       root = new BorderPane {
@@ -44,7 +42,6 @@ object BigMain extends JFXApp {
     }
     title = "Laughing archer"
   }
-
 
   private def createMenus() = new MenuBar {
     menus = List(
@@ -225,96 +222,86 @@ object BigMain extends JFXApp {
       padding = Insets(10)
       spacing = 20
       content = List(
-        new Button("Button") {
-          onAction = {e: ActionEvent => println(e.eventType + " occured on Button")}
+      		new Label {
+      			text = "Adding book form"
+      			font = new Font("Verdana", 20)
+      		},
+      		new HBox {
+          spacing = 10
+          content = List(
+            new Label("Choose file") ,
+            new Button("Choose file") {
+              onAction = {e: ActionEvent => println("Don't you have enough books?")}
+            }
+          )
         },
-        new CheckBox("CheckBox") {
+        new Label {
+      			text = "Book data"
+      			font = new Font("Verdana", 16)
+      	},
+        new TextField {
+          promptText = "Title"
+          prefColumnCount = 16
+          text.onChange {println("TextField text is: " + text())}
+        },
+        new HBox {
+          spacing = 10
+          content = List(
+        		  new Label {
+        			  text = "Description"
+        		  },
+        		  new TextArea {
+        			  prefColumnCount = 20
+        					  prefRowCount = 2
+        					  text.onChange {
+        			  			println("TextArea text is: " + text())}
+        		  			}
+            )
+        } ,
+        new Label {
+      			text = "Author data"
+      			font = new Font("Verdana", 16)
+      	},
+        new CheckBox("Use already added author") {
           inner =>
           onAction = {
             e: ActionEvent =>
               println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
           }
         },
-        new HBox {
-          spacing = 10
-          content = List(
-            new RadioButton("RadioButton1") {
-              toggleGroup = radioToggleGroup
-            },
-            new RadioButton("RadioButton2") {
-              toggleGroup = radioToggleGroup
-            }
-          )
-        },
-        new Hyperlink("Hyperlink") {
-          onAction = {e: ActionEvent => println(e.eventType + " occurred on Hyperlink")}
-        },
-        new ChoiceBox(model.choiceBoxItems) {
+        new ChoiceBox(ObservableBuffer(for (author <- model.db.getAllAuthors) yield author.getName)) {
           selectionModel().selectFirst()
           selectionModel().selectedItem.onChange(
             (_, _, newValue) => println(newValue + " chosen in ChoiceBox")
           )
         },
-        new MenuButton("MenuButton") {
-          items = List(
-            new MenuItem("MenuItem A") {
-              onAction = {ae: ActionEvent => println(ae.eventType + " occurred on Menu Item A")}
-            },
-            new MenuItem("MenuItem B")
-          )
-        },
-        new SplitMenuButton {
-          text = "SplitMenuButton"
-          onAction = {ae: ActionEvent => println(ae.eventType + " occurred on SplitMenuButton")}
-          items = List(
-            new MenuItem("MenuItem A") {
-              onAction = {ae: ActionEvent => println(ae.eventType + " occurred on Menu Item A")}
-            },
-            new MenuItem("MenuItem B")
-          )
-        },
         new TextField {
-          promptText = "Enter user name"
+          promptText = "Name"
           prefColumnCount = 16
           text.onChange {println("TextField text is: " + text())}
-        },
-        new PasswordField {
-          promptText = "Enter password"
-          prefColumnCount = 16
-          text.onChange {println("PasswordField text is: " + text())}
         },
         new HBox {
           spacing = 10
           content = List(
             new Label {
-              text = "TextArea"
+              text = "Info"
             },
             new TextArea {
-              prefColumnCount = 12
-              prefRowCount = 4
+              prefColumnCount = 24
+              prefRowCount = 2
               text.onChange {println("TextArea text is: " + text())}
             }
-          )
+           )
+        },
+        new Button("Add to library") {
+           onAction = {e: ActionEvent => println(e.eventType + " occured on Button")}
         }
+         
       )
     }
 
-    radioToggleGroup.selectToggle(radioToggleGroup.toggles(0))
-    radioToggleGroup.selectedToggle.onChange {
-      val rb = radioToggleGroup.selectedToggle.get.asInstanceOf[javafx.scene.control.ToggleButton]
-      if (rb != null) println(rb.id() + " selecled")
-    }
 
     val sampleContextMenu = new ContextMenu {
-      // NOTE: Adding menu items through delegate. Adding directly does nothing.
-      //      items ++= List(
-      //        new MenuItem("MenuItemA") {
-      //          onAction = {e: ActionEvent => println(e.eventType + " occurred on Menu Item A")}
-      //        },
-      //        new MenuItem("MenuItemB") {
-      //          onAction = {e: ActionEvent => println(e.eventType + " occurred on Menu Item B")}
-      //        }
-      //      )
       delegate.getItems.addAll(
         new MenuItem("MenuItemA") {
           onAction = {e: ActionEvent => println(e.eventType + " occurred on Menu Item A")}
