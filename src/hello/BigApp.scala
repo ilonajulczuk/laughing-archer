@@ -1,5 +1,6 @@
 package hello
 
+import analysis.{Category, CategoryTree}
 import scalafx.beans.property.StringProperty
 import mobireader.Book
 import javafx.beans.{value => jfxbv}
@@ -71,30 +72,30 @@ object BigMain extends JFXApp {
       tabs = List(
         new Tab {
           text = "All books"
-          content = createTableDemoNode()
+          content = createTableOfBooks()
           closable = false
         },
         new Tab {
           text = "Authors"
-          content = createAccordionTitledDemoNode()
+          content = createAccordionOfAuthors()
           closable = false
         },
         new Tab {
           text = "Categories"
-          content = createSplitTreeListDemoNode()
+          content = createTreeOfCategories()
           closable = false
         },
         new Tab {
           text = "Add a book"
-          content = createScrollMiscDemoNode()
+          content = createAddingFormForBooks()
           closable = false
         }
       )
     }
   }
 
-  private def createTableDemoNode(): Node = {
-    val titleColumn = new TableColumn[Book, String]("First Name") {
+  private def createTableOfBooks(): Node = {
+    val titleColumn = new TableColumn[Book, String]("Title") {
       prefWidth = 180
     }
     titleColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[Book, String], jfxbv.ObservableValue[String]] {
@@ -134,10 +135,6 @@ object BigMain extends JFXApp {
     })
 
     val table = new TableView[Book](model.getBooks) {
-      // NOTE: there may be an issue with assigning columns directly, do it through delegate
-      //      columns ++= List(
-      //        tc
-      //      )
       delegate.getColumns.addAll(
         titleColumn.delegate,
         authorColumn.delegate,
@@ -152,7 +149,7 @@ object BigMain extends JFXApp {
     table
   }
 
-  private def createAccordionTitledDemoNode(): Node = new Accordion {
+  private def createAccordionOfAuthors(): Node = new Accordion {
     panes = createAccordionViewOfAuthors
     expandedPane = panes.head
   }
@@ -165,44 +162,30 @@ object BigMain extends JFXApp {
           text = author.provideAllInfo()
         }
       }
+  }
+  
+  def createCategoryNode(cat: Category): TreeItem[String] = {
+  	new TreeItem(cat.value) {
+            children = (for(subcatName <- cat.namesOfSubcategories)
+            	yield createCategoryNode(cat(subcatName)) ).toList
+          }
+  }
+  
+  def createNodeListForTree(): List[TreeItem[String]] = {
+  	val categories = model.categories
+  	(for(subcatName <- categories.namesOfSubcategories)
+            	yield createCategoryNode(categories(subcatName)) ).toList
   	
   }
   
-  /*def createNodeListForTree(): Node = {
-  	val categories = model.categories
-  	
-  }*/
-  
-  private def createSplitTreeListDemoNode(): Node = {
+  private def createTreeOfCategories(): Node = {
     val treeView = new TreeView[String] {
       minWidth = 150
       showRoot = false
       editable = false
       root = new TreeItem[String] {
         value = "Root"
-        children = List(
-          new TreeItem("Animal") {
-            children = List(
-              new TreeItem("Lion"),
-              new TreeItem("Tiger"),
-              new TreeItem("Bear")
-            )
-          },
-          new TreeItem("Mineral") {
-            children = List(
-              new TreeItem("Coper"),
-              new TreeItem("Diamond"),
-              new TreeItem("Quartz")
-            )
-          },
-          new TreeItem("Vegetable") {
-            children = List(
-              new TreeItem("Arugula"),
-              new TreeItem("Broccoli"),
-              new TreeItem("Cabbage")
-            )
-          }
-        )
+        children = createNodeListForTree()
       }
     }
 
@@ -215,19 +198,20 @@ object BigMain extends JFXApp {
       (_, _, newTreeItem) => {
         if (newTreeItem != null && newTreeItem.isLeaf) {
           model.listViewItems.clear()
-          for (i <- 1 to 10000) {
-            model.listViewItems += newTreeItem.getValue + " " + i
+          val books = model.db.findBooksByCategory(newTreeItem.getValue)
+          model.listViewItems += "Books in category: " + newTreeItem.getValue
+          if(books.isEmpty)
+          	model.listViewItems += "No books found"
+          else {
+          	for(book <- books) {
+          		model.listViewItems += book.getTitle + " by " + book.getAuthor().getName()
+          	}
           }
         }
       }
     )
 
     new SplitPane {
-      // NOTE: Using JavaFX way of adding items using `addAll`.
-      //      items = List (
-      //          treeView,
-      //          listView
-      //      )
       items.addAll(
         treeView,
         listView
@@ -235,8 +219,7 @@ object BigMain extends JFXApp {
     }
   }
 
-
-  def createScrollMiscDemoNode(): Node = {
+  def createAddingFormForBooks(): Node = {
     val radioToggleGroup = new ToggleGroup()
     val variousControls = new VBox {
       padding = Insets(10)
@@ -347,31 +330,6 @@ object BigMain extends JFXApp {
       hbarPolicy = ScrollBarPolicy.ALWAYS
       vbarPolicy = ScrollBarPolicy.AS_NEEDED
       contextMenu = sampleContextMenu
-    }
-  }
-
-  def createHtmlEditorDemoNode(): Node = {
-
-    val htmlEditor = new HTMLEditor {
-      htmlText = "<p>Replace this text</p>"
-    }
-
-    val viewHTMLButton = new Button("View HTML") {
-      onAction = {
-        e: ActionEvent => {
-          val alertPopup = createAlertPopup(htmlEditor.htmlText)
-          alertPopup.show(stage,
-            (stage.width() - alertPopup.width()) / 2.0 + stage.x(),
-            (stage.height() - alertPopup.height()) / 2.0 + stage.y())
-        }
-      }
-      alignment = Pos.CENTER
-      margin = Insets(10, 0, 10, 0)
-    }
-
-    new BorderPane {
-      center = htmlEditor
-      bottom = viewHTMLButton
     }
   }
 

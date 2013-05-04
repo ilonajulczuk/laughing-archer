@@ -29,7 +29,7 @@ object World extends SimpleSwingApplication{
     assert(library.size > 0, "Library not generated")
     db.addBooks(library)
     
-    db.findBookByCategory("Math")
+    db.findBooksByCategory("Math")
     db.findBooksByAuthor(new Author("John Doe"))
     def blackMagic = db.findBook("Black magic")	
     

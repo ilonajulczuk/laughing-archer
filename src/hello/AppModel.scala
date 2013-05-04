@@ -32,7 +32,7 @@ class AppModel {
     db.addBooks(library)
     
     
-    db.findBookByCategory("Math")
+    db.findBooksByCategory("Math")
     db.findBooksByAuthor(new Author("John Doe"))
     def blackMagic = db.findBook("Black magic")	
     
@@ -58,4 +58,6 @@ class AppModel {
     var categories = new CategoryTree
     categories.addSubcategories(List("Science", "Fiction", "Art"))
     categories("Science").addSubcategories(List("Math", "Physics", "Biology", "Computer Science"))
+    categories("Fiction").addSubcategories(List("Science Fiction", "Soap operas", "Horror", "Fantasy"))
+    categories("Fiction")("Science Fiction").addSubcategories(List("Hard", "Ambitious", "Voyage"))
 }
