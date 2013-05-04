@@ -54,6 +54,9 @@ class StatementBuilderA
 						" b.category, b.description,"
 						+ " a.additional_info from books b left join authors a on"
 						+ " b.author_name = a.name")
+						
+	def getAllAuthorsStatement(connection: Connection) =
+		prepareStatement(connection, "select * from authors")
 }
 
 class DBHandler(databaseFile: String)
@@ -107,6 +110,14 @@ class DBHandler(databaseFile: String)
 		new Book(title, author, path,  description, category)
 	}
 	
+	def makeAuthorFromResultSet(rs: ResultSet) = {
+		val name = rs.getString("name")
+		val additionalInfo = rs.getString("additional_info")
+		println("Creating authors, wohoo!")
+		println(name, additionalInfo)
+		new Author(name, additionalInfo)
+	}
+	
 	def findBook(title: String) = {
 		println("Finding book by title")
 		val connection = prepareConnection();
@@ -124,12 +135,12 @@ class DBHandler(databaseFile: String)
 		val stat = statBld.findBookByAuthorStatement(connection);
 		stat.setString(1, author.getName());
 		val rs = stat.executeQuery();
-		val books = new ArrayList[Book]();
+		var books = List[Book]();
 		while(rs.next())
 		{
 			val path = rs.getString("path_to_content")
 			val title = rs.getString("title")
-			books.add(new Book(title, author, path))
+			books = books :+ (new Book(title, author, path))
 		}
 		rs.close()
 		connection.close()
@@ -154,11 +165,9 @@ class DBHandler(databaseFile: String)
 	
 	def getAllBooks() = {
 		val connection = prepareConnection();
-
-		val stat = statBld.getAllBooksStatement(connection);
-		val rs = stat.executeQuery();
-		var books = List[Book]();
-		assert(rs.next(), "ResultSet doesn't have next in get all books")
+		val stat = statBld.getAllBooksStatement(connection)
+		val rs = stat.executeQuery()
+		var books = List[Book]()
 		while(rs.next())
 		{
 			books = books :+ (makeBookFromResultSet(rs));
@@ -169,6 +178,27 @@ class DBHandler(databaseFile: String)
 		books;
 	}
 
+	import scala.collection.JavaConversions._
+	
+	def getAllAuthors() = {
+		val connection = prepareConnection();
+		val stat = statBld.getAllAuthorsStatement(connection)
+		val rs = stat.executeQuery()
+		var authors = List[Author]()
+		while(rs.next())
+		{
+			val author = (makeAuthorFromResultSet(rs))
+			val titles = for(book <- findBooksByAuthor(author))
+				yield book.getTitle
+				
+			author.addTitles(new ArrayList(titles))
+			authors = authors :+ author;
+		}
+		assert(!authors.isEmpty, "No books found in db")
+		rs.close();
+		connection.close()
+		authors;
+	}
 	def addAuthor(author: Author) = {
 		val connection = prepareConnection();
 		val stat = statBld.addAuthorStatement(connection);

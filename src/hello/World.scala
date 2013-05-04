@@ -24,6 +24,7 @@ object World extends SimpleSwingApplication{
     			new Book("Magnetic fields", author, path, "Very Hard", "Physics")
     			)
     }
+	
     val library = createLibrary()
     assert(library.size > 0, "Library not generated")
     db.addBooks(library)
