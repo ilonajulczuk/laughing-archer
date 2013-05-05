@@ -21,6 +21,10 @@ public class Book {
     public String description = "";
     public String category = "";
     
+    public String toString() {
+    	return title + " written by " + author.getName();
+    }
+    
     public Book(String title, Author author, Date timestamp)
     {
         this.title = title;

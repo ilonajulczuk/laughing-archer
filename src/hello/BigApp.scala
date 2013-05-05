@@ -262,15 +262,13 @@ object BigMain extends JFXApp {
 						val bookTitle = new TextField {
 					promptText = "Title"
 							prefColumnCount = 16
-							text.onChange {println("TextField text is: " + text())}
+							
 				}
 
 				val bookDescription = new TextArea {
 					prefColumnCount = 20
 							prefRowCount = 2
-							text.onChange {
-						println("TextArea text is: " + text())
-					}
+							
 				}
 
 				val useAuthor = new CheckBox("Use already added author") {
@@ -397,10 +395,14 @@ object BigMain extends JFXApp {
 							model.db.addBook(book)
 							assert(model.db.findBook(book.getTitle) != null,
 							    "Just added book cannot be found")
+							println("Book model before update: " + model.books)
 							model.books += book
+							println("Book model after update: " + model.books)
 							model.categories.root.addSubcategory(book.category)
+							println("Category model before update: " + model.namesOfAllCategories)
+							
 							model.namesOfAllCategories += book.category
-							println("Book model: " + model.books)
+							println("C model after update: " + model.namesOfAllCategories)
 							}
 						}
 						)

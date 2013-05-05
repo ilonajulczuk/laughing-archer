@@ -68,15 +68,15 @@ class AppModel {
     categories("Fiction").addSubcategories(List("Science Fiction", "Soap operas", "Horror", "Fantasy"))
     categories("Fiction")("Science Fiction").addSubcategories(List("Hard", "Ambitious", "Voyage"))
     
-    
+    var namesOfAllCategories: ObservableBuffer[String] = ObservableBuffer(for (category <-
+				    categories.allNames) yield category)
+				    
     assert(!namesOfAllCategories.isEmpty, "No entries in names of all categories")
     assert(namesOfAllCategories.size == 14,
         "Names of all categories has size: " + namesOfAllCategories.size)
     var filePath: String = ""
     var file: File = _
     
-    def namesOfAllCategories: ObservableBuffer[String] = 
-    ObservableBuffer(for (category <-
-				    categories.allNames) yield category)
+    
     
 }
