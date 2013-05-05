@@ -35,6 +35,7 @@ object BigMain extends JFXApp {
 	var treeOfCategories = createTreeOfCategories()
 	var addingBookForm = createAddingFormForBooks()
 	
+	var mainLayout = createTabs()
 	def updateTabs() {
 	  tableOfBooks = createTableOfBooks()
 	  accordionOfAuthors = createAccordionOfAuthors()
@@ -42,8 +43,22 @@ object BigMain extends JFXApp {
 	  addingBookForm = createAddingFormForBooks()
 	}
 	
-	stage = new PrimaryStage {
-		scene = new Scene(900, 600) {
+	
+	def myRoot = new BorderPane {
+				top = new VBox {
+					content = List(
+							createMenus()
+							)
+							center = mainLayout
+				}
+			}
+	
+	def myScene = new Scene(900, 600) {
+			root = myRoot
+		}
+	
+	def createScene() = {
+	  new Scene(900, 600) {
 			root = new BorderPane {
 				top = new VBox {
 					content = List(
@@ -53,9 +68,14 @@ object BigMain extends JFXApp {
 				}
 			}
 		}
+	}
+	stage = new PrimaryStage {
+		scene = myScene 
 		title = "Laughing archer"
 	}
-
+	
+	
+	
 	private def createMenus() = new MenuBar {
 		menus = List(
 				new Menu("File") {
@@ -286,13 +306,17 @@ object BigMain extends JFXApp {
 					}
 				}
 
-				val categoryBox = new ChoiceBox(ObservableBuffer(for (category <-
-				    model.namesOfAllCategories) yield category)) {
+				val categoryBox = new ChoiceBox[String] {
+					maxWidth = 80
+					maxHeight = 50
+					items = model.namesOfAllCategories
 					selectionModel().selectFirst()
 					selectionModel().selectedItem.onChange(
 							(_, _, newValue) => println(newValue + " chosen in ChoiceBox")
-							)
+					)
 				}
+					
+				
 
 				val categoryName = new TextField {
 					promptText = "Category"
@@ -374,6 +398,9 @@ object BigMain extends JFXApp {
 							assert(model.db.findBook(book.getTitle) != null,
 							    "Just added book cannot be found")
 							model.books += book
+							model.categories.root.addSubcategory(book.category)
+							model.namesOfAllCategories += book.category
+							println("Book model: " + model.books)
 							}
 						}
 						)
