@@ -4,6 +4,7 @@ import analysis.CategoryTree
 import mobireader.Book
 import scalafx.beans.property.DoubleProperty
 import scalafx.collections.ObservableBuffer
+import java.io.File
 
 class AppModel {
   
@@ -44,13 +45,19 @@ class AppModel {
     assert(db.getAllAuthors.size == 3, "Should be three authors in DB now" )
     def getBooks() = {
     	val books = new ObservableBuffer[Book]()
-    	for(book <- myBooks)
+    	for(book <- db.getAllBooks())
     	{
     		books += book
     	}
     	books
     }
-     
+    
+    val books = getBooks()
+    
+    def updateBooks() {
+      for(book <- getBooks())
+      if(!(books contains book)) books += book
+    }
     val listViewItems = new ObservableBuffer[String]()
     
     val choiceBoxItems = ObservableBuffer("Choice A", "Choice B", "Choice C", "Choice D")
@@ -60,4 +67,12 @@ class AppModel {
     categories("Science").addSubcategories(List("Math", "Physics", "Biology", "Computer Science"))
     categories("Fiction").addSubcategories(List("Science Fiction", "Soap operas", "Horror", "Fantasy"))
     categories("Fiction")("Science Fiction").addSubcategories(List("Hard", "Ambitious", "Voyage"))
+    
+    def namesOfAllCategories = categories.allNames
+    assert(!namesOfAllCategories.isEmpty, "No entries in names of all categories")
+    assert(namesOfAllCategories.size == 14,
+        "Names of all categories has size: " + namesOfAllCategories.size)
+    var filePath: String = ""
+    var file: File = _
+    
 }

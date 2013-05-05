@@ -10,6 +10,22 @@ class CategoryTree() {
 		description
 	}
 	
+	def allNames(): List[String] = {
+	  root.namesOfSubcategories.toList ::: (for(subcatName <- root.namesOfSubcategories)
+					yield getNamesOfAllSubNodes(root(subcatName)) ).toList.flatten
+	} 
+	
+	def getNamesOfAllSubNodes(node: Category): List[String] = {
+	  if(node.namesOfSubcategories.isEmpty)
+	    List(node.value)
+	  else {
+	    val names = (for(subcatName <- node.namesOfSubcategories) 
+	    yield getNamesOfAllSubNodes(node(subcatName) ) ).toList.flatten
+	    println(names)
+	    names
+	  }
+	    
+	}
 	def addSubcategories(newCategories: Iterable[String]) {
 		root.addSubcategories(newCategories)
 	}
