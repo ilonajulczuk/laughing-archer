@@ -25,6 +25,7 @@ import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.text.Font
 import javafx.{stage => jfxs}
+import javafx.scene.control.Dialogs
 
 object BigMain extends JFXApp {
 
@@ -251,6 +252,8 @@ object BigMain extends JFXApp {
 	}
 
 	def createAddingFormForBooks(): Node = {
+			var usingAlreadyAddedAuthor = false
+			var usingAlreadyAddedCategory = false
 			val variousControls = new VBox {
 				padding = Insets(20)
 						vgrow = scalafx.scene.layout.Priority.ALWAYS
@@ -267,14 +270,29 @@ object BigMain extends JFXApp {
 
 				val bookDescription = new TextArea {
 					prefColumnCount = 20
-							prefRowCount = 2
+					prefRowCount = 2
 							
 				}
 
 				val useAuthor = new CheckBox("Use already added author") {
 					inner =>
 					onAction = { e: ActionEvent =>
-					println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
+						println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
+						if(inner.selected()) {
+						  usingAlreadyAddedAuthor = true
+						authorName.text.value = authorBox.value.value
+						authorInfo.text.value = model.db.findAuthor(authorBox.value.value).additionalInfo
+						authorName.editable = false
+						authorInfo.editable = false
+						}
+						else {
+						  usingAlreadyAddedAuthor = false
+						authorName.text.value = authorBox.value.value
+						authorInfo.text.value = model.db.findAuthor(authorBox.value.value).additionalInfo
+						authorName.editable = true
+						authorInfo.editable = true
+						}
+						
 					}
 				}
 				
@@ -283,8 +301,14 @@ object BigMain extends JFXApp {
 				val authorBox = new ChoiceBox(ObservableBuffer(for (author <- model.db.getAllAuthors) yield author.getName)) {
 					selectionModel().selectFirst()
 					selectionModel().selectedItem.onChange(
+					    {
 							(_, _, newValue) => println(newValue + " chosen in ChoiceBox")
-							)
+							if(usingAlreadyAddedAuthor)
+							{
+							  authorName.text.value_=(newValue)
+							}
+					    }
+						)
 				}
 
 				val authorName = new TextField {
@@ -301,16 +325,31 @@ object BigMain extends JFXApp {
 					inner =>
 					onAction = { e: ActionEvent =>
 					println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
+					usingAlreadyAddedCategory = inner.selected()
+					if(usingAlreadyAddedCategory) {
+					  categoryName.text.value = categoryBox.value.value
+					  categoryName.editable = false
+					}
+					else
+					  categoryName.editable = true
 					}
 				}
 
 				val categoryBox = new ChoiceBox[String] {
 					maxWidth = 80
+					minWidth = 80
 					maxHeight = 50
 					items = model.namesOfAllCategories
 					selectionModel().selectFirst()
 					selectionModel().selectedItem.onChange(
-							(_, _, newValue) => println(newValue + " chosen in ChoiceBox")
+					    {
+					      (_, _, newValue) => println(newValue + " chosen in ChoiceBox")
+					      if(usingAlreadyAddedCategory)
+							{
+							  categoryName.text.value_=(newValue)
+							}
+					    }
+							
 					)
 				}
 					
@@ -377,35 +416,65 @@ object BigMain extends JFXApp {
 						authorBox,
 						authorName,
 						new HBox {
-							spacing = 10
-									content = List(
-											new Label {
-												text = "Info"
-											},
-											authorInfo
-											)
+						  spacing = 10
+						  content = List(
+						    new Label {
+							  text = "Info"
+							},
+							authorInfo
+						  )
 						},
 						useCategory,
 						categoryBox,
 						categoryName,
 						new Button("Add to library") {
 							onAction = {e: ActionEvent => 
-							println("Oki-doki, adding...")
-							val book: Book = createBookBasedOnForm()
-							model.db.addBook(book)
-							assert(model.db.findBook(book.getTitle) != null,
-							    "Just added book cannot be found")
-							println("Book model before update: " + model.books)
-							model.books += book
-							println("Book model after update: " + model.books)
-							model.categories.root.addSubcategory(book.category)
-							println("Category model before update: " + model.namesOfAllCategories)
+							val emptyFields = getEmptyFields() 
+			
+							if(!emptyFields.isEmpty) {
+							  val capitalizedEmptyFields = emptyFields(0)(0).toUpper +
+								emptyFields(0).tail :: emptyFields.tail
+							  Dialogs.showWarningDialog(stage, capitalizedEmptyFields.mkString(", ") + " cannot be empty.",
+							      "Book couldn't be added.", "Adding failure");
 							
-							model.namesOfAllCategories += book.category
-							println("C model after update: " + model.namesOfAllCategories)
+							}
+							else {
+								println("Oki-doki, adding...")
+								
+								val book: Book = createBookBasedOnForm()
+								model.db.addBook(book)
+								assert(model.db.findBook(book.getTitle) != null,
+								    "Just added book cannot be found")
+								println("Book model before update: " + model.books)
+								model.books += book
+								println("Book model after update: " + model.books)
+								model.categories.root.addSubcategory(book.category)
+								println("Category model before update: " + model.namesOfAllCategories)
+								
+								model.namesOfAllCategories += book.category
+								println("C model after update: " + model.namesOfAllCategories)
+								
+								}
 							}
 						}
 						)
+				def getEmptyFields(): List[String] = {
+				  var emptyFields = List[String]()
+				  if(bookTitle.text.value == "")
+				    emptyFields = "title" :: emptyFields
+				  if(filePath.text.value == "")
+				    emptyFields = "path to file" :: emptyFields
+				  if(bookDescription.text.value == "")
+				    emptyFields = "book description" :: emptyFields
+				  if(authorName.text.value == "")
+				    emptyFields = "name of the author" :: emptyFields
+				  if(authorInfo.text.value == "")
+				    emptyFields = "info about the author" :: emptyFields
+				  if(categoryName.text.value == "")
+				    emptyFields = "category" :: emptyFields
+				  emptyFields
+				}		
+				
 				def createBookBasedOnForm(): Book = {
 				  val title = bookTitle.text.value
 				  val path = filePath.text.value
