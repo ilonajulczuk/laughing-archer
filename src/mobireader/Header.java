@@ -12,6 +12,7 @@ import java.util.Date;
  * @author att
  */
 public class Header {
+	//http://wiki.mobileread.com/wiki/PDB#Palm_Database_Format
 	//"32shhIIIIII4s4sIIH"
     public @BoundString(size="32") String name;
     @BoundNumber short attributes;
@@ -35,7 +36,7 @@ public class Header {
     @BoundNumber(size="32")
     long nextRecordListId;
     @BoundNumber(size="16")
-    int numberOfRecords;
+    public int numberOfRecords;
     
     public String toString() {
     	String description = "Header contains:\n";

@@ -7,12 +7,13 @@ package mobireader;
 import com.google.common.io.Files;
 import java.io.File;
 
+import java.io.FileNotFoundException;
 import java.io.IOError;
 import java.io.IOException;
 import nl.flotsam.preon.Codec;
 import nl.flotsam.preon.Codecs;
 import nl.flotsam.preon.DecodingException;
-
+import java.util.ArrayList;
 /**
  *
  * @author att
@@ -23,8 +24,13 @@ import nl.flotsam.preon.DecodingException;
 public class Mobi {
     File file;
     int offset = 0;
-    String contents;
-    Header header;
+    public String contents;
+    public Header header;
+    public int numberOfRecords;
+    ArrayList<RecordInfo> recordsInfo;
+    public void setNumberOfRecords(int number) {
+    	numberOfRecords = number;
+    }
     public Mobi(String filename)
     {
       try {
@@ -35,12 +41,12 @@ public class Mobi {
       }
     }
     
-    void parse() throws IOException
+    void parse() throws IOException, DecodingException
     {
         byte  compressed [] = Files.toByteArray(this.file);
         this.contents = new String(compressed);
         this.header = parseHeader();
-        //this.records = self.parseRecordInfoList();
+        this.recordsInfo = parseRecordInfoList(this.file);
         //this.readRecord0()
     }
     
@@ -142,9 +148,17 @@ public class Mobi {
       return headerFromText;
   }
   
-  public RecordInfo parseRecordInfoList(File file)
+  public ArrayList<RecordInfo> parseRecordInfoList(File file) throws FileNotFoundException, DecodingException, IOException
   {
-	  return new RecordInfo();
+	  ArrayList<RecordInfo> recordsInfo = new ArrayList<>();
+	  for(int i = 0; i < header.numberOfRecords; i++)
+	  {
+		  Codec<RecordInfo> codec = Codecs.create(RecordInfo.class);
+          RecordInfo recordInfo = Codecs.decode(codec, file);
+          assert recordInfo != null: "Entry " + String.valueOf(i) + " was null";
+          recordsInfo.add(recordInfo);
+	  }
+	 return recordsInfo;
   }
     /*
   def readRecord(self, recordnum, disable_compression=False):
