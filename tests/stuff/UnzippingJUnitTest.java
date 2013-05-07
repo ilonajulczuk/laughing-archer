@@ -54,7 +54,17 @@ public class UnzippingJUnitTest {
         }
     }
     
-     
+    @Test
+    public void testDecompressingMoundBook() throws FileNotFoundException, IOException {
+    
+        String path = "/home/att/studia/semestr4/Java/resources/mound.mobi";
+        byte  compressed [] = Files.toByteArray(new File(path));
+        String compressedText = "";
+        for(int i = 0; i < 40000; i++)
+        {
+            compressedText += (char)compressed[i];
+        }
+    }
     
     @Test
     public void testIfDecompressionInvertCompression() {

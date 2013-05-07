@@ -20,7 +20,6 @@ public class Book {
     Boolean isContentFetched = false;
     public String description = "";
     public String category = "";
-    
     public String toString() {
     	return title + " written by " + author.getName();
     }

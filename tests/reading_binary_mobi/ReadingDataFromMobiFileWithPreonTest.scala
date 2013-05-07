@@ -26,11 +26,36 @@ class ReadingDataFromMobiFileWithPreonTest extends FunSuite with BeforeAndAfter 
         println(header.name)
         println(header)
         assert(header.name.length() != 0)
+        /*
+         * Offset is: 80 bytes
+record info contains:
+record Data offset: 59392
+recordAttributes: 0
+uniqueId: 0
+
+record info contains:
+record Data offset: 33802
+recordAttributes: 0
+uniqueId: 1
+
+record info contains:
+record Data offset: 19219
+recordAttributes: 0
+uniqueId: 2
+         */
+        mobi.header = header 
+        val offset: Int = mobi.headerSize 
+        println("Offset is: " + offset + " bytes")
+        val records: ArrayList[RecordInfo] = mobi.parseRecordInfoList(file, offset)
+        assert(records.size > 0, "Records are empty")
+        for(i <- 0 until 10) {
+          println(records.get(i))
+        }
 	}
 	
 	test("how mobi about mound look like") {
 		val mobi = new Mobi("test")
-        val path = "/home/att/studia/semestr4/Java/resources/mound.mobi"
+        val path = "/home/att/studia/semestr4/Java/resources/test.mobi"
         val file = new File(path)
         val header = mobi.createHeaderBasedOn(file)
         println(header.name)
@@ -38,9 +63,12 @@ class ReadingDataFromMobiFileWithPreonTest extends FunSuite with BeforeAndAfter 
         assert(header.name.length() != 0)
         
         mobi.header = header
-        val records: ArrayList[RecordInfo] = mobi.parseRecordInfoList(file)
+        val offset: Int = mobi.headerSize
+        println("Offset is: " + offset + " bytes")
+        val records: ArrayList[RecordInfo] = mobi.parseRecordInfoList(file, offset)
         assert(records.size > 0, "Records are empty")
-        for(i <- 0 until 5) {
+        val recordsSize = records.size
+        for(i <- recordsSize -10  until recordsSize) {
           println(records.get(i))
         }
 	}

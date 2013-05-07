@@ -10,9 +10,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOError;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+
 import nl.flotsam.preon.Codec;
 import nl.flotsam.preon.Codecs;
 import nl.flotsam.preon.DecodingException;
+
 import java.util.ArrayList;
 /**
  *
@@ -26,6 +29,8 @@ public class Mobi {
     int offset = 0;
     public String contents;
     public Header header;
+    String headerFormat = "32shhIIIIII4s4sIIH";
+    public int headerSize = calcsize(headerFormat);
     public int numberOfRecords;
     ArrayList<RecordInfo> recordsInfo;
     public void setNumberOfRecords(int number) {
@@ -46,7 +51,7 @@ public class Mobi {
         byte  compressed [] = Files.toByteArray(this.file);
         this.contents = new String(compressed);
         this.header = parseHeader();
-        this.recordsInfo = parseRecordInfoList(this.file);
+        this.recordsInfo = parseRecordInfoList(this.file, 123);
         //this.readRecord0()
     }
     
@@ -148,15 +153,23 @@ public class Mobi {
       return headerFromText;
   }
   
-  public ArrayList<RecordInfo> parseRecordInfoList(File file) throws FileNotFoundException, DecodingException, IOException
+  public ArrayList<RecordInfo> parseRecordInfoList(File file, int offset) throws FileNotFoundException, DecodingException, IOException
   {
 	  ArrayList<RecordInfo> recordsInfo = new ArrayList<>();
+	  int myoffset = offset;
+	  int len = 8;
 	  for(int i = 0; i < header.numberOfRecords; i++)
 	  {
 		  Codec<RecordInfo> codec = Codecs.create(RecordInfo.class);
-          RecordInfo recordInfo = Codecs.decode(codec, file);
+		  RandomAccessFile fp = new RandomAccessFile(file, "r");
+		  fp.seek(myoffset);
+		  byte[] buff= new  byte[len];
+		  fp.read(buff, 0, len);
+          RecordInfo recordInfo = Codecs.decode(codec, buff);
           assert recordInfo != null: "Entry " + String.valueOf(i) + " was null";
           recordsInfo.add(recordInfo);
+          myoffset += 8;
+          fp.close();
 	  }
 	 return recordsInfo;
   }

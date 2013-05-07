@@ -5,6 +5,7 @@
 package mobireader;
 
 import nl.flotsam.preon.annotation.BoundNumber;
+import nl.flotsam.preon.buffer.ByteOrder;
 import nl.flotsam.preon.annotation.BoundString;
 import java.util.Date;
 /**
@@ -17,25 +18,25 @@ public class Header {
     public @BoundString(size="32") String name;
     @BoundNumber short attributes;
     @BoundNumber short version;
-    @BoundNumber(size="32")
+    @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
     long created;
-    @BoundNumber(size="32")
+    @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
     long modified;
-    @BoundNumber(size="32")
+    @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
     long backup;
-    @BoundNumber(size="32")
+    @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
     long modnum;
-    @BoundNumber(size="32")
+    @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
     long appInfoId;
-    @BoundNumber(size="32")
+    @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
     long sortInfoId;
     @BoundString(size="4") String type;
     @BoundString(size="4") String creator;
-    @BoundNumber(size="32")
+    @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
     long uniqueIDseed;
-    @BoundNumber(size="32")
+    @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
     long nextRecordListId;
-    @BoundNumber(size="16")
+    @BoundNumber(size="16", byteOrder=ByteOrder.BigEndian)
     public int numberOfRecords;
     
     public String toString() {
