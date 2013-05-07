@@ -46,20 +46,20 @@ object BigMain extends JFXApp {
 	
 	
 	def myRoot = new BorderPane {
-				top = new VBox {
-					content = List(
-							createMenus()
-							)
-							center = mainLayout
-				}
-			}
+		top = new VBox {
+			content = List(
+					createMenus()
+					)
+					center = mainLayout
+		}
+	}
 	
 	def myScene = new Scene(900, 600) {
-			root = myRoot
-		}
-	
+		root = myRoot
+	}
+
 	def createScene() = {
-	  new Scene(900, 600) {
+		new Scene(900, 600) {
 			root = new BorderPane {
 				top = new VBox {
 					content = List(

@@ -33,7 +33,6 @@ public class Mobi {
       catch (IOError e) {
         throw e;
       }
-    
     }
     
     void parse() throws IOException
@@ -42,7 +41,7 @@ public class Mobi {
         this.contents = new String(compressed);
         this.header = parseHeader();
         //this.records = self.parseRecordInfoList();
-        //this..readRecord0()
+        //this.readRecord0()
     }
     
     public int calcsize(String headerFormat)
@@ -109,7 +108,7 @@ public class Mobi {
         //String headerData = this.contents.substring(this.offset,
          //                                           this.offset+headerlen);
         
-        Header parsedHeader = new Header(); //createHeaderBasedOn(headerData);
+        Header parsedHeader =  createHeaderBasedOn(file);
         
         /*
         # unpack header, zip up into list of tuples
@@ -141,6 +140,11 @@ public class Mobi {
           headerFromText = new Header();
       }
       return headerFromText;
+  }
+  
+  public RecordInfo parseRecordInfoList(File file)
+  {
+	  return new RecordInfo();
   }
     /*
   def readRecord(self, recordnum, disable_compression=False):
