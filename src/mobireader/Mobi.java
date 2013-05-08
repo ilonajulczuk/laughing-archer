@@ -5,6 +5,7 @@
 package mobireader;
 
 import com.google.common.io.Files;
+
 import java.io.File;
 
 import java.io.FileNotFoundException;
@@ -15,33 +16,24 @@ import java.io.RandomAccessFile;
 import nl.flotsam.preon.Codec;
 import nl.flotsam.preon.Codecs;
 import nl.flotsam.preon.DecodingException;
-
 import java.util.ArrayList;
-/**
- *
- * @author att
- */
 
+import unzipping.AdaptiveHuffmanDecompress;
+import unzipping.LZ77;
 
 
 public class Mobi {
     File file;
-    int offset = 0;
     public String contents;
     public Header header;
     PalmDocHeader palmdocHeader;
 	MobiHeader mobiHeader;
 	EXTHHeader exthHeader;
-    String headerFormat = "32shhIIIIII4s4sIIH";
-    public int headerSize = calcsize(headerFormat);
-    String palmDocHeaderFormat = ">HHIHHHH";
-    public int palmDocHeaderSize = calcsize(palmDocHeaderFormat);
+    public HeadersUtil headers = new HeadersUtil();
     public int numberOfRecords;
     ArrayList<RecordInfo> recordsInfo;
     int currentOffset = 0;
-    public void setNumberOfRecords(int number) {
-    	numberOfRecords = number;
-    }
+    
     public Mobi(String filename)
     {
       try {
@@ -52,124 +44,78 @@ public class Mobi {
       }
     }
     
-    void parse() throws IOException, DecodingException
+    public void parse() throws IOException, DecodingException
     {
         byte  compressed [] = Files.toByteArray(this.file);
         this.contents = new String(compressed);
         this.header = parseHeader();
-        this.recordsInfo = parseRecordInfoList(this.file, 123);
+        this.recordsInfo = parseRecordInfoList(this.file, currentOffset);
         this.readRecord0();
-    }
-    
-    public int calcsize(String headerFormat)
-    {
-        int size = 0;
-        boolean is_number = false;
-        String number = "";
-        for(int i = 0; i < headerFormat.length(); i++)
-        {
-            char c = headerFormat.charAt(i);
-            if(Character.isDigit(c)) 
-            {
-                number += c;
-                is_number = true;
-            }
-            else if (is_number){
-                size += addNumberOfBytes(Integer.parseInt(number), c);
-                is_number = false;
-                number = "";
-            }
-            else {
-                size += addNumberOfBytes(1, c);
-            }
-        }
-        return size;
-    }
-    
-    int addNumberOfBytes(int n, char c)
-    {
-        int base;
- 
-        switch (c) {
-            case 'c':  base = 1;
-                     break;
-            case 's':  base = 1;
-                     break;
-            case 'b':  base = 1;
-                     break;
-            case 'h':  base = 2;
-                     break;
-            case 'H':  base = 2;
-                     break;
-            case 'i':  base = 4;
-                     break;
-            case 'I':  base = 4;
-                     break;
-            case 'l':  base = 4;
-                     break;
-            case 'L':  base = 4;
-                     break;
-            case 'f':  base = 4;
-                     break;
-            case 'd':  base = 8;
-                     break;
-            default: base = 0;
-                     break;
-        }
-        return base * n;
     }
     
     public PalmDocHeader parsePalmDOCHeader(File file, int offset) throws IOException, DecodingException {
     	Codec<PalmDocHeader> codec = Codecs.create(PalmDocHeader.class);
 		RandomAccessFile fp = new RandomAccessFile(file, "r");
-		fp.seek(currentOffset);
-		byte[] buff= new  byte[palmDocHeaderSize];
-		fp.read(buff, 0, palmDocHeaderSize);
+		fp.seek(offset);
+		byte[] buff= new  byte[headers.palmDocHeaderSize];
+		fp.read(buff, 0, headers.palmDocHeaderSize);
 		PalmDocHeader palmDocHeader = Codecs.decode(codec, buff);
-        currentOffset += palmDocHeaderSize;
+        currentOffset += headers.palmDocHeaderSize;
         fp.close();
         return palmDocHeader;
     }
     
-    public MobiHeader parseMobiHeader(File file, int offset) {
-    	
+    public MobiHeader parseMobiHeader(File file, int offset) throws IOException, DecodingException {
+    	Codec<MobiHeader> codec = Codecs.create(MobiHeader.class);
+		RandomAccessFile fp = new RandomAccessFile(file, "r");
+		fp.seek(offset);
+		byte[] buff= new  byte[headers.mobiHeaderSize];
+		fp.read(buff, 0, headers.mobiHeaderSize);
+		MobiHeader mobiHeader = Codecs.decode(codec, buff);
+        currentOffset += headers.mobiHeaderSize;
+        fp.close();
+        return mobiHeader;
     }
     
-    public EXTHHeader parseEXTHHeader(File file, int offset) {
-    	
+    public EXTHHeader parseEXTHHeader(File file, int offset) throws IOException, DecodingException{
+    	Codec<EXTHHeader> codec = Codecs.create(EXTHHeader.class);
+		RandomAccessFile fp = new RandomAccessFile(file, "r");
+		fp.seek(offset);
+		byte[] buff= new  byte[headers.mobiHeaderSize];
+		fp.read(buff, 0, headers.exthHeaderSize);
+		EXTHHeader exthHeader = Codecs.decode(codec, buff);
+        currentOffset += headers.mobiHeaderSize;
+        fp.close();
+        return exthHeader;
     }
     
   public void readRecord0() throws DecodingException, IOException {
+	  currentOffset += 2; //Gap to data
+	  System.out.println("Parsing palm doc header, current offset: " + currentOffset);
 	  palmdocHeader = parsePalmDOCHeader(file, currentOffset);
+	  
+	  System.out.println(palmdocHeader);
+	  System.out.println("Parsing mobi header, current offset: " + currentOffset);
 	  mobiHeader = parseMobiHeader(file, currentOffset);
+	  System.out.println(mobiHeader);
 	  exthHeader = null;
 	  if(mobiHeader.hasEXTHHeader()) {
+		  System.out.println("Parsing exth header, current offset: " + currentOffset);
 		  exthHeader = parseEXTHHeader(file, currentOffset);
+		  System.out.println(exthHeader);
 	  }
-
   }
   
-  public Header parseHeader(){           
+  public Header parseHeader() throws FileNotFoundException, DecodingException, IOException{           
         Header parsedHeader =  createHeaderBasedOn(file);
         return parsedHeader;
   }
   
-  public Header createHeaderBasedOn(File file) 
+  public Header createHeaderBasedOn(File file) throws FileNotFoundException, DecodingException, IOException 
   {
-      Header headerFromText;
-      try {
-          Codec<Header> codec = Codecs.create(Header.class);
-          headerFromText = Codecs.decode(codec, file);
-      }
-      catch( IOException e ){
-          System.out.println(e.getCause());
-          headerFromText = new Header();
-      }
-      catch (DecodingException e)
-      {
-          System.out.println(e.getCause());
-          headerFromText = new Header();
-      }
+      Codec<Header> codec = Codecs.create(Header.class);
+      Header headerFromText = Codecs.decode(codec, file);
+      currentOffset += headers.headerSize;
       return headerFromText;
   }
   
@@ -183,7 +129,7 @@ public class Mobi {
 		  Codec<RecordInfo> codec = Codecs.create(RecordInfo.class);
 		  RandomAccessFile fp = new RandomAccessFile(file, "r");
 		  fp.seek(myoffset);
-		  byte[] buff= new  byte[len];
+		  byte[] buff = new  byte[len];
 		  fp.read(buff, 0, len);
           RecordInfo recordInfo = Codecs.decode(codec, buff);
           assert recordInfo != null: "Entry " + String.valueOf(i) + " was null";
@@ -191,17 +137,46 @@ public class Mobi {
           myoffset += 8;
           fp.close();
 	  }
+	 currentOffset = myoffset;
 	 return recordsInfo;
   }
-    /*
-  def readRecord(self, recordnum, disable_compression=False):
-    if self.config:
-      if self.config['palmdoc']['Compression'] == 1 or disable_compression:
-        return self.contents[self.records[recordnum]['record Data Offset']:self.records[recordnum+1]['record Data Offset']];
-      elif self.config['palmdoc']['Compression'] == 2:
-        result = uncompress_lz77(self.contents[self.records[recordnum]['record Data Offset']:self.records[recordnum+1]['record Data Offset']-self.config['mobi']['extra bytes']])
-        return result
-
+  
+  public String readRawRecord(int index) throws IOException {
+	  int offset = (int)recordsInfo.get(index).recordDataOffset;
+	  int len;
+	  if(index + 1 < recordsInfo.size()) {
+	   len = (int)recordsInfo.get(index + 1).recordDataOffset - offset;
+	  }
+	  else len = 4096;
+      RandomAccessFile raf = new RandomAccessFile(file, "rw");
+      byte [] buff = new  byte[len];
+      raf.seek(offset);
+      raf.read(buff, 0, len);
+      String result = new String(buff);
+      raf.close();
+      return result;
+  }
+  
+  public String readRecord(int index, boolean disable_compression) throws IOException {
+    
+	  String rawRecord = readRawRecord(index);
+      if (palmdocHeader.Compression == 1 || disable_compression) {
+    	  return rawRecord;
+      }
+      else if(palmdocHeader.Compression == 2)
+      {
+    	  LZ77 lz = new LZ77();
+          return 	lz.decompress(rawRecord);	
+      }
+      else if(palmdocHeader.Compression == 17480)
+      {
+    	  return AdaptiveHuffmanDecompress.decompress(rawRecord);
+      }
+      else 
+    	  return "Unknown compression type, raw: " + rawRecord;
+  }
+  
+  /*
   def readImageRecord(self, imgnum):
     if self.config:
       recordnum = self.config['mobi']['First Image index'] + imgnum;

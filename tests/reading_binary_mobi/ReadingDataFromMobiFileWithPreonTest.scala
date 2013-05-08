@@ -40,12 +40,19 @@ class ReadingDataFromMobiFileWithPreonTest extends FunSuite with BeforeAndAfter 
         assert(header.name.length() != 0)
         
         mobi.header = header
-        val offset: Int = mobi.headerSize
+        val offset: Int = mobi.headers.headerSize
         println("Offset is: " + offset + " bytes")
         val records: ArrayList[RecordInfo] = mobi.parseRecordInfoList(file, offset)
         assert(records.size > 0, "Records are empty")
         assert(records.get(0).uniqueID < records.get(3).uniqueID, "Id in records doesn't grow")
         assert(records.get(0).recordDataOffset < records.get(3).recordDataOffset, "Id in records doesn't grow")
+	}
+	
+	test("Parse whole file") {
+	  val path = "/home/att/studia/semestr4/Java/resources/island.bin"
+	  val mobi = new Mobi(path)
+	  mobi.parse()
+	  println(mobi.header)
 	}
 	
 }

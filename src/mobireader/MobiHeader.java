@@ -16,84 +16,84 @@ import nl.flotsam.preon.buffer.ByteOrder;
 public class MobiHeader {
      //headerfmt = '> IIII II 40s III IIIII IIII I 36s IIII 8s HHIIIII'
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long identifier;
+     public long identifier;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long headerLength;
+     public long headerLength;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long mobiType;
+     public long mobiType;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long textEncoding;
+     public long textEncoding;
      
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long UniqueID;
+     public long UniqueID;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long GeneratorVersion;
+     public long GeneratorVersion;
      
      @BoundString(size="40")
-     String reserved;
+     public String reserved;
      
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long firstNonBookIndex;
+     public long firstNonBookIndex;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long fullNameOffset;
+     public long fullNameOffset;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long fullNameLength;
+     public long fullNameLength;
 
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long language;
+     public long language;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long inputLanguage;
+     public long inputLanguage;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long outputLanguage;
+     public long outputLanguage;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long formatVersion;
+     public long formatVersion;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long firstImageIndex;
+     public long firstImageIndex;
 
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long firstHuffRecord;
+     public long firstHuffRecord;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long huffRecordCount;
+     public long huffRecordCount;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long firstDATPRecord;
+     public long firstDATPRecord;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long DATPRecordCount;
+     public long DATPRecordCount;
 
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long EXTHFlags;
+     public long EXTHFlags;
 
      @BoundString(size="36")
-     String unknown36Bytes;
+     public String unknown36Bytes;
 
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long DRMOffset;
+     public long DRMOffset;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long DRMCount;
+     public long DRMCount;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long DRMSize;
+     public long DRMSize;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long DRMFlags;
+     public long DRMFlags;
 
      @BoundString(size="8")
-     String unknown8Bytes;
+     public String unknown8Bytes;
      
      @BoundNumber(size="16", byteOrder=ByteOrder.BigEndian)
      int Unknown1;
      @BoundNumber(size="16", byteOrder=ByteOrder.BigEndian)
      int LastImageRecord;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long Unknown2;
+     public long Unknown2;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long FCISRecord;
+     public long FCISRecord;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long Unknown3;
+     public long Unknown3;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
-     long FLISRecord;
+     public long FLISRecord;
      @BoundNumber(size="32",  byteOrder=ByteOrder.BigEndian)
      long Unknown4;
      
      public boolean hasEXTHHeader() {
-    	 if(EXTHFlags == 0x40) {
+    	 if(EXTHFlags == 80) {
     		 return true;
     	 }
     	 else {
