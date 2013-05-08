@@ -16,26 +16,26 @@ public class Header {
 	//http://wiki.mobileread.com/wiki/PDB#Palm_Database_Format
 	//"32shhIIIIII4s4sIIH"
     public @BoundString(size="32") String name;
-    @BoundNumber short attributes;
-    @BoundNumber short version;
+    @BoundNumber public short attributes;
+    @BoundNumber public short version;
     @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
-    long created;
+    public long created;
     @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
-    long modified;
+    public long modified;
     @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
-    long backup;
+    public long backup;
     @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
-    long modnum;
+    public long modnum;
     @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
-    long appInfoId;
+    public long appInfoId;
     @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
-    long sortInfoId;
-    @BoundString(size="4") String type;
-    @BoundString(size="4") String creator;
+    public long sortInfoId;
+    @BoundString(size="4") public String typeOfMobi;
+    @BoundString(size="4") public String creator;
     @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
-    long uniqueIDseed;
+    public long uniqueIDseed;
     @BoundNumber(size="32", byteOrder=ByteOrder.BigEndian)
-    long nextRecordListId;
+    public long nextRecordListId;
     @BoundNumber(size="16", byteOrder=ByteOrder.BigEndian)
     public int numberOfRecords;
     
@@ -50,7 +50,7 @@ public class Header {
     	description += "modnum: " + String.valueOf(modnum) + "\n";
     	description += "appInfoId: " + String.valueOf(appInfoId) + "\n";
     	description += "sortInfoId: " + String.valueOf(sortInfoId) + "\n";
-    	description += "type: " + type + "\n";
+    	description += "type: " + typeOfMobi + "\n";
     	description += "creator: " + creator + "\n";
     	description += "uniqueIDseed: " + String.valueOf(uniqueIDseed) + "\n";
     	description += "nextRecordListId: " + String.valueOf(nextRecordListId) + "\n";

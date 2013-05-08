@@ -29,10 +29,16 @@ public class Mobi {
     int offset = 0;
     public String contents;
     public Header header;
+    PalmDocHeader palmdocHeader;
+	MobiHeader mobiHeader;
+	EXTHHeader exthHeader;
     String headerFormat = "32shhIIIIII4s4sIIH";
     public int headerSize = calcsize(headerFormat);
+    String palmDocHeaderFormat = ">HHIHHHH";
+    public int palmDocHeaderSize = calcsize(palmDocHeaderFormat);
     public int numberOfRecords;
     ArrayList<RecordInfo> recordsInfo;
+    int currentOffset = 0;
     public void setNumberOfRecords(int number) {
     	numberOfRecords = number;
     }
@@ -52,7 +58,7 @@ public class Mobi {
         this.contents = new String(compressed);
         this.header = parseHeader();
         this.recordsInfo = parseRecordInfoList(this.file, 123);
-        //this.readRecord0()
+        this.readRecord0();
     }
     
     public int calcsize(String headerFormat)
@@ -113,24 +119,38 @@ public class Mobi {
         return base * n;
     }
     
-    Header parseHeader(){
-        //String headerfmt = "32shhIIIIII4s4sIIH";
-        //int headerlen = calcsize(headerfmt);
-        //String headerData = this.contents.substring(this.offset,
-         //                                           this.offset+headerlen);
-        
+    public PalmDocHeader parsePalmDOCHeader(File file, int offset) throws IOException, DecodingException {
+    	Codec<PalmDocHeader> codec = Codecs.create(PalmDocHeader.class);
+		RandomAccessFile fp = new RandomAccessFile(file, "r");
+		fp.seek(currentOffset);
+		byte[] buff= new  byte[palmDocHeaderSize];
+		fp.read(buff, 0, palmDocHeaderSize);
+		PalmDocHeader palmDocHeader = Codecs.decode(codec, buff);
+        currentOffset += palmDocHeaderSize;
+        fp.close();
+        return palmDocHeader;
+    }
+    
+    public MobiHeader parseMobiHeader(File file, int offset) {
+    	
+    }
+    
+    public EXTHHeader parseEXTHHeader(File file, int offset) {
+    	
+    }
+    
+  public void readRecord0() throws DecodingException, IOException {
+	  palmdocHeader = parsePalmDOCHeader(file, currentOffset);
+	  mobiHeader = parseMobiHeader(file, currentOffset);
+	  exthHeader = null;
+	  if(mobiHeader.hasEXTHHeader()) {
+		  exthHeader = parseEXTHHeader(file, currentOffset);
+	  }
+
+  }
+  
+  public Header parseHeader(){           
         Header parsedHeader =  createHeaderBasedOn(file);
-        
-        /*
-        # unpack header, zip up into list of tuples
-        results = zip(fields, unpack(headerfmt, self.contents[self.offset:self.offset+headerlen]))
-
-        # increment offset into file
-        this.offset += headerlen;
-
-        # convert tuple array to dictionary
-        resultsDict = utils.toDict(results);
-        */
         return parsedHeader;
   }
   
