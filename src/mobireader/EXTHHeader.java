@@ -25,5 +25,4 @@ public class EXTHHeader {
 				+ headerLength + ", recordCount=" + recordCount + "]";
 	}
   
-
 }

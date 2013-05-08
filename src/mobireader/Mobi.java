@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import unzipping.AdaptiveHuffmanDecompress;
 import unzipping.LZ77;
-
+import unzipping.CustomLZ77;
 
 public class Mobi {
     File file;
@@ -40,7 +40,7 @@ public class Mobi {
         this.file = new File(filename);
       }
       catch (IOError e) {
-        throw e;
+        throw e; 
       }
     }
     
@@ -81,7 +81,7 @@ public class Mobi {
     	Codec<EXTHHeader> codec = Codecs.create(EXTHHeader.class);
 		RandomAccessFile fp = new RandomAccessFile(file, "r");
 		fp.seek(offset);
-		byte[] buff= new  byte[headers.mobiHeaderSize];
+		byte[] buff= new  byte[headers.exthHeaderSize];
 		fp.read(buff, 0, headers.exthHeaderSize);
 		EXTHHeader exthHeader = Codecs.decode(codec, buff);
         currentOffset += headers.mobiHeaderSize;
@@ -143,6 +143,8 @@ public class Mobi {
   
   public String readRawRecord(int index) throws IOException {
 	  int offset = (int)recordsInfo.get(index).recordDataOffset;
+	  System.out.println("Reading record: " + index + " from offset: " + offset);
+	  
 	  int len;
 	  if(index + 1 < recordsInfo.size()) {
 	   len = (int)recordsInfo.get(index + 1).recordDataOffset - offset;
@@ -161,19 +163,25 @@ public class Mobi {
     
 	  String rawRecord = readRawRecord(index);
       if (palmdocHeader.Compression == 1 || disable_compression) {
+    	  System.out.println("No compression");
     	  return rawRecord;
       }
       else if(palmdocHeader.Compression == 2)
       {
-    	  LZ77 lz = new LZ77();
-          return 	lz.decompress(rawRecord);	
+    	  System.out.println("LZ77 compression");
+    	  //LZ77 lz = new LZ77();
+    	  CustomLZ77 lz = new CustomLZ77();
+          return lz.decompress(rawRecord);	
       }
       else if(palmdocHeader.Compression == 17480)
       {
+    	  System.out.println("Huffman compression");
     	  return AdaptiveHuffmanDecompress.decompress(rawRecord);
       }
-      else 
+      else {
+    	  System.out.println("Unknown compression");
     	  return "Unknown compression type, raw: " + rawRecord;
+      }
   }
   
   /*
