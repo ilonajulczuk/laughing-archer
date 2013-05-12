@@ -166,7 +166,7 @@ object BigMain extends JFXApp {
 						new StringProperty(this, "Category", param.getValue.category)
 			})
 
-			val table = new TableView[Book](model.getBooks) {
+			val table = new TableView[Book](model.books) {
 				delegate.getColumns.addAll(
 						titleColumn.delegate,
 						authorColumn.delegate,
@@ -205,19 +205,22 @@ object BigMain extends JFXApp {
 
 	def createNodeListForTree(): List[TreeItem[String]] = {
 			val categories = model.categories
-					(for(subcatName <- categories.namesOfSubcategories)
-						yield createCategoryNode(categories(subcatName)) ).toList
+			(for(subcatName <- categories.namesOfSubcategories)
+				yield createCategoryNode(categories(subcatName)) ).toList
 
 	}
 
 	private def createTreeOfCategories(): Node = {
+			for(item <- createNodeListForTree()) {
+				model.listTreeItems += item
+			}
 			val treeView = new TreeView[String] {
 				minWidth = 150
 						showRoot = false
 						editable = false
 						root = new TreeItem[String] {
 						value = "Root"
-						children = createNodeListForTree()
+						children = model.listTreeItems
 				}
 			}
 
@@ -454,6 +457,11 @@ object BigMain extends JFXApp {
 								model.namesOfAllCategories += book.category
 								println("C model after update: " + model.namesOfAllCategories)
 								
+								model.listTreeItems.clear
+								model.categories.addSubcategories(List(book.category))
+								for(item <- createNodeListForTree()) {
+								  model.listTreeItems += item
+								}
 								}
 							}
 						}

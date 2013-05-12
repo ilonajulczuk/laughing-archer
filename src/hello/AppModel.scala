@@ -5,6 +5,9 @@ import mobireader.Book
 import scalafx.beans.property.DoubleProperty
 import scalafx.collections.ObservableBuffer
 import java.io.File
+import scalafx.Includes._
+
+import scalafx.scene.control._
 
 class AppModel {
   
@@ -59,6 +62,7 @@ class AppModel {
       if(!(books contains book)) books += book
     }
     val listViewItems = new ObservableBuffer[String]()
+    val listTreeItems = new ObservableBuffer[TreeItem[String]]()
     
     val choiceBoxItems = ObservableBuffer("Choice A", "Choice B", "Choice C", "Choice D")
     
