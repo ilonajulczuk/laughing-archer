@@ -141,7 +141,7 @@ public class Mobi {
 	 return recordsInfo;
   }
   
-  public String readRawRecord(int index) throws IOException {
+  public byte[] readRawRecord(int index) throws IOException {
 	  int offset = (int)recordsInfo.get(index).recordDataOffset;
 	  System.out.println("Reading record: " + index + " from offset: " + offset);
 	  
@@ -154,17 +154,16 @@ public class Mobi {
       byte [] buff = new  byte[len];
       raf.seek(offset);
       raf.read(buff, 0, len);
-      String result = new String(buff);
       raf.close();
-      return result;
+      return buff;
   }
   
   public String readRecord(int index, boolean disable_compression) throws IOException {
     
-	  String rawRecord = readRawRecord(index);
+	  byte[] rawRecord = readRawRecord(index);
       if (palmdocHeader.Compression == 1 || disable_compression) {
     	  System.out.println("No compression");
-    	  return rawRecord;
+    	  return new String(rawRecord);
       }
       else if(palmdocHeader.Compression == 2)
       {

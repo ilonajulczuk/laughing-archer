@@ -61,8 +61,8 @@ public final class AdaptiveHuffmanDecompress {
 		}
 	}
 	
-	public static String decompress(String input) throws IOException {
-		InputStream is = new ByteArrayInputStream(input.getBytes());
+	public static String decompress(byte [] bytes) throws IOException {
+		InputStream is = new ByteArrayInputStream(bytes);
 		BitInputStream in = new BitInputStream(is);
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

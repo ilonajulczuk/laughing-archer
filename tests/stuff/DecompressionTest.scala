@@ -15,6 +15,17 @@ class DecompressionTest extends FunSuite {
 	  mobi.parse()
 	  val firstRecord = mobi.readRecord(1, false)
 	  println(firstRecord)
-	  
+	  val secondRecord = mobi.readRecord(2, false)
+	  println(secondRecord)
 	}
+	
+	/*test("how decompressing mobi (huffman) works") {
+	  val path = "/home/att/studia/semestr4/Java/resources/test.mobi"
+	  val mobi = new Mobi(path)
+	  mobi.parse()
+	  val firstRecord = mobi.readRecord(1, false)
+	  println(firstRecord)
+	  val secondRecord = mobi.readRecord(2, false)
+	  println(secondRecord)
+	}*/
 }
