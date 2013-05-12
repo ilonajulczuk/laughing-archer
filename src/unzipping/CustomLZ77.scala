@@ -2,64 +2,51 @@ package unzipping
 
 import java.io.ByteArrayInputStream
 import java.io.DataInputStream
-
+import mobireader.CompressionCommand
+import nl.flotsam.preon.Codec
+import nl.flotsam.preon.Codecs
 
 class CustomLZ77 {
 
-// ported directly from the PalmDoc Perl library
-//http://kobesearch.cpan.org/htdocs/EBook-Tools/EBook/Tools/PalmDoc.pm.html
 
 def decompress(data: String): String= {
   val length = data.size
+  val byteData = data.getBytes()
   var offset = 0
   var text: String = ""   
 
   while (offset < length) {
-    
-  
-    val char = data(offset)
+    val byteValue = byteData(offset)
+    val ord = byteValue & 0xff;
     offset += 1
-    val ord = char.intValue
-
-    // The long if-elsif chain is the best logic for $ord handling
-    //## no critic (Cascading if-elsif chain)
-    if (ord == 0) {
-      text += char;
+    if(ord < 0)
+    {
+      println("WTF? ord: " + ord)
+    }
+    else if (ord == 0) {
+      text += ord.toChar;
     }
     else if (ord <= 8) {
       println("(ord <= 8), adding: " + data.substring(offset, offset + ord) )
-      text += data.substring(offset, offset + ord)
+      text += byteData.slice(offset, offset + ord)
       offset += ord
     }
-      
     else if (ord <= 0x7f) {
-      println("(ord <= 0x7f), adding: " + char )
-      text += char
+      println("(ord <= 0x7f), adding: " + ord.toChar )
+      text += ord.toChar
     }
     else if (ord <= 0xbf) {
-      // Data is LZ77-compressed
-
-      /* From Wikipedia:
-      "A length-distance pair is always encoded by a two-byte
-      sequence. Of the 16 bits that make up these two bytes,
-      11 bits go to encoding the distance, 3 go to encoding
-      the length, and the remaining two are used to make sure
-      the decoder can identify the first byte as the beginning
-      of such a two-byte sequence."
-	  */
-      
       offset += 1;
       if (offset > data.size) {
         println("WARNING: offset to LZ77 bits is outside of the data: " + offset)
         return text
       }
-        
-      val bytes = data.substring(offset-2, offset).getBytes()
-      val bais = new ByteArrayInputStream(bytes)
-      val isr: DataInputStream  = new DataInputStream(bais)
-      val signedUnsignedShort = isr.readShort()
-      var lz77 = signedUnsignedShort &  0xffff
-      println("signedUnsignedInt: " + signedUnsignedShort)
+      val bytes = new Array[Byte](2)
+      val byte1 = byteData(offset-2) & 0x000000ff
+      val byte2 = byteData(offset-1) & 0x000000ff
+      
+      
+      var lz77 = (byte1 << 8 | byte2)
       println("lz77: " + lz77)
       // Leftmost two bits are ID bits and need to be dropped
       lz77 &= 0x3fff;
@@ -71,6 +58,7 @@ def decompress(data: String): String= {
       // Remaining 11 bits are offset
       val lz77offset = lz77 >> 3
       println("lz77offset: " + lz77offset)
+      
       if (lz77offset < 1) {
         print("WARNING: LZ77 decompression offset is invalid!")
         return text
@@ -89,22 +77,26 @@ def decompress(data: String): String= {
         println("textpos: " + textpos)
         if (textpos < 0) {
           println("WARNING: LZ77 decompression reference is before"+
-                " beginning of text! " + lz77)
-          return ""
+                " beginning of text! " )
+          return text
         }
           
         println("(ord <= 0xbf), adding: " + text.substring(textpos,textpos +1) )
-        text += text.substring(textpos.toInt,(textpos+1).toInt)
+        text += text.substring(textpos,textpos+1)
         textlength += 1
       }
     }
       
-    else{
+    else if(ord <= 0xff) {
       // 0xc0 - 0xff are single characters (XOR 0x80) preceded by
       // a space
-      text += ' ' + (ord ^ 0x80).toChar;
+      println("And finally: ")
+      println(" " + (ord ^ 0x80).toChar)
+      text += " " + (ord ^ 0x80).toChar
     }
-      
+    else {
+      println("Not in range? " + ord)
+    }
   }
   return text
 }

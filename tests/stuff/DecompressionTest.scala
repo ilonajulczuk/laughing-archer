@@ -10,7 +10,7 @@ import java.util.ArrayList
 
 class DecompressionTest extends FunSuite {
 	test("how decompressing mobi (lz77) works") {
-	  val path = "/home/att/studia/semestr4/Java/resources/slavery.mobi"
+	  val path = "/home/att/studia/semestr4/Java/resources/mound.mobi"
 	  val mobi = new Mobi(path)
 	  mobi.parse()
 	  val firstRecord = mobi.readRecord(1, false)
