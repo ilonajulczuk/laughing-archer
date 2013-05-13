@@ -500,7 +500,11 @@ object BigMain extends JFXApp {
 			
 			val right = new ScrollPane {
 				content = new HBox {
+					padding = Insets(20)
+					vgrow = scalafx.scene.layout.Priority.ALWAYS
+					hgrow = scalafx.scene.layout.Priority.ALWAYS
 					spacing = 10
+					margin = Insets(50, 0, 0, 50)
 					content = List(
 						new Label {
 							text = "Book preview"
