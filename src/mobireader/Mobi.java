@@ -5,22 +5,18 @@
 package mobireader;
 
 import com.google.common.io.Files;
-
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
 import nl.flotsam.preon.Codec;
 import nl.flotsam.preon.Codecs;
 import nl.flotsam.preon.DecodingException;
 import java.util.ArrayList;
-
 import unzipping.AdaptiveHuffmanDecompress;
-import unzipping.LZ77;
 import unzipping.CustomLZ77;
+
 
 public class Mobi {
     File file;
@@ -168,7 +164,6 @@ public class Mobi {
       else if(palmdocHeader.Compression == 2)
       {
     	  System.out.println("LZ77 compression");
-    	  //LZ77 lz = new LZ77();
     	  CustomLZ77 lz = new CustomLZ77();
           return lz.decompress(rawRecord);	
       }
@@ -183,18 +178,18 @@ public class Mobi {
       }
   }
   
-  /*
-  def readImageRecord(self, imgnum):
-    if self.config:
-      recordnum = self.config['mobi']['First Image index'] + imgnum;
-      return self.readRecord(recordnum, disable_compression=True);
-
-  def author(self):
+  byte[] readImageRecord(int imgnum) throws IOException {
+	  long recordnum = mobiHeader.firstImageIndex + imgnum;
+      return readRawRecord((int)recordnum);
+  }
+    
+ /*
+  String author():
     "Returns the author of the book"
-    return self.config['exth']['records'][100]
+    return exthHeader.records
 
-  def title(self):
+  String title():
     "Returns the title of the book"
-    return self.config['mobi']['Full Name']
+    return mobiHeader.['Full Name']
      */
 }

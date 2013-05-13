@@ -19,6 +19,14 @@ class DecompressionTest extends FunSuite {
 	  println(secondRecord)
 	}
 	
+	test("how the 9 record looks like in mobi") {
+	  val path = "/home/att/studia/semestr4/Java/resources/mound.mobi"
+	  val mobi = new Mobi(path)
+	  mobi.parse()
+	  val hundredRecord = mobi.readRecord(9, false)
+	  println(hundredRecord)
+	}
+	
 	/*test("how decompressing mobi (huffman) works") {
 	  val path = "/home/att/studia/semestr4/Java/resources/test.mobi"
 	  val mobi = new Mobi(path)

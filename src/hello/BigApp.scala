@@ -24,40 +24,26 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.text.Font
+import scalafx.scene.layout.Region
 import javafx.{stage => jfxs}
 import javafx.scene.control.Dialogs
+import scala.collection.mutable.MutableList
 
 object BigMain extends JFXApp {
 
 	private val model = new AppModel()
+	val treeViewRoot = new TreeItem[String] {
+		value = "Root"
+		children = createNodeListForTree()
+	}
+	
+	var accordionViewOfAuthors = createAccordionViewOfAuthors()
 	
 	var tableOfBooks = createTableOfBooks()
 	var accordionOfAuthors = createAccordionOfAuthors()
 	var treeOfCategories = createTreeOfCategories()
 	var addingBookForm = createAddingFormForBooks()
 	
-	var mainLayout = createTabs()
-	def updateTabs() {
-	  tableOfBooks = createTableOfBooks()
-	  accordionOfAuthors = createAccordionOfAuthors()
-	  treeOfCategories = createTreeOfCategories()
-	  addingBookForm = createAddingFormForBooks()
-	}
-	
-	
-	def myRoot = new BorderPane {
-		top = new VBox {
-			content = List(
-					createMenus()
-					)
-					center = mainLayout
-		}
-	}
-	
-	def myScene = new Scene(900, 600) {
-		root = myRoot
-	}
-
 	def createScene() = {
 		new Scene(900, 600) {
 			root = new BorderPane {
@@ -71,7 +57,7 @@ object BigMain extends JFXApp {
 		}
 	}
 	stage = new PrimaryStage {
-		scene = myScene 
+		scene = createScene() 
 		title = "Laughing archer"
 	}
 	
@@ -181,19 +167,23 @@ object BigMain extends JFXApp {
 			table
 	}
 
-	private def createAccordionOfAuthors(): Node = new Accordion {
-		panes = createAccordionViewOfAuthors
-				expandedPane = panes.head
+	private def createAccordionOfAuthors(): Accordion = new Accordion {
+		panes = accordionViewOfAuthors
+		expandedPane = panes.head
 	}
 
-	def createAccordionViewOfAuthors() : List[TitledPane] = {
-			val authors = model.db.getAllAuthors
-					for(author <- authors) yield new TitledPane {
-						text = author.getName
-								content = new TextArea {
-							text = author.provideAllInfo()
-						}
-					}
+	def createAccordionViewOfAuthors() : MutableList[TitledPane] = {
+		val authors = model.authors
+		val mutableAuthors = new MutableList[TitledPane]
+		for(author <- authors) {
+		  mutableAuthors += new TitledPane {
+		    text = author.getName
+			content = new TextArea {
+				text = author.provideAllInfo()
+			}
+		  }
+		}
+		mutableAuthors
 	}
 
 	def createCategoryNode(cat: Category): TreeItem[String] = {
@@ -211,17 +201,12 @@ object BigMain extends JFXApp {
 	}
 
 	private def createTreeOfCategories(): Node = {
-			for(item <- createNodeListForTree()) {
-				model.listTreeItems += item
-			}
+			
 			val treeView = new TreeView[String] {
 				minWidth = 150
 						showRoot = false
 						editable = false
-						root = new TreeItem[String] {
-						value = "Root"
-						children = model.listTreeItems
-				}
+						root = treeViewRoot
 			}
 
 			val listView = new ListView[String] {
@@ -247,11 +232,11 @@ object BigMain extends JFXApp {
 					)
 
 					new SplitPane {
-				items.addAll(
-					treeView,
-					listView
-				)
-			}
+						items.addAll(
+								treeView,
+								listView
+						)
+					}
 	}
 
 	def createAddingFormForBooks(): Node = {
@@ -352,11 +337,8 @@ object BigMain extends JFXApp {
 							  categoryName.text.value_=(newValue)
 							}
 					    }
-							
 					)
 				}
-					
-				
 
 				val categoryName = new TextField {
 					promptText = "Category"
@@ -365,7 +347,7 @@ object BigMain extends JFXApp {
 				content = List(
 						new Label {
 							text = "Adding book form"
-									font = new Font("Verdana", 20)
+							font = new Font("Verdana", 20)
 						},
 						
 						new HBox {
@@ -457,15 +439,17 @@ object BigMain extends JFXApp {
 								model.namesOfAllCategories += book.category
 								println("C model after update: " + model.namesOfAllCategories)
 								
-								model.listTreeItems.clear
 								model.categories.addSubcategories(List(book.category))
-								for(item <- createNodeListForTree()) {
-								  model.listTreeItems += item
-								}
-								}
+								
+								val author = book.getAuthor
+								author.addTitle(book.getTitle)
+								treeViewRoot.children = createNodeListForTree()
+								accordionViewOfAuthors = createAccordionViewOfAuthors()
+								accordionOfAuthors.panes = accordionViewOfAuthors
 							}
 						}
-						)
+					}
+				)
 				def getEmptyFields(): List[String] = {
 				  var emptyFields = List[String]()
 				  if(bookTitle.text.value == "")
@@ -506,11 +490,32 @@ object BigMain extends JFXApp {
 						)
 			}
 
-			new ScrollPane {
+			
+			val left = new ScrollPane {
 				content = variousControls
-						hbarPolicy = ScrollBarPolicy.ALWAYS
-						vbarPolicy = ScrollBarPolicy.AS_NEEDED
-						contextMenu = sampleContextMenu
+				hbarPolicy = ScrollBarPolicy.ALWAYS
+				vbarPolicy = ScrollBarPolicy.AS_NEEDED
+				contextMenu = sampleContextMenu
+			}
+			
+			val right = new ScrollPane {
+				content = new HBox {
+					spacing = 10
+					content = List(
+						new Label {
+							text = "Book preview"
+							font = new Font("Verdana", 20)
+						}
+					)
+				}
+			}
+			
+			new SplitPane {
+						items.addAll(
+								left,
+								right
+						)
+		
 			}
 	}
 
