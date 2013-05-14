@@ -28,6 +28,8 @@ import scalafx.scene.layout.Region
 import javafx.{stage => jfxs}
 import javafx.scene.control.Dialogs
 import scala.collection.mutable.MutableList
+import mobireader.{Mobi, MobiContentParser}
+
 
 object BigMain extends JFXApp {
 
@@ -43,6 +45,7 @@ object BigMain extends JFXApp {
 	var accordionOfAuthors = createAccordionOfAuthors()
 	var treeOfCategories = createTreeOfCategories()
 	var addingBookForm = createAddingFormForBooks()
+	var mobiParsingView = createMobiParsingView()
 	
 	def createScene() = {
 		new Scene(900, 600) {
@@ -60,9 +63,6 @@ object BigMain extends JFXApp {
 		scene = createScene() 
 		title = "Laughing archer"
 	}
-	
-	
-	
 	private def createMenus() = new MenuBar {
 		menus = List(
 				new Menu("File") {
@@ -106,11 +106,110 @@ object BigMain extends JFXApp {
 							text = "Add a book"
 									content = addingBookForm
 									closable = false
+						},
+						new Tab {
+							text = "Parse a mobi"
+									content = mobiParsingView
+									closable = false
 						}
 						)
 			}
 	}
 
+	private def createMobiParsingView(): Node = {
+	  val bookHtml = new TextArea{    
+					text = "No book html yet."
+					wrapText = true
+					editable = false
+				}
+	  val bookText = new TextArea {
+		text = "Content not available"
+		wrapText = true
+		editable = false
+	  }
+	  val left = new VBox {
+				content = bookHtml 
+	  }
+	  
+	  bookHtml.prefHeight.bind(left.prefHeightProperty)
+	  bookHtml.prefWidth.bind(left.prefWidthProperty)
+	  bookHtml.prefColumnCount = 35
+	  bookHtml.prefRowCount = 35
+	  bookText.prefRowCount = 35
+			val right = new VBox {
+				content = new HBox {
+					content = bookText
+				}
+			}
+			
+			val header = new VBox {
+					
+					spacing = 10
+					margin = Insets(10, 10, 10, 10)
+					content = List(
+					    new Label {
+							    	text = "Mobi book preview"
+							    	font = new Font("Verdana", 20)
+							    },
+						new HBox {
+						  vgrow = scalafx.scene.layout.Priority.ALWAYS
+							hgrow = scalafx.scene.layout.Priority.ALWAYS
+							spacing = 10
+						  val filePath = new Label {
+						    text = "No path"
+						  }
+							val button = new Button("Choose file")
+							button.onAction_=({ (_:ActionEvent) =>
+								println("Don't you have enough books?")
+								try {
+								  val fileChooser = new FileChooser()
+								  val result = fileChooser.showOpenDialog(stage)
+								  if(result != null && 
+								      result.getAbsolutePath().endsWith("mobi") 
+								      || result.getAbsolutePath().endsWith("bin"))
+								  {
+								    filePath.text = result.getAbsolutePath()
+								    val mobi = new Mobi(result.getAbsolutePath())
+								    mobi.parse()
+								    val html = mobi.readAllRecords()
+								    val parser = new MobiContentParser(html)
+								    bookHtml.text = html
+								    bookText.text = parser.bodyText
+								  }
+								  else 
+								      Dialogs.showWarningDialog(stage, 
+								          "File has to be in mobi format", "Reading failure")
+								}
+								catch {
+								  case e: NullPointerException => println("WTF, null pointer?")
+								}
+							})
+							
+							content = List(
+							    filePath,
+							    button
+							)
+						}
+							    )
+			}
+			val body = new SplitPane {
+							 items.addAll(
+							    left,
+							    right
+							 )
+			}
+			
+			val split = new SplitPane() {
+			  orientation =  Orientation.VERTICAL
+				items.addAll(
+				    header,
+				    body
+				)
+			}
+			split.setDividerPositions(0, 0.25)
+			split
+	}
+	
 	private def createTableOfBooks(): Node = {
 	  println("Creating tables...")
 			val titleColumn = new TableColumn[Book, String]("Title") {
@@ -420,7 +519,7 @@ object BigMain extends JFXApp {
 							  val capitalizedEmptyFields = emptyFields(0)(0).toUpper +
 								emptyFields(0).tail :: emptyFields.tail
 							  Dialogs.showWarningDialog(stage, capitalizedEmptyFields.mkString(", ") + " cannot be empty.",
-							      "Book couldn't be added.", "Adding failure");
+							      "Book couldn't be added.", "Adding failure")
 							
 							}
 							else {
@@ -487,13 +586,12 @@ object BigMain extends JFXApp {
 						new MenuItem("MenuItemB") {
 							onAction = {e: ActionEvent => println(e.eventType + " occurred on Menu Item B")}
 						}.delegate
-						)
+				)
 			}
-
 			
 			val left = new ScrollPane {
 				content = variousControls
-				hbarPolicy = ScrollBarPolicy.ALWAYS
+				hbarPolicy = ScrollBarPolicy.AS_NEEDED
 				vbarPolicy = ScrollBarPolicy.AS_NEEDED
 				contextMenu = sampleContextMenu
 			}
@@ -519,10 +617,8 @@ object BigMain extends JFXApp {
 								left,
 								right
 						)
-		
 			}
 	}
-
 
 	def createAlertPopup(popupText: String) = new Popup {
 		inner =>
@@ -549,9 +645,9 @@ object BigMain extends JFXApp {
 							margin = Insets(10, 0, 10, 0)
 				}
 			}
-					)
-		}.delegate
-				)
+			)
+			}.delegate
+		)
 	}
 }
 

@@ -1,17 +1,12 @@
 package stuff;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
+
 
 public class UnzippingJUnitTest {
     
@@ -42,29 +37,8 @@ public class UnzippingJUnitTest {
                    compressed.length() <= text.length());
     }
     
-    @Test
-    public void testHowDecompressedMobiLooksLike() throws FileNotFoundException, IOException {
+  
     
-        String path = "/home/att/studia/semestr4/Java/resources/test.mobi";
-        byte  compressed [] = Files.toByteArray(new File(path));
-        String compressedText = "";
-        for(int i = 0; i < 40000; i++)
-        {
-            compressedText += (char)compressed[i];
-        }
-    }
-    
-    @Test
-    public void testDecompressingMoundBook() throws FileNotFoundException, IOException {
-    
-        String path = "/home/att/studia/semestr4/Java/resources/mound.mobi";
-        byte  compressed [] = Files.toByteArray(new File(path));
-        String compressedText = "";
-        for(int i = 0; i < 40000; i++)
-        {
-            compressedText += (char)compressed[i];
-        }
-    }
     
     @Test
     public void testIfDecompressionInvertCompression() {

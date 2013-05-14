@@ -87,18 +87,11 @@ public class Mobi {
     
   public void readRecord0() throws DecodingException, IOException {
 	  currentOffset += 2; //Gap to data
-	  System.out.println("Parsing palm doc header, current offset: " + currentOffset);
 	  palmdocHeader = parsePalmDOCHeader(file, currentOffset);
-	  
-	  System.out.println(palmdocHeader);
-	  System.out.println("Parsing mobi header, current offset: " + currentOffset);
 	  mobiHeader = parseMobiHeader(file, currentOffset);
-	  System.out.println(mobiHeader);
 	  exthHeader = null;
 	  if(mobiHeader.hasEXTHHeader()) {
-		  System.out.println("Parsing exth header, current offset: " + currentOffset);
 		  exthHeader = parseEXTHHeader(file, currentOffset);
-		  System.out.println(exthHeader);
 	  }
   }
   
@@ -139,8 +132,6 @@ public class Mobi {
   
   public byte[] readRawRecord(int index) throws IOException {
 	  int offset = (int)recordsInfo.get(index).recordDataOffset;
-	  System.out.println("Reading record: " + index + " from offset: " + offset);
-	  
 	  int len;
 	  if(index + 1 < recordsInfo.size()) {
 	   len = (int)recordsInfo.get(index + 1).recordDataOffset - offset;
@@ -158,31 +149,38 @@ public class Mobi {
     
 	  byte[] rawRecord = readRawRecord(index);
       if (palmdocHeader.Compression == 1 || disable_compression) {
-    	  System.out.println("No compression");
     	  return new String(rawRecord);
       }
       else if(palmdocHeader.Compression == 2)
       {
-    	  System.out.println("LZ77 compression");
     	  CustomLZ77 lz = new CustomLZ77();
           return lz.decompress(rawRecord);	
       }
       else if(palmdocHeader.Compression == 17480)
       {
-    	  System.out.println("Huffman compression");
     	  return AdaptiveHuffmanDecompress.decompress(rawRecord);
       }
       else {
-    	  System.out.println("Unknown compression");
     	  return "Unknown compression type, raw: " + rawRecord;
       }
   }
   
-  byte[] readImageRecord(int imgnum) throws IOException {
+  public byte[] readImageRecord(int imgnum) throws IOException {
 	  long recordnum = mobiHeader.firstImageIndex + imgnum;
       return readRawRecord((int)recordnum);
   }
-    
+  
+  public String readAllRecords() throws IOException {
+	  String all = "";
+	  long upperBound =  palmdocHeader.recordCount;
+	  System.out.println("The biggest record is: " + upperBound);
+	  for(int i = 1; i <= upperBound; i++)
+	  {
+		  all += readRecord(i, false);
+	  }
+	  return all;
+  }
+  
  /*
   String author():
     "Returns the author of the book"

@@ -5,17 +5,11 @@
 package stuff;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import hello.Author;
-import mobireader.Book;
 import hello.DBHandler;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
