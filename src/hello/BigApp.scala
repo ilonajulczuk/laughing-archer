@@ -143,7 +143,6 @@ object BigMain extends JFXApp {
 			}
 			
 			val header = new VBox {
-					
 					spacing = 10
 					margin = Insets(10, 10, 10, 10)
 					content = List(
