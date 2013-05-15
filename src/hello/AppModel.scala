@@ -1,5 +1,6 @@
 package hello
 
+import mobireader.Mobi
 import analysis.CategoryTree
 import mobireader.Book
 import scalafx.beans.property.DoubleProperty
@@ -29,7 +30,9 @@ class AppModel {
 				new Book("Magnetic fields", author2, path, "Very Hard", "Physics")
 			)
 	}
-
+	
+	var mobi: Mobi = null
+	
 	val library = createLibrary()
 	db.addBooks(library)
 	var myBooks = db.getAllBooks()

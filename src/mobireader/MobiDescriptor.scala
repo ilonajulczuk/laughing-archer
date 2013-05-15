@@ -32,7 +32,7 @@ class MobiDescriptor(mobi: Mobi) {
         case 17480 => "Huffman compression algorithm"
         case _ => "unknown"
      }	  
-      description += "Compression: " + getDescriptionType(mobi.palmdocHeader.Compression)
+      description += "Compression: " + getDescriptionType(mobi.palmdocHeader.Compression) + "\n"
       description += "Length of text: " + mobi.palmdocHeader.textLength + "\n"
       description += "Count of records: " + mobi.palmdocHeader.recordCount + "\n"
       description += "Maximum record size: " + mobi.palmdocHeader.recordSize + "\n"

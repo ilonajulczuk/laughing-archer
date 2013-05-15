@@ -106,15 +106,12 @@ class DBHandler(databaseFile: String)
 		val author_name = rs.getString("author_name")
 		val info_about_author = rs.getString("additional_info")
 		val author = new Author(author_name, info_about_author)
-		println(title, author, path, category, description)
 		new Book(title, author, path,  description, category)
 	}
 	
 	def makeAuthorFromResultSet(rs: ResultSet) = {
 		val name = rs.getString("name")
 		val additionalInfo = rs.getString("additional_info")
-		println("Creating authors, wohoo!")
-		println(name, additionalInfo)
 		new Author(name, additionalInfo)
 	}
 	

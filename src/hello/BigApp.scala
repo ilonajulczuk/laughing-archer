@@ -28,7 +28,7 @@ import scalafx.scene.layout.Region
 import javafx.{stage => jfxs}
 import javafx.scene.control.Dialogs
 import scala.collection.mutable.MutableList
-import mobireader.{Mobi, MobiContentParser}
+import mobireader.{Mobi, MobiContentParser, MobiDescriptor}
 
 
 object BigMain extends JFXApp {
@@ -152,14 +152,13 @@ object BigMain extends JFXApp {
 							    },
 						new HBox {
 						  vgrow = scalafx.scene.layout.Priority.ALWAYS
-							hgrow = scalafx.scene.layout.Priority.ALWAYS
-							spacing = 10
+						  hgrow = scalafx.scene.layout.Priority.ALWAYS
+						  spacing = 10
 						  val filePath = new Label {
 						    text = "No path"
 						  }
 							val button = new Button("Choose file")
 							button.onAction_=({ (_:ActionEvent) =>
-								println("Don't you have enough books?")
 								try {
 								  val fileChooser = new FileChooser()
 								  val result = fileChooser.showOpenDialog(stage)
@@ -168,12 +167,13 @@ object BigMain extends JFXApp {
 								      || result.getAbsolutePath().endsWith("bin"))
 								  {
 								    filePath.text = result.getAbsolutePath()
-								    val mobi = new Mobi(result.getAbsolutePath())
-								    mobi.parse()
-								    val html = mobi.readAllRecords()
+								    model.mobi = new Mobi(result.getAbsolutePath())
+								    model.mobi.parse()
+								    val html = model.mobi.readAllRecords()
 								    val parser = new MobiContentParser(html)
 								    bookHtml.text = html
 								    bookText.text = parser.bodyText
+								    metadataButton.visible = true
 								  }
 								  else 
 								      Dialogs.showWarningDialog(stage, 
@@ -184,9 +184,34 @@ object BigMain extends JFXApp {
 								}
 							})
 							
+							val metadataButton = new Button("Show metadata")
+							metadataButton.onAction_=({ (_:ActionEvent) =>
+							  if(model.mobi != null) 
+							  {
+							    val descriptor = new MobiDescriptor(model.mobi)
+							    
+							    def addIndentation(paragraph: String) = {
+							     (for (sentence <- paragraph.split("\n"))
+							       yield "  " + sentence).mkString("\n") + "\n"
+							    }
+							    
+							    var description ="First header:\n" + addIndentation(descriptor.firstHeaderInfo)
+							    description += "\nPalmdoc header:\n" + addIndentation(descriptor.palmdocHeaderInfo)
+							    description += "\nMobi header:\n" + addIndentation(descriptor.mobiHeaderInfo)
+							    Dialogs.showInformationDialog(stage, 
+								          description, "Mobi file contains multiple headers, " +
+							    "the most important have following data", "Mobi metadata")
+							  }
+							  
+								
+								
+							})
+							
+							metadataButton.visible = false
 							content = List(
 							    filePath,
-							    button
+							    button,
+							    metadataButton
 							)
 						}
 							    )
@@ -522,28 +547,20 @@ object BigMain extends JFXApp {
 							
 							}
 							else {
-								println("Oki-doki, adding...")
-								
 								val book: Book = createBookBasedOnForm()
-								model.db.addBook(book)
-								assert(model.db.findBook(book.getTitle) != null,
+								if(!model.books.contains(book)) { //TODO make it working
+									model.db.addBook(book)
+									assert(model.db.findBook(book.getTitle) != null,
 								    "Just added book cannot be found")
-								println("Book model before update: " + model.books)
-								model.books += book
-								println("Book model after update: " + model.books)
-								model.categories.root.addSubcategory(book.category)
-								println("Category model before update: " + model.namesOfAllCategories)
-								
-								model.namesOfAllCategories += book.category
-								println("C model after update: " + model.namesOfAllCategories)
-								
-								model.categories.addSubcategories(List(book.category))
-								
-								val author = book.getAuthor
-								author.addTitle(book.getTitle)
-								treeViewRoot.children = createNodeListForTree()
-								accordionViewOfAuthors = createAccordionViewOfAuthors()
-								accordionOfAuthors.panes = accordionViewOfAuthors
+									model.books += book
+									model.namesOfAllCategories += book.category
+									model.categories.addSubcategories(List(book.category))
+									val author = book.getAuthor
+									author.addTitle(book.getTitle)
+									treeViewRoot.children = createNodeListForTree()
+									accordionViewOfAuthors = createAccordionViewOfAuthors()
+									accordionOfAuthors.panes = accordionViewOfAuthors
+							    }
 							}
 						}
 					}

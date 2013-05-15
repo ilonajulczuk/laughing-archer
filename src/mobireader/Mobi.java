@@ -22,8 +22,8 @@ public class Mobi {
     File file;
     public String contents;
     public Header header;
-    PalmDocHeader palmdocHeader;
-	MobiHeader mobiHeader;
+    public PalmDocHeader palmdocHeader;
+	public MobiHeader mobiHeader;
 	EXTHHeader exthHeader;
     public HeadersUtil headers = new HeadersUtil();
     public int numberOfRecords;
