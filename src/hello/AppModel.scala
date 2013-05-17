@@ -9,6 +9,8 @@ import java.io.File
 import scalafx.Includes._
 
 import scalafx.scene.control._
+import javafx.beans.property.SimpleStringProperty
+
 
 class AppModel {
 	val db = new DBHandler("my_books.db");
@@ -31,6 +33,9 @@ class AppModel {
 			)
 	}
 	
+	var libraryPath = new SimpleStringProperty("./library/")
+	var workspacePath = new SimpleStringProperty("./workspace/")
+	
 	var mobi: Mobi = null
 	
 	val library = createLibrary()
@@ -52,7 +57,6 @@ class AppModel {
 			if(!(books contains book)) books += book
 	}
 	val listViewItems = new ObservableBuffer[String]()
-	val choiceBoxItems = ObservableBuffer("Choice A", "Choice B", "Choice C", "Choice D")
 	var categories = new CategoryTree
 	categories.addSubcategories(List("Science", "Fiction", "Art"))
 	categories("Science").addSubcategories(List("Math", "Physics", "Biology", "Computer Science"))

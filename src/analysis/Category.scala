@@ -21,7 +21,6 @@ class CategoryTree() {
 	  else {
 	    val names = (for(subcatName <- node.namesOfSubcategories) 
 	    yield getNamesOfAllSubNodes(node(subcatName) ) ).toList.flatten
-	    println(names)
 	    names
 	  }
 	    

@@ -1,5 +1,6 @@
 package hello
 
+import java.util.prefs.Preferences
 import analysis.{Category, CategoryTree}
 import scalafx.beans.property.StringProperty
 import mobireader.Book
@@ -19,7 +20,7 @@ import scalafx.scene.paint.Color
 import scalafx.scene.shape.{Rectangle, Circle}
 import scalafx.scene.web.{HTMLEditor, WebView}
 import scalafx.scene.{Node, Scene}
-import scalafx.stage.{Stage, Popup, FileChooser}
+import scalafx.stage.{Stage, Popup, FileChooser, DirectoryChooser}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.collections.ObservableBuffer
@@ -29,7 +30,7 @@ import javafx.{stage => jfxs}
 import javafx.scene.control.Dialogs
 import scala.collection.mutable.MutableList
 import mobireader.{Mobi, MobiContentParser, MobiDescriptor}
-
+import java.io.File
 
 object BigMain extends JFXApp {
 
@@ -46,6 +47,7 @@ object BigMain extends JFXApp {
 	var treeOfCategories = createTreeOfCategories()
 	var addingBookForm = createAddingFormForBooks()
 	var mobiParsingView = createMobiParsingView()
+	
 	
 	def createScene() = {
 		new Scene(900, 600) {
@@ -83,7 +85,17 @@ object BigMain extends JFXApp {
 				}
 				)
 	}
-
+	
+	val lib = getLibraryPath()
+	if(lib != null) {
+	  model.libraryPath.value = getLibraryPath()
+	  stage.setTitle("Laughing archer with library at - " + lib)
+	}
+	val work = getWorkspacePath()
+	if(work != null)
+		model.workspacePath.value = getWorkspacePath()
+	
+	
 	private def createTabs(): TabPane = {
 			new TabPane {
 				tabs = List(
@@ -111,11 +123,86 @@ object BigMain extends JFXApp {
 							text = "Parse a mobi"
 									content = mobiParsingView
 									closable = false
+						},
+						new Tab {
+							text = "Preferences"
+									content = createPreferencesView
+									closable = false
 						}
 						)
 			}
 	}
-
+	
+	private def createPreferencesView(): Node = {
+	  val libraryPath = new Label {
+	    text = model.libraryPath.value
+	  }
+	  libraryPath.text.bind(model.libraryPath)
+	  
+	  val changeLibraryPathButton = new Button("Change") {
+	    inner =>
+		onAction = { e: ActionEvent =>
+			val chooser = new DirectoryChooser()
+			val result = chooser.showDialog(stage)
+			
+			if(result != null)
+			{
+				model.libraryPath.value = result.getAbsolutePath()
+				setLibraryPath(result.getAbsolutePath())
+			}
+		}
+	
+	  }
+	  
+	  val workspacePath = new Label {
+	    text = model.workspacePath.value
+	  }
+	  workspacePath.text.bind(model.workspacePath)
+	  
+	  val changeWorkspacePathButton = new Button("Change") {
+	    inner =>
+		onAction = { e: ActionEvent =>
+			val chooser = new DirectoryChooser()
+			val result = chooser.showDialog(stage)
+			if(result != null)
+			{
+				model.workspacePath.value = result.getAbsolutePath()
+				setWorkspacePath(result.getAbsolutePath())
+			}
+		}
+	  }
+	  
+	  val preferences =  new ScrollPane {
+	    content = new VBox {
+	    	spacing = 10
+	    	margin = Insets(20, 10, 10, 20)
+	    	content = List(
+			new HBox {
+			  spacing = 10
+			  margin = Insets(10, 0, 0, 20)
+				content = List(
+					new Label("Path to library:") {
+					},
+					libraryPath,
+					changeLibraryPathButton
+				)
+			},
+			new HBox {
+			  spacing = 10
+			  margin = Insets(0, 0, 0, 20)
+				content = List(
+					new Label("Path to workspace:") {
+					},
+					workspacePath,
+					changeWorkspacePathButton
+				)
+			}
+		)
+	    }
+	  }
+	  preferences
+	}
+	
 	private def createMobiParsingView(): Node = {
 	  val bookHtml = new TextArea{    
 					text = "No book html yet."
@@ -200,14 +287,36 @@ object BigMain extends JFXApp {
 							    description += "\nMobi header:\n" + addIndentation(descriptor.mobiHeaderInfo)
 							    Dialogs.showInformationDialog(stage, 
 								          description, "Mobi file contains multiple headers, " +
-							    "the most important have following data", "Mobi metadata")
+							    "the most important have following data:", "Mobi metadata")
 							  }
 							  
-								
-								
 							})
 							
 							metadataButton.visible = false
+							
+							val analyzeButton = new Button("Analyze content")
+							metadataButton.onAction_=({ (_:ActionEvent) =>
+							  if(model.mobi != null) 
+							  {
+							    val descriptor = new MobiDescriptor(model.mobi)
+							    
+							    def addIndentation(paragraph: String) = {
+							     (for (sentence <- paragraph.split("\n"))
+							       yield "  " + sentence).mkString("\n") + "\n"
+							    }
+							    
+							    var description ="First header:\n" + addIndentation(descriptor.firstHeaderInfo)
+							    description += "\nPalmdoc header:\n" + addIndentation(descriptor.palmdocHeaderInfo)
+							    description += "\nMobi header:\n" + addIndentation(descriptor.mobiHeaderInfo)
+							    Dialogs.showInformationDialog(stage, 
+								          description, "Mobi file contains multiple headers, " +
+							    "the most important have following data:", "Mobi metadata")
+							  }
+							  
+							})
+							
+							metadataButton.visible = false
+							
 							content = List(
 							    filePath,
 							    button,
@@ -327,9 +436,9 @@ object BigMain extends JFXApp {
 			
 			val treeView = new TreeView[String] {
 				minWidth = 150
-						showRoot = false
-						editable = false
-						root = treeViewRoot
+				showRoot = false
+				editable = false
+				root = treeViewRoot
 			}
 
 			val listView = new ListView[String] {
@@ -496,7 +605,6 @@ object BigMain extends JFXApp {
 							})
 							
 							content = List(
-									new Label("Choose file") ,
 									button,
 									filePath
 									)
@@ -664,6 +772,36 @@ object BigMain extends JFXApp {
 			)
 			}.delegate
 		)
+	}
+	
+	def getLibraryPath(): String = {
+		val prefs = Preferences.userNodeForPackage(classOf[AppModel])
+		prefs.get("libraryPath", null)
+	}
+	
+	def getWorkspacePath(): String = {
+		val prefs = Preferences.userNodeForPackage(classOf[AppModel])
+		prefs.get("workspacePath", null)
+	}
+	
+	def setLibraryPath(path: String) {
+		val prefs = Preferences.userNodeForPackage(classOf[AppModel])
+		if (path != null) {
+			prefs.put("libraryPath", path)
+			stage.setTitle("Laughing archer with library at - " + path)
+		} else {
+			prefs.remove("libraryPath")
+			stage.setTitle("Laughing archer")
+		}
+	}
+	
+	def setWorkspacePath(path: String) {
+		val prefs = Preferences.userNodeForPackage(classOf[AppModel])
+		if (path != null) {
+			prefs.put("workspacePath", path)
+		} else {
+			prefs.remove("workspacePath")
+		}
 	}
 }
 

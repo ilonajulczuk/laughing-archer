@@ -116,7 +116,6 @@ class DBHandler(databaseFile: String)
 	}
 	
 	def findBook(title: String) = {
-		println("Finding book by title")
 		val connection = prepareConnection();
 		val stat= statBld.findBookStatement(connection);
 		stat.setString(1, title);
@@ -145,7 +144,6 @@ class DBHandler(databaseFile: String)
 	}
 	
 	def findBooksByCategory(category: String) = {
-		println("Finding book by category")
 		val connection = prepareConnection()
 		val stat = statBld.findBookByCategoryStatement(connection)
 		stat.setString(1, category)
