@@ -20,7 +20,7 @@ import scalafx.scene.paint.Color
 import scalafx.scene.shape.{Rectangle, Circle}
 import scalafx.scene.web.{HTMLEditor, WebView}
 import scalafx.scene.{Node, Scene}
-import scalafx.stage.{Stage, Popup, FileChooser, DirectoryChooser}
+import scalafx.stage.{Stage, Popup, FileChooser, DirectoryChooser, Modality}
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.collections.ObservableBuffer
@@ -261,6 +261,7 @@ object BigMain extends JFXApp {
 								    bookHtml.text = html
 								    bookText.text = parser.bodyText
 								    metadataButton.visible = true
+								    analyzeButton.visible = true
 								  }
 								  else 
 								      Dialogs.showWarningDialog(stage, 
@@ -295,32 +296,17 @@ object BigMain extends JFXApp {
 							metadataButton.visible = false
 							
 							val analyzeButton = new Button("Analyze content")
-							metadataButton.onAction_=({ (_:ActionEvent) =>
-							  if(model.mobi != null) 
-							  {
-							    val descriptor = new MobiDescriptor(model.mobi)
-							    
-							    def addIndentation(paragraph: String) = {
-							     (for (sentence <- paragraph.split("\n"))
-							       yield "  " + sentence).mkString("\n") + "\n"
-							    }
-							    
-							    var description ="First header:\n" + addIndentation(descriptor.firstHeaderInfo)
-							    description += "\nPalmdoc header:\n" + addIndentation(descriptor.palmdocHeaderInfo)
-							    description += "\nMobi header:\n" + addIndentation(descriptor.mobiHeaderInfo)
-							    Dialogs.showInformationDialog(stage, 
-								          description, "Mobi file contains multiple headers, " +
-							    "the most important have following data:", "Mobi metadata")
-							  }
-							  
+							analyzeButton.onAction_=({ (_:ActionEvent) =>
+							  showBookAnalyzis()
 							})
 							
 							metadataButton.visible = false
-							
+							analyzeButton.visible = false
 							content = List(
 							    filePath,
 							    button,
-							    metadataButton
+							    metadataButton,
+							    analyzeButton
 							)
 						}
 							    )
@@ -341,6 +327,24 @@ object BigMain extends JFXApp {
 			}
 			split.setDividerPositions(0, 0.25)
 			split
+	}
+	
+	def createAnalyzisPage(): Node = {
+	  new VBox {
+	    content = new Label("Hello")
+	  }
+	}
+	
+	def showBookAnalyzis() {
+			val page = createAnalyzisPage;
+			val dialogStage = new Stage();
+			dialogStage.setTitle("Book Statistics");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(stage)
+			val scene = new Scene()
+			scene.content = page
+			dialogStage.setScene(scene)
+			dialogStage.show()
 	}
 	
 	private def createTableOfBooks(): Node = {
