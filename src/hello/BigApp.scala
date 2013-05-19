@@ -1,7 +1,7 @@
 package hello
 
 import java.util.prefs.Preferences
-import analysis.{Category, CategoryTree}
+import analysis.{Category, CategoryTree, BookAnalyzer}
 import scalafx.beans.property.StringProperty
 import mobireader.Book
 import javafx.beans.{value => jfxbv}
@@ -104,7 +104,7 @@ object BigMain extends JFXApp {
 									content = tableOfBooks
 									closable = false
 						},
-						new Tab {
+						/*new Tab {
 							text = "Authors"
 									content = accordionOfAuthors
 									closable = false
@@ -113,7 +113,7 @@ object BigMain extends JFXApp {
 							text = "Categories"
 									content = treeOfCategories
 									closable = false
-						},
+						},*/
 						new Tab {
 							text = "Add a book"
 									content = addingBookForm
@@ -259,7 +259,12 @@ object BigMain extends JFXApp {
 								    val html = model.mobi.readAllRecords()
 								    val parser = new MobiContentParser(html)
 								    bookHtml.text = html
-								    bookText.text = parser.bodyText
+								    val textToBeShown = parser.bodyWithParagraphs
+								    if (textToBeShown == "")
+								      model.bookText = parser.bodyText
+								    else
+								      model.bookText = textToBeShown
+								    bookText.text = model.bookText
 								    metadataButton.visible = true
 								    analyzeButton.visible = true
 								  }
@@ -330,13 +335,52 @@ object BigMain extends JFXApp {
 	}
 	
 	def createAnalyzisPage(): Node = {
-	  new VBox {
-	    content = new Label("Hello")
+	  val analyzer = new BookAnalyzer
+	  val summaryText = analyzer.makeSummary(model.bookText)
+	  
+	  val summary = new TextArea {
+		text = summaryText
+		wrapText = true
+		editable = false
+	  }
+	  
+	  val analyzis = new VBox {
+	    padding = Insets(10)
+	    spacing = 10
+		margin = Insets(10, 10, 10, 10)
+	    content = List( 
+	        new Label("Results of analyzis") {
+	    		font = new Font("Verdana", 20)
+	    	},
+	    	new Label("Summary") {
+	    		font = new Font("Verdana", 14)
+	    	},
+	        summary,
+	        new Label("Most common words"){
+	    		font = new Font("Verdana", 14)
+	    	},
+	    	new Label("Asossiated categories"){
+	    		font = new Font("Verdana", 14)
+	    	}
+	      )
+	    }
+	  
+	  summary.prefHeight.bind(analyzis.prefHeightProperty)
+	  summary.prefWidth.bind(analyzis.prefWidthProperty)
+	  summary.prefColumnCount = 35
+	  summary.prefRowCount = 35
+	  summary.prefRowCount = 35
+	  
+	  new ScrollPane {
+		margin = Insets(10, 10, 10, 10)
+	    prefWidth = 500
+	    prefHeight = 580
+	    content = analyzis
 	  }
 	}
 	
 	def showBookAnalyzis() {
-			val page = createAnalyzisPage;
+			val page = createAnalyzisPage();
 			val dialogStage = new Stage();
 			dialogStage.setTitle("Book Statistics");
 			dialogStage.initModality(Modality.WINDOW_MODAL);

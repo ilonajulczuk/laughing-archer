@@ -68,4 +68,6 @@ class AppModel {
 	def authors = db.getAllAuthors
 	var filePath: String = ""
 	var file: File = _
+	
+	var bookText = ""
 }

@@ -1,10 +1,3 @@
-/* Inspired by some python code:
- * 
- * # This is a naive text summarization algorithm
-# Created by Shlomi Babluki
-# April, 2013
-
-*/
 
 package analysis
 
@@ -35,7 +28,7 @@ class SummaryTool {
 	
 	def formatSentence(sentence: String): String = sentence.replaceAll("\\s+$", "").replaceAll("^\\s+", "")
         
- // Convert the content into a dictionary <K, V>
+	// Convert the content into a dictionary <K, V>
     // k = The formatted sentence
     // V = The rank of the sentence
     def getSentecesRanks(content: String) = {
@@ -83,7 +76,6 @@ class SummaryTool {
 		if (n < 2) {
 			return ""
 		}
-		//Convert it using reduceleft
 		var best_sentence = ""
         var max_value = 0.0
         for (s <- sentences) {
@@ -111,10 +103,17 @@ class SummaryTool {
 		summary.mkString("\n")
 	}
 	
+	def getSummary(content: String, sentencesMap: Map[String, Double]) = {
+		val paragraphs = splitContentToParagraphs(content)
+		var summary = List[String]()
+        for( p <- paragraphs) {
+        	val sentence = getBestSentence(p, sentencesMap)
+            if( sentence != "") summary = summary :+ formatSentence(sentence)
+        }
+		summary.mkString("\n")
+	}
+	
 	def main() {
- 
-    // Demo
-    //Content from: "http://thenextweb.com/apps/2013/03/21/swayy-discover-curate-content/"
  
     val title = """
     Swayy is a beautiful new dashboard for discovering and curating online content [Invites]
