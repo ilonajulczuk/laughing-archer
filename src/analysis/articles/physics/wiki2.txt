@@ -1,0 +1,65 @@
+Classical electromagnetism (or classical electrodynamics) is a branch of theoretical physics that studies consequences of the electromagnetic forces between electric charges and currents. It provides an excellent description of electromagnetic phenomena whenever the relevant length scales and field strengths are large enough that quantum mechanical effects are negligible (see quantum electrodynamics).
+Fundamental physical aspects of classical electrodynamics are presented e.g. by Feynman, Leighton and Sands,[1] Panofsky and Phillips,[2] and Jackson.[3]
+The theory of electromagnetism was developed over the course of the 19th century, most prominently by James Clerk Maxwell. For a detailed historical account, consult Pauli,[4] Whittaker,[5] and Pais.[6] See also History of optics, History of electromagnetism and Maxwell's equations.
+Contents  [hide] 
+1 Lorentz force
+2 The electric field E
+3 Electromagnetic waves
+4 General field equations
+5 Models
+6 See also
+7 References
+8 External links
+[edit]Lorentz force
+
+Main article: Lorentz force
+The electromagnetic field exerts the following force (often called the Lorentz force) on charged particles:
+
+where all boldfaced quantities are vectors: F is the force that a charge q experiences, E is the electric field at the location of the charge, v is the velocity of the charge, B is the magnetic field at the location of the charge.
+The above equation illustrates that the Lorentz force is the sum of two vectors. One is the cross product of the velocity and magnetic field vectors. Based on the properties of the cross product, this produces a vector that is perpendicular to both the velocity and magnetic field vectors. The other vector is in the same direction as the electric field. The sum of these two vectors is the Lorentz force.
+Therefore, in the absence of a magnetic field, the force is in the direction of the electric field, and the magnitude of the force is dependent on the value of the charge and the intensity of the electric field. In the absence of an electric field, the force is perpendicular to the velocity of the particle and the direction of the magnetic field. If both electric and magnetic fields are present, the Lorentz force is the sum of both of these vectors.
+[edit]The electric field E
+
+Main article: Electric field
+The electric field E is defined such that, on a stationary charge:
+
+where q0 is what is known as a test charge. The size of the charge doesn't really matter, as long as it is small enough not to influence the electric field by its mere presence. What is plain from this definition, though, is that the unit of E is N/C (newtons per coulomb). This unit is equal to V/m (volts per meter), see below.
+In electrostatics, where charges are not moving, around a distribution of point charges, the forces determined from Coulomb's law may be summed. The result after dividing by q0 is:
+
+where n is the number of charges, qi is the amount of charge associated with the ith charge, ri is the position of the ith charge, r is the position where the electric field is being determined, and ε0 is the electric constant.
+If the field is instead produced by a continuous distribution of charge, the summation becomes an integral:
+
+where  is the charge density and  is the vector that points from the volume element  to the point in space where E is being determined.
+Both of the above equations are cumbersome, especially if one wants to determine E as a function of position. A scalar function called the electric potential can help. Electric potential, also called voltage (the units for which are the volt), is defined by the line integral
+
+where φ(r) is the electric potential, and C is the path over which the integral is being taken.
+Unfortunately, this definition has a caveat. From Maxwell's equations, it is clear that ∇ × E is not always zero, and hence the scalar potential alone is insufficient to define the electric field exactly. As a result, one must add a correction factor, which is generally done by subtracting the time derivative of the A vector potential described below. Whenever the charges are quasistatic, however, this condition will be essentially met.
+From the definition of charge, one can easily show that the electric potential of a point charge as a function of position is:
+
+where q is the point charge's charge, r is the position at which the potential is being determined, and ri is the position of each point charge. The potential for a continuous distribution of charge is:
+
+where  is the charge density, and  is the distance from the volume element  to point in space where φ is being determined.
+The scalar φ will add to other potentials as a scalar. This makes it relatively easy to break complex problems down in to simple parts and add their potentials. Taking the definition of φ backwards, we see that the electric field is just the negative gradient (the del operator) of the potential. Or:
+
+From this formula it is clear that E can be expressed in V/m (volts per meter).
+[edit]Electromagnetic waves
+
+Main article: Electromagnetic waves
+A changing electromagnetic field propagates away from its origin in the form of a wave. These waves travel in vacuum at the speed of light and exist in a wide spectrum of wavelengths. Examples of the dynamic fields of electromagnetic radiation (in order of increasing frequency): radio waves, microwaves, light (infrared, visible light and ultraviolet), x-rays and gamma rays. In the field of particle physics this electromagnetic radiation is the manifestation of the electromagnetic interaction between charged particles.
+[edit]General field equations
+
+Main articles: Jefimenko's equations and Liénard-Wiechert potentials
+As simple and satisfying as Coulomb's equation may be, it is not entirely correct in the context of classical electromagnetism. Problems arise because changes in charge distributions require a non-zero amount of time to be "felt" elsewhere (required by special relativity).
+For the fields of general charge distributions, the retarded potentials can be computed and differentiated accordingly to yield Jefimenko's Equations.
+Retarded potentials can also be derived for point charges, and the equations are known as the Liénard-Wiechert potentials. The scalar potential is:
+
+where q is the point charge's charge and r is the position. rq and vq are the position and velocity of the charge, respectively, as a function of retarded time. The vector potential is similar:
+
+These can then be differentiated accordingly to obtain the complete field equations for a moving point particle.
+[edit]Models
+
+A branch of classical electromagnetisms such as optics, electrical and electronic engineering consist of a collection of relevant mathematical models of different degree of simplification and idealization to enhance our understanding of the specific electrodynamics phenomena, cf.[7] An electrodynamics phenomenon is determined by the particular fields, specific densities of electric charges and currents, and the particular transmission medium. Since there are infinitely many of them, in modeling there is a need for some typical, representative
+(a) electrical charges and currents, e.g. moving pointlike charges and electric and magnetic dipoles, electric currents in a conductor etc;
+(b) electromagnetic fields, e.g. voltages, the Liénard-Wiechert potentials, the monochromatic plane waves , optical rays; radio waves, microwaves, infrared radiation, visible light, ultraviolet radiation, X-rays , gamma rays etc;
+(c) transmission media, e.g. electronic components, antennas, electromagnetic waveguides, flat mirrors, mirrors with curved surfaces convex lenses, concave lenses; resistors, inductors, capacitors, switches; wires, electric and optical cables, transmission lines, integrated circuits etc;
+which all have only few variable characteristics.

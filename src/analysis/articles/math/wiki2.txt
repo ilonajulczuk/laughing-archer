@@ -1,0 +1,1050 @@
+In probability theory and statistics, the beta distribution is a family of continuous probability distributions defined on the interval [0, 1] parametrized by two positive shape parameters, denoted by α and β, that appear as exponents of the random variable and control the shape of the distribution.
+The beta distribution has been applied to model the behavior of random variables limited to intervals of finite length in a wide variety of disciplines. For example, it has been used as a statistical description of allele frequencies in population genetics;[1] time allocation in project management / control systems;[2] sunshine data;[3] variability of soil properties;[4] proportions of the minerals in rocks in stratigraphy;[5] and heterogeneity in the probability of HIV transmission.[6]
+In Bayesian inference, the beta distribution is the conjugate prior probability distribution for the Bernoulli, binomial and geometric distributions. For example, the beta distribution can be used in Bayesian analysis to describe initial knowledge concerning probability of success such as the probability that a space vehicle will successfully complete a specified mission. The beta distribution is a suitable model for the random behavior of percentages and proportions.
+The usual formulation of the beta distribution is also known as the beta distribution of the first kind, whereas beta distribution of the second kind is an alternative name for the beta prime distribution.
+Contents  [hide] 
+1 Characterization
+1.1 Probability density function
+1.2 Cumulative distribution function
+2 Properties
+2.1 Measures of central tendency
+2.1.1 Mode
+2.1.2 Median
+2.1.3 Mean
+2.1.4 Geometric mean
+2.1.5 Harmonic mean
+2.2 Measures of statistical dispersion
+2.2.1 Variance
+2.2.2 Geometric variance and co variance
+2.2.3 Mean absolute deviation around the mean
+2.3 Skewness
+2.4 Kurtosis
+2.5 Characteristic function
+2.6 Other moments
+2.6.1 Moment generating function
+2.6.2 Higher moments
+2.6.3 Moments of transformed random variables
+2.6.3.1 Moments of linearly-transformed, product and inverted random variables
+2.6.3.2 Moments of logarithmically-transformed random variables
+2.7 Quantities of information (entropy)
+2.8 Relationships between statistical measures
+2.8.1 Mean, mode and median relationship
+2.8.2 Mean, geometric mean and harmonic mean relationship
+2.8.3 Kurtosis bounded by the square of the skewness
+2.9 Symmetry
+2.10 Geometry of the probability distribution function
+2.10.1 Inflection points
+2.10.2 Shapes
+2.10.2.1 Symmetric (α = β)
+2.10.2.2 Skewed (α ≠ β)
+3 Parameter estimation
+3.1 Method of moments
+3.1.1 Two unknown parameters
+3.1.2 Four unknown parameters
+3.2 Maximum likelihood
+3.2.1 Two unknown parameters
+3.2.2 Four unknown parameters
+3.3 Fisher information matrix
+3.3.1 Two parameters
+3.3.2 Four parameters
+4 Generating beta-distributed random variates
+5 Related distributions
+5.1 Transformations
+5.2 Special and limiting cases
+5.3 Derived from other distributions
+5.4 Combination with other distributions
+5.5 Compounding with other distributions
+5.6 Generalisations
+6 Applications
+6.1 Order statistics
+6.2 Rule of succession
+6.3 Bayesian inference
+6.3.1 Bayes' prior probability ( Beta(1,1) )
+6.3.2 Haldane's prior probability ( Beta(0,0) )
+6.3.3 Jeffreys' prior probability (Beta(1/2, 1/2) for a Bernoulli or for a binomial distribution)
+6.3.4 Effect of different prior probability choices on the posterior beta distribution
+6.4 Subjective logic
+6.5 Wavelet analysis
+6.6 Project Management: task cost and schedule modeling
+7 Alternative parametrizations
+7.1 Two parameters
+7.1.1 Mean and sample size
+7.1.1.1 Mean (allele frequency) and (Wright's) genetic distance between two populations
+7.1.2 Mean and variance
+7.2 Four parameters
+8 History
+9 References
+10 External links
+Characterization [edit]
+
+Probability density function [edit]
+The probability density function of the beta distribution, for 0 ≤ x ≤ 1, and shape parameters α > 0 and β > 0, is a power function of the variable x and of its reflection (1−x) as follows:
+
+where Γ(z) is the gamma function. The beta function, , appears as a normalization constant to ensure that the total probability integrates to unity. In the above equations x is a realization—an observed value that actually occurred—of a random process X.
+This definition includes both ends x = 0 and x = 1, which is consistent with definitions for other continuous distributions supported on a bounded interval which are special cases of the beta distribution, for example the arcsine distribution, and consistent with several authors, such as N. L. Johnson and S. Kotz.[7][8][9][10] However, several other authors, including W. Feller,[11][12][13] choose to exclude the ends x = 0 and x = 1, (such that the two ends are not actually part of the density function) and consider instead 0 < x < 1.
+Several authors, including N. L. Johnson and S. Kotz,[7] use the symbols p and q (instead of α and β) for the shape parameters of the beta distribution, reminiscent of the symbols traditionally used for the parameters of the Bernoulli distribution, because the beta distribution approaches the Bernoulli distribution in the limit as both shape parameters α and β approach the value of zero.
+In the following, that a random variable X is beta-distributed with parameters α and β will be denoted by:[14][15]
+
+Other notations for beta-distributed random variables used in the statistical literature are [16] and .[11]
+Cumulative distribution function [edit]
+
+
+CDF for symmetric beta distribution vs. x and alpha=beta
+
+
+CDF for skewed beta distribution vs. x and beta= 5 alpha
+The cumulative distribution function is
+
+where  is the incomplete beta function and  is the regularized incomplete beta function.
+Properties [edit]
+
+Measures of central tendency [edit]
+Mode [edit]
+The mode of a Beta distributed random variable X with α, β > 1 is given by the following expression:[7]
+
+When both parameters are less than one (α, β < 1), this is the anti-mode: the lowest point of the probability density curve.[9]
+Letting α = β, the expression for the mode simplifies to 1/2, showing that for α = β > 1 the mode (resp. anti-mode when α, β < 1), is at the center of the distribution: it is symmetric in those cases. See "Shapes" section in this article for a full list of mode cases, for arbitrary values of α and β. For several of these cases, the maximum value of the density function occurs at one or both ends. In some cases the (maximum) value of the density function occurring at the end is finite, for example in the case of α = 2, β = 1 (or α = 1, β = 2), the right-triangle distribution, while in several other cases there is a singularity at the end, and hence the value of the density function approaches infinity at the end, for example in the case α = β = 1/2, the arcsine distribution. The choice whether to include, or not to include, the ends x = 0, and x = 1, as part of the density function, whether a singularity can be considered to be a mode, and whether cases with two maxima are to be considered bimodal, is responsible for some authors considering these maximum values at the end of the density distribution to be considered[14] modes or not.[12]
+
+
+Mode for Beta distribution for 1 ≤ α ≤ 5 and 1 ≤ β ≤ 5
+Median [edit]
+
+
+Median for Beta distribution for 0≤α≤5 and 0≤β≤5
+
+
+(Mean - Median) for Beta distribution versus alpha and beta from 0 to 2
+The median of the beta distribution is the unique real number  for which the regularized incomplete beta function . There is no general closed-form expression for the median of the beta distribution for arbitrary values of α and β. Closed-form expressions for particular values of the parameters α and β follow:[citation needed]
+For symmetric cases α = β, median = 1/2.
+For α = 1 and β > 0, median =  (this case is the mirror-image of the power function [0,1] distribution)
+For α > 0 and β = 1, median =  (this case is the power function [0,1] distribution[12])
+For α = 3 and β = 2, median = 0.6142724318676105... the real [0,1] solution to the quartic equation 1−8x3+6x4 = 0.
+For α = 2 and β = 3, median = 0.38572756813238945... = 1−median(Beta(3, 2))
+The following are the limits with one parameter finite (non zero) and the other approaching these limits:[citation needed]
+
+A reasonable approximation of the value of the median of the beta distribution, for both α and β greater or equal to one, is given by the formula[17]
+
+For α ≥ 1 and β ≥ 1, the relative error (the absolute error divided by the median) in this approximation is less than 4% and for both α ≥ 2 and β ≥ 2 it is less than 1%. The absolute error divided by the difference between the mean and the mode is similarly small:
+
+Mean [edit]
+
+
+Mean for Beta distribution for 0 ≤ α ≤ 5 and 0 ≤ β ≤ 5
+The expected value (mean) (μ) of a Beta distribution random variable X with two parameters α and β is a function of only the ratio β/α of these parameters:[7]
+
+Letting α = β in the above expression one obtains μ = 1/2, showing that for α = β the mean is at the center of the distribution: it is symmetric. Also, the following limits can be obtained from the above expression:
+
+Therefore, for β/α → 0, or for α/β → ∞, the mean is located at the right end, x = 1. For these limit ratios, the beta distribution becomes a one-point degenerate distribution with a Dirac delta function spike at the right end, x = 1, with probability 1, and zero probability everywhere else. There is 100% probability (absolute certainty) concentrated at the right end, x = 1.
+Similarly, for β/α → ∞, or for α/β → 0, the mean is located at the left end, x = 0. The beta distribution becomes a 1 point Degenerate distribution with a Dirac delta function spike at the left end, x = 0, with probability 1, and zero probability everywhere else. There is 100% probability (absolute certainty) concentrated at the left end, x = 0. Following are the limits with one parameter finite (non zero) and the other approaching these limits:
+
+While for typical unimodal distributions (with centrally located modes, inflexion points at both sides of the mode, and longer tails) (with Beta(α, β) such that α, β > 2) it is known that the sample mean (as an estimate of location) is not as robust as the sample median, the opposite is the case for uniform or "U-shaped" bimodal distributions (with Beta(α, β) such that α, β ≤ 1), with the modes located at the ends of the distribution. As Mosteller and Tukey remark ([18] p. 207) "the average of the two extreme observations uses all the sample information. This illustrates how, for short-tailed distributions, the extreme observations should get more weight." By contrast, it follows that the median of "U-shaped" bimodal distributions with modes at the edge of the distribution (with Beta(α, β) such that α, β ≤ 1) is not robust, as the sample median drops the extreme sample observations from consideration. A practical application of this occurs for example for random walks, since the probability for the time of the last visit to the origin in a random walk is distributed as the arcsine distribution Beta(1/2, 1/2):[11][19] the mean of a number of realizations of a random walk is a much more robust estimator than the median (which is an inappropriate sample measure estimate in this case).
+Geometric mean [edit]
+
+
+(Mean - GeometricMean) for Beta distribution versus α and β from 0 to 2, showing the asymmetry between α and β for the geometric mean
+
+
+Geometric means for Beta distribution Purple = G(x), Yellow = G(1−x), smaller values alpha and beta in front
+
+
+Geometric Means for Beta distribution Purple = G(x), Yellow = G(1−x), larger values alpha and beta in front
+The logarithm of the geometric mean GX of a distribution with random variable X is the arithmetic mean of ln(X), or, equivalently, its expected value:
+
+For a beta distribution, the expected value integral gives:
+
+where ψ is the digamma function.
+Therefore the geometric mean of a beta distribution with shape parameters α and β is the exponential of the digamma functions of α and β as follows:
+
+While for a beta distribution with equal shape parameters α = β, it follows that skewness = 0 and mode = mean = median = 1/2, the geometric mean is less than 1/2: 0 < GX < 1/2. The reason for this is that the logarithmic transformation strongly weights the values of X close to zero, as ln(X) strongly tends towards negative infinity as X approaches zero, while ln(X) flattens towards zero as X → 1.
+Along a line α = β, the following limits apply:
+
+Following are the limits with one parameter finite (non zero) and the other approaching these limits:
+
+The accompanying plot shows the difference between the mean and the geometric mean for shape parameters α and β from zero to 2. Besides the fact that the difference between them approaches zero as α and β approach infinity and that the difference becomes large for values of α and β approaching zero, one can observe an evident asymmetry of the geometric mean with respect to the shape parameters α and β. The difference between the geometric mean and the mean is larger for small values of α in relation to β than when exchanging the magnitudes of β and α.
+N.L.Johnson and S.Kotz[7] suggest the logarithmic approximation to the digamma function ψ(α) ≈ ln(α-1/2) which results in the following approximation to the geometric mean:
+
+Numerical values for the relative error in this approximation follow: [(α = β = 1): 9.39%]; [(α = β = 2): 1.29%]; [(α = 2, β = 3): 1.51%]; [(α = 3, β = 2): 0.44%]; [(α = β = 3): 0.51%]; [(α = β = 4): 0.26%];[(α = 3, β = 4): 0.55%]; [(α = 4, β = 3): 0.24%].
+Similarly, one can calculate the value of shape parameters required for the geometric mean to equal 1/2. Let's say that we know one of the parameters, β, what would be the value of the other parameter, α, required for the geometric mean to equal 1/2 ?. The answer is that (for β > 1), the value of α required tends towards β + 1/2 as β → ∞. For example, all these couples have the same geometric mean of 1/2: [β = 1, α = 1.4427], [β = 2, α = 2.46958], [β = 3, α = 3.47943], [β = 4, α = 4.48449], [β = 5, α = 5.48756], [β = 10, α = 10.4938], [β = 100, α = 100.499].
+The fundamental property of the geometric mean, which can be proven to be false for any other mean, is
+
+This makes the geometric mean the only correct mean when averaging normalized results, that is results that are presented as ratios to reference values.[20] This is relevant because the beta distribution is a suitable model for the random behavior of percentages and it is particularly suitable to the statistical modelling of proportions. The geometric mean plays a central role in maximum likelihood estimation, see section "Parameter estimation, maximum likelihood." Actually, when performing maximum likelihood estimation, besides the geometric mean GX based on the random variable X, also another geometric mean appears naturally: the geometric mean based on the linear transformation (1−X), the mirror-image of X, denoted by G(1−X):
+
+Along a line α = β, the following limits apply:
+
+Following are the limits with one parameter finite (non zero) and the other approaching these limits:
+
+It has the following approximate value:
+
+Although both GX and G(1−X) are asymmetric, in the case that both shape parameters are equal α = β, the geometric means are equal: GX= G(1−X). This equality follows from the following symmetry displayed between both geometric means:
+
+Harmonic mean [edit]
+
+
+Harmonic mean for Beta distribution for 0<α<5 and 0<β<5
+
+
+(Mean - HarmonicMean) for Beta distribution versus alpha and beta from 0 to 2
+
+
+Harmonic Means for Beta distribution Purple=H(X), Yellow=H(1-X), smaller values alpha and beta in front
+
+
+Harmonic Means for Beta distribution Purple=H(X), Yellow=H(1-X), larger values alpha and beta in front
+The inverse of the harmonic mean (HX) of a distribution with random variable X is the arithmetic mean of 1/X, or, equivalently, its expected value. Therefore, the harmonic mean (HX) of a beta distribution with shape parameters α and β is:
+
+The harmonic mean (HX) of a Beta distribution with α < 1 is undefined, because its defining expression is not bounded in [0, 1] for shape parameter α less than unity.
+Letting α = β in the above expression one obtains , showing that for α = β the harmonic mean ranges from 0, for α = β = 1, to 1/2, for α = β → ∞.
+Following are the limits with one parameter finite (non zero) and the other approaching these limits:
+
+The harmonic mean plays a role in maximum likelihood estimation for the four parameter case, in addition to the geometric mean. Actually, when performing maximum likelihood estimation for the four parameter case, besides the harmonic mean HX based on the random variable X, also another harmonic mean appears naturally: the harmonic mean based on the linear transformation (1−X), the mirror-image of X, denoted by H(1−X):
+
+The harmonic mean (H(1−X)) of a Beta distribution with β < 1 is undefined, because its defining expression is not bounded in [0, 1] for shape parameter β less than unity.
+Letting α = β in the above expression one obtains , showing that for α = β the harmonic mean ranges from 0, for α = β = 1, to 1/2, for α = β → ∞.
+Following are the limits with one parameter finite (non zero) and the other approaching these limits:
+
+Although both HX and H(1−X) are asymmetric, in the case that both shape parameters are equal α = β, the harmonic means are equal: HX = H(1−X). This equality follows from the following symmetry displayed between both harmonic means:
+ .
+Measures of statistical dispersion [edit]
+Variance [edit]
+The variance (the second moment centered around the mean) of a Beta distribution random variable X with parameters α and β is:[7]
+
+Letting α = β in the above expression one obtains , showing that for α = β the variance decreases monotonically as α = β increases. Setting α = β = 0 in this expression, one finds the maximum variance var(X) = 1/4[7] which only occurs approaching the limit, at α = β = 0.
+The beta distribution may also be parametrized in terms of its mean μ (0 < μ < 1) and sample size ν = α + β (ν > 0) (see section below titled "Mean and sample size"):
+
+Using this parametrization, one can express the variance in terms of the mean μ and the sample size ν as follows:
+
+Since ν = (α + β) > 0, it must follow that var(X) < μ(1−μ)
+For a symmetric distribution, the mean is at the middle of the distribution, μ = 1/2, and therefore:
+
+Also, the following limits (with only the noted variable approaching the limit) can be obtained from the above expressions:
+
+
+Geometric variance and co variance [edit]
+
+
+log geometric variances vs. α and β
+
+
+log geometric variances vs. α and β
+The logarithm of the geometric variance  of a distribution with random variable X is the second moment of the logarithm of X centered around the geometric mean of X, (ln(GX):
+
+and therefore, the geometric variance is:
+
+In the Fisher information matrix, and the curvature of the log likelihood function, the logarithm of the geometric variance of the reflected variable (1-X) and the logarithm of the geometric covariance between X and (1-X) appear:
+
+
+
+
+For a beta distribution, higher order logarithmic moments can be derived by using the representation of a beta distribution as a proportion of two Gamma distributions and differentiating through the integral. They can be expressed in terms of higher order poly-gamma functions. See the section titled "Other moments, Moments of transformed random variables, Moments of logarithmically-transformed random variables". The variance of the logarithmic variables and covariance of lnX and ln(1−X) are:
+
+
+
+where the trigamma function, denoted ψ1(α), is the second of the polygamma functions, and is defined as the derivative of the digamma function:
+
+Therefore,
+
+
+
+The accompanying plots show the log geometric variances and log geometric covariance versus the shape parameters α and β. The plots show that the log geometric variances and log geometric covariance are close to zero for shape parameters α and β greater than 2, and that the log geometric variances rapidly rise in value for shape parameter values α and β less than unity. The log geometric variances are positive for all values of the shape parameters. The log geometric covariance is negative for all values of the shape parameters, and it reaches large negative values for α and β less than unity.
+Following are the limits with one parameter finite (non zero) and the other approaching these limits:
+
+Limits with two parameters varying:
+
+Although both ln(varGX) and ln(varG(1−X)) are asymmetric, in the case that both shape parameters are equal α = β, the log geometric variances are equal: ln(varGX) = ln(varG(1−X)). This equality follows from the following symmetry displayed between both log geometric variances: . The log geometric covariance is symmetric: 
+Mean absolute deviation around the mean [edit]
+
+
+Ratio of Mean Abs.Dev. to Std.Dev. for Beta distribution with α and β ranging from 0 to 5
+
+
+Ratio of Mean Abs.Dev. to Std.Dev. for Beta distribution with mean 0≤μ≤1 and sample size 0<ν≤10
+The mean absolute deviation around the mean for the beta distribution with shape parameters α and β is:[12]
+
+The mean absolute deviation around the mean is a more robust estimator of statistical dispersion than the standard deviation for beta distributions with tails and inflection points at each side of the mode, Beta(α, β) distributions with α,β > 2, as it depends on the linear (absolute) deviations rather than the square deviations from the mean. Therefore the effect of very large deviations from the mean are not as overly weighted.
+The term "absolute deviation" does not uniquely identify a measure of statistical dispersion, as there are several measures that can be used to measure absolute deviations, and there are several measures of central tendency that can be used as well. Thus, to uniquely identify the absolute deviation it is necessary to specify both the measure of deviation and the measure of central tendency. Unfortunately, the statistical literature has not yet adopted a standard notation, as both the mean absolute deviation around the mean and the median absolute deviation around the median have been denoted by their initials "MAD" in the literature, which may lead to confusion, since in general, they may have values considerably different from each other.
+Using Stirling's approximation to the Gamma function, N.L.Johnson and S.Kotz[7] derived the following approximation for values of the shape parameters greater than unity (the relative error for this approximation is only −3.5% for α = β = 1, and it decreases to zero as α → ∞, β → ∞ ):
+
+At the limit α → ∞, β → ∞, the ratio of the mean absolute deviation to the standard deviation (for the beta distribution) becomes equal to the ratio of the same measures for the normal distribution: . For α = β = 1 this ratio equals , so that from α = β = 1 to α, β → ∞ the ratio decreases by 8.5%. For α = β = 0 the standard deviation is exactly equal to the mean absolute deviation around the mean. Therefore this ratio decreases by 15% from α = β = 0 to α = β = 1, and by 25% from α = β = 0 to α, β → ∞ . However, for skewed beta distributions such that α → 0 or β → 0, the ratio of the standard deviation to the mean absolute deviation approaches infinity (although each of them, individually, approaches zero) because the mean absolute deviation approaches zero faster than the standard deviation.
+Using the parametrization in terms of mean μ and sample size ν = α + β > 0:
+α = μν, β = (1−μ)ν
+one can express the mean absolute deviation around the mean in terms of the mean μ and the sample size ν as follows:
+
+For a symmetric distribution, the mean is at the middle of the distribution, μ = 1/2, and therefore:
+
+Also, the following limits (with only the noted variable approaching the limit) can be obtained from the above expressions:
+
+Skewness [edit]
+
+
+Skewness for Beta Distribution as a function of variance and mean
+The skewness (the third moment centered around the mean, normalized by the 3/2 power of the variance) of the beta distribution is[7]
+
+Letting α = β in the above expression one obtains γ1 = 0, showing once again that for α = β the distribution is symmetric and hence the skewness is zero. Positive skew (right-tailed) for α < β, negative skew (left-tailed) for α > β.
+Using the parametrization in terms of mean μ and sample size ν = α + β:
+
+one can express the skewness in terms of the mean μ and the sample size ν as follows:
+
+The skewness can also be expressed just in terms of the variance var and the mean μ as follows:
+
+The accompanying plot of skewness as a function of variance and mean shows that maximum variance (1/4) is coupled with zero skewness and the symmetry condition (μ = 1/2), and that maximum skewness (positive or negative infinity) occurs when the mean is located at one end or the other, so that that the "mass" of the probability distribution is concentrated at the ends (minimum variance).
+The following expression for the square of the skewness, in terms of the sample size ν = α + β and the variance var, is useful for the method of moments estimation of four parameters:
+
+This expression correctly gives a skewness of zero for α = β, since in that case (see section titled "Variance"): .
+For the symmetric case (α = β), skewness = 0 over the whole range, and the following limits apply:
+
+For the asymmetric cases (α ≠ β) the following limits (with only the noted variable approaching the limit) can be obtained from the above expressions:
+
+
+Kurtosis [edit]
+
+
+Excess Kurtosis for Beta Distribution as a function of variance and mean
+The beta distribution has been applied in acoustic analysis to assess damage to gears, as the kurtosis of the beta distribution has been reported to be a good indicator of the condition of a gear.[21] Kurtosis has also been used to distinguish the seismic signal generated by a person's footsteps from other signals. As persons or other targets moving on the ground generate continuous signals in the form of seismic waves, one can separate different targets based on the seismic waves they generate. Kurtosis is sensitive to impulsive signals, so it's much more sensitive to the signal generated by human footsteps than other signals generated by vehicles, winds, noise, etc.[22] Unfortunately, the notation for kurtosis has not been standardized. Kenney and Keeping[23] use the symbol γ2 for the excess kurtosis, but Abramowitz and Stegun[24] use different terminology. To prevent confusion[25] between kurtosis (the fourth moment centered around the mean, normalized by the square of the variance) and excess kurtosis, when using symbols, they will be spelled out as follows:[12][13]
+
+Letting α = β in the above expression one obtains
+.
+Therefore for symmetric beta distributions, the excess kurtosis is negative, increasing from a minimum value of −2 at the limit as {α = β} → 0, and approaching a maximum value of zero as {α = β} → ∞. The value of −2 is the minimum value of excess kurtosis that any distribution (not just beta distributions, but any distribution of any possible kind) can ever achieve. This minimum value is reached when all the probability density is entirely concentrated at each end x = 0 and x = 1, with nothing in between: a 2-point Bernoulli distribution with equal probability 1/2 at each end (a coin toss: see section below "Kurtosis bounded by the square of the skewness" for further discussion). The description of kurtosis as a measure of the "peakedness" (or "heavy tails") of the probability distribution, is strictly applicable to unimodal distributions (for example the normal distribution). However, for more general distributions, like the beta distribution, a more general description of kurtosis is that it is a measure of the proportion of the mass density near the mean. The higher the proportion of mass density near the mean, the higher the kurtosis, while the higher the mass density away from the mean, the lower the kurtosis. For α ≠ β, skewed beta distributions, the excess kurtosis can reach unlimited positive values (particularly for α → 0 for finite β, or for β → 0 for finite α) because all the mass density is concentrated at the mean when the mean coincides with one of the ends. Minimum kurtosis takes place when the mass density is concentrated equally at each end (and therefore the mean is at the center), and there is no probability mass density in between the ends.
+Using the parametrization in terms of mean μ and sample size ν = α + β:
+
+one can express the excess kurtosis in terms of the mean μ and the sample size ν as follows:
+
+The excess kurtosis can also be expressed in terms of just the following two parameters: the variance var, and the sample size ν as follows:
+
+and, in terms of the variance var and the mean μ as follows:
+
+The plot of excess kurtosis as a function of the variance and the mean shows that the minimum value of the excess kurtosis (−2, which is the minimum possible value for excess kurtosis for any distribution) is intimately coupled with the maximum value of variance (1/4) and the symmetry condition: the mean occurring at the midpoint (μ = 1/2). This occurs for the symmetric case of α = β = 0, with zero skewness. At the limit, this is the 2 point Bernoulli distribution with equal probability 1/2 at each Dirac delta function end x = 0 and x = 1 and zero probability everywhere else. (A coin toss: one face of the coin being x = 0 and the other face being x = 1.) Variance is maximum because the distribution is bimodal with nothing in between the two modes (spikes) at each end. Excess kurtosis is minimum: the probability density "mass" is zero at the mean and it is concentrated at the two peaks at each end. Excess kurtosis reaches the minimum possible value (for any distribution) when the probability density function has two spikes at each end: it is bi-"peaky" with nothing in between them.
+On the other hand, the plot shows that for extreme skewed cases, where the mean is located near one or the other end (μ = 0 or μ = 1), the variance is close to zero, and the excess kurtosis rapidly approaches infinity when the mean of the distribution approaches either end.
+Alternatively, the excess kurtosis can also be expressed in terms of just the following two parameters: the square of the skewness, and the sample size ν as follows:
+
+From this last expression, one can obtain the same limits published practically a century ago by Karl Pearson in his paper,[26] for the beta distribution (see section below titled "Kurtosis bounded by the square of the skewness"). Setting α + β= ν = 0 in the above expression, one obtains Pearson's lower boundary (values for the skewness and excess kurtosis below the boundary (excess kurtosis + 2 − skewness2 = 0) cannot occur for any distribution, and hence Karl Pearson appropriately called the region below this boundary the "impossible region"). The limit of α + β = ν → ∞ determines Pearson's upper boundary.
+
+therefore:
+
+Values of ν= α + β such that ν ranges from zero to infinity, 0 < ν < ∞, span the whole region of the beta distribution in the plane of excess kurtosis versus squared skewness.
+For the symmetric case (α = β), the following limits apply:
+
+For the unsymmetric cases (α ≠ β) the following limits (with only the noted variable approaching the limit) can be obtained from the above expressions:
+
+
+Characteristic function [edit]
+Main article: Confluent hypergeometric function
+
+
+Re(characteristic function) symmetric case α = β ranging from 25 to 0
+
+
+Re(characteristic function) symmetric case α = β ranging from 0 to 25
+
+
+Re(characteristic function) β = α + 1/2; α ranging from 25 to 0
+
+
+Re(characteristic function) α = β + 1/2; β ranging from 25 to 0
+
+
+Re(characteristic function) α = β + 1/2; β ranging from 0 to 25
+The characteristic function is the Fourier transform of the probability density function. The characteristic function of the beta distribution is Kummer's confluent hypergeometric function (of the first kind):[7][24][27]
+
+where
+
+is the rising factorial, also called the "Pochhammer symbol". The value of the characteristic function for t = 0, is one:
+.
+Also, the real and imaginary parts of the characteristic function enjoy the following symmetries with respect to the origin of variable t:
+
+
+The symmetric case α = β simplifies the characteristic function of the beta distribution to a Bessel function, since in the special case α + β = 2α the confluent hypergeometric function (of the first kind) reduces to a Bessel function (the modified Bessel function of the first kind  ) using Kummer's second transformation as follows:
+
+In the accompanying plots, the real part (Re) of the characteristic function of the beta distribution is displayed for symmetric (α = β) and skewed (α ≠ β) cases.
+Other moments [edit]
+Moment generating function [edit]
+It also follows[7][12] that the moment generating function is
+
+In particular MX(α; β; 0) = 1.
+Higher moments [edit]
+Using the moment generating function, the k-th raw moment is given by[7] the factor
+
+multiplying the (exponential series) term  in the series of the moment generating function
+
+where (x)(k) is a Pochhammer symbol representing rising factorial. It can also be written in a recursive form as
+
+Moments of transformed random variables [edit]
+Moments of linearly-transformed, product and inverted random variables [edit]
+One can also show the following expectations for a transformed random variable,[7] where the random variable X is Beta-distributed with parameters α and β: X ~ Beta(α, β). The expected value of the variable (1−X) is the mirror-symmetry of the expected value based on X:
+
+Due to the mirror-symmetry of the probability density function of the beta distribution, the variances based on variables X and (1−X) are identical, and the covariance on X(1-X) is the negative of the variance:
+
+These are the expected values for inverted variables, (these are related to the harmonic means, see section titled "Harmonic mean"):
+
+The following transformation by dividing the variable X by its mirror-image X/(1−X) results in the expected value of the "inverted beta distribution" or beta prime distribution (also known as beta distribution of the second kind or Pearson's Type VI):[7]
+
+Variances of these transformed variables can be obtained by integration, as the expected values of the second moments centered around the corresponding variables:
+
+The following variance of the variable X divided by its mirror-image (X/(1−X) results in the variance of the "inverted beta distribution" or beta prime distribution (also known as beta distribution of the second kind or Pearson's Type VI):[7]
+
+The covariances are:
+
+These expectations and variances appear in the four-parameter Fisher information matrix (section titled "Fisher information," "four parameters")
+Moments of logarithmically-transformed random variables [edit]
+
+
+Plot of logit(X) = ln(X/(1−X)) (vertical axis) vs. X in the domain of 0 to 1 (horizontal axis). Logit transformations are interesting, as they usually transform various shapes (including J-shapes) into (usually skewed) bell-shaped densities over the logit variable, and they may remove the end singularities over the original variable
+Expected values for logarithmic transformations (useful for maximum likelihood estimates, see section titled "Parameter estimation, Maximum likelihood" below) are discussed in this section. The following logarithmic linear transformations are related to the geometric means GX and G(1−X) (see section titled "Geometric mean"):
+
+Where the digamma function ψ(α) is defined as the logarithmic derivative of the gamma function:[24]
+
+Logit transformations are interesting,[28] as they usually transform various shapes (including J-shapes) into (usually skewed) bell-shaped densities over the logit variable, and they may remove the end singularities over the original variable:
+
+Johnson[29] considered the distribution of the logit - transformed variable ln(X/1−X), including its moment generating function and approximations for large values of the shape parameters. This transformation extends the finite support [0, 1] based on the original variable X to infinite support in both directions of the real line (−∞, +∞).
+Higher order logarithmic moments can be derived by using the representation of a beta distribution as a proportion of two Gamma distributions and differentiating through the integral. They can be expressed in terms of higher order poly-gamma functions as follows:
+
+
+
+therefore the variance of the logarithmic variables and covariance of ln(X) and ln(1−X) are:
+
+
+
+where the trigamma function, denoted ψ1(α), is the second of the polygamma functions, and is defined as the derivative of the digamma function:
+.
+The variances and covariance of the logarithmically transformed variables X and (1−X) are different, in general, because the logarithmic transformation destroys the mirror-symmetry of the original variables X and (1−X), as the logarithm approaches negative infinity for the variable approaching zero.
+These logarithmic variances and covariance are the elements of the Fisher information matrix for the beta distribution. They are also a measure of the curvature of the log likelihood function (see section on Maximum likelihood estimation).
+The variances of the log inverse variables are identical to the variances of the log variables:
+
+
+
+It also follows that the variances of the logit transformed variables are:
+
+Quantities of information (entropy) [edit]
+Given a beta distributed random variable, X ~ Beta(α, β), the differential entropy of X is[30](measured in nats), the expected value of the negative of the logarithm of the probability density function:
+
+where f(x; α, β) is the probability density function of the beta distribution:
+
+The digamma function ψ appears in the formula for the differential entropy as a consequence of Euler's integral formula for the harmonic numbers which follows from the integral:
+
+The differential entropy of the beta distribution is negative for all values of α and β greater than zero, except at α = β = 1 (for which values the beta distribution is the same as the uniform distribution), where the differential entropy reaches its maximum value of zero. It is to be expected that the maximum entropy should take place when the beta distribution becomes equal to the uniform distribution, since uncertainty is maximal when all possible events are equiprobable.
+For α or β approaching zero, the differential entropy approaches its minimum value of negative infinity. For (either or both) α or β approaching zero, there is a maximum amount of order: all the probability density is concentrated at the ends, and there is zero probability density at points located between the ends. Similarly for (either or both) α or β approaching infinity, the differential entropy approaches its minimum value of negative infinity, and a maximum amount of order. If either α or β approaches infinity (and the other is finite) all the probability density is concentrated at an end, and the probability density is zero everywhere else. If both shape parameters are equal (the symmetric case), α = β, and they approach infinity simultaneously, the probability density becomes a spike (Dirac delta function) concentrated at the middle x = 1/2, and hence there is 100% probability at the middle x = 1/2 and zero probability everywhere else.
+
+The (continuous case) differential entropy was introduced by Shannon in his original paper (where he named it the "entropy of a continuous distribution"), as the concluding part[31] of the same paper where he defined the discrete entropy. It is known since then that the differential entropy may differ from the infinitesimal limit of the discrete entropy by an infinite offset, therefore the differential entropy can be negative (as it is for the beta distribution). What really matters is the relative value of entropy.
+Given two beta distributed random variables, X1 ~ Beta(α, β) and X2 ~ Beta(α', β'), the cross entropy is (measured in nats)[32]
+
+The cross entropy has been used as an error metric to measure the distance between two hypotheses.[33][34] Its absolute value is minimum when the two distributions are identical. It is the information measure most closely related to the log maximum likelihood [32](see section on "Parameter estimation. Maximum likelihood estimation")).
+The relative entropy, or Kullback–Leibler divergence DKL(X1, X2), is a measure of the inefficiency of assuming that the distribution is X2 ~ Beta(α', β') when the distribution is really X1 ~ Beta(α, β). It is defined as follows (measured in nats).
+
+The relative entropy, or Kullback–Leibler divergence, is always non-negative. A few numerical examples follow:
+X1 ~ Beta(1, 1) and X2 ~ Beta(3, 3); DKL(X1, X2) = 0.598803; DKL(X2, X1) = 0.267864; h(X1) = 0; h(X2) = −0.267864
+X1 ~ Beta(3, 0.5) and X1 ~ Beta(0.5, 3); DKL(X1, X2) = 7.21574; DKL(X2, X1) = 7.21574; h(X1) = −1.10805; h(X2) = −1.10805.
+The Kullback–Leibler divergence is not symmetric DKL(X1, X2) ≠ DKL(X2, X1) for the case in which the individual beta distributions Beta(1, 1) and Beta(3, 3) are symmetric, but have different entropies h(X1) ≠ h(X2). The value of the Kullback divergence depends on the direction traveled: whether going from a higher (differential) entropy to a lower (differential) entropy or the other way around. In the numerical example above, the Kullback divergence measures the inefficiency of assuming that the distribution is (bell-shaped) Beta(3, 3), rather than (uniform) Beta(1, 1). The "h" entropy of Beta(1, 1) is higher than the "h" entropy of Beta(3, 3) because the uniform distribution Beta(1, 1) has a maximum amount of disorder. The Kullback divergence is more than two times higher (0.598803 instead of 0.267864) when measured in the direction of decreasing entropy: the direction that assumes that the (uniform) Beta(1, 1) distribution is (bell-shaped) Beta(3, 3) rather than the other way around. In this restricted sense, the Kullback divergence is consistent with the second law of thermodynamics.
+The Kullback–Leibler divergence is symmetric DKL(X1, X2) = DKL(X2, X1) for the skewed cases Beta(3, 0.5) and Beta(0.5, 3) that have equal differential entropy h(X1) = h(X2).
+The symmetry condition:
+
+follows from the above definitions and the mirror-symmetry f(x; α, β) = f(1−x; α, β) enjoyed by the beta distribution.
+Relationships between statistical measures [edit]
+Mean, mode and median relationship [edit]
+If 1 < α < β then mode ≤ median ≤ mean.[17] Expressing the mode (only for α > 1 and β > 1), and the mean in terms of α and β:
+
+If 1 < β < α then the order of the inequalities are reversed. For α > 1 and β > 1 the absolute distance between the mean and the median is less than 5% of the distance between the maximum and minimum values of x. On the other hand, the absolute distance between the mean and the mode can reach 50% of the distance between the maximum and minimum values of x, for the (pathological) case of α = 1 and β = 1 (for which values the beta distribution approaches the uniform distribution and the differential entropy approaches its maximum value, and hence maximum "disorder").
+For example, for α = 1.0001 and β = 1.00000001:
+mode = 0.9999; PDF(mode) = 1.00010
+mean = 0.500025; PDF(mean) = 1.00003
+median = 0.500035; PDF(median) = 1.00003
+mean − mode = −0.499875
+mean − median = −9.65538 × 10−6
+(where PDF stands for the value of the probability density function)
+ 
+Mean, geometric mean and harmonic mean relationship [edit]
+
+
+:Mean, Median, Geometric Mean and Harmonic Mean for Beta distribution with 0 < α = β < 5
+It is known from the inequality of arithmetic and geometric means that the geometric mean is lower than the mean. Similarly, the harmonic mean is lower than the geometric mean. The accompanying plot shows that for α = β, both the mean and the median are exactly equal to 1/2, regardless of the value of α = β, and the mode is also equal to 1/2 for α = β > 1, however the geometric and harmonic means are lower than 1/2 and they only approach this value asymptotically as α = β → ∞.
+Kurtosis bounded by the square of the skewness [edit]
+
+
+Beta distribution α and β parameters vs. excess Kurtosis and squared Skewness
+As remarked by Feller,[11] in the Pearson system the beta probability density appears as type I (any difference between the beta distribution and Pearson's type I distribution is only superficial and it makes no difference for the following discussion regarding the relationship between kurtosis and skewness). Karl Pearson showed, in Plate 1 of his paper [26] published in 1916, a graph with the kurtosis as the vertical axis (ordinate) and the square of the skewness as the horizontal axis (abscissa), in which a number of distributions were displayed.[35] The region occupied by the beta distribution is bounded by the following two lines in the (skewness2,kurtosis) plane, or the (skewness2,excess kurtosis) plane:
+
+or, equivalently,
+
+(At a time when there were no powerful digital computers), Karl Pearson accurately computed further boundaries,[10][26] for example, separating the "U-shaped" from the "J-shaped" distributions. The lower boundary line (excess kurtosis + 2 − skewness2 = 0) is produced by skewed "U-shaped" beta distributions with both values of shape parameters α and β close to zero. The upper boundary line (excess kurtosis − (3/2) skewness2 = 0) is produced by extremely skewed distributions with very large values of one of the parameters and very small values of the other parameter. Karl Pearson showed [26] that this upper boundary line (excess kurtosis − (3/2) skewness2 = 0) is also the intersection with Pearson's distribution III, which has unlimited support in one direction (towards positive infinity), and can be bell-shaped or J-shaped. His son, Egon Pearson, showed [35] that the region (in the kurtosis/squared-skewness plane) occupied by the beta distribution (equivalently, Pearson's distribution I) as it approaches this boundary (excess kurtosis − (3/2) skewness2 = 0) is shared with the noncentral chi-squared distribution. Karl Pearson[36] (Pearson 1895, pp. 357, 360, 373–376) also showed that the gamma distribution is a Pearson type III distribution. Hence this boundary line for Pearson's type III distribution is known as the gamma line. (This can be shown from the fact that the excess kurtosis of the gamma distribution is 6/k and the square of the skewness is 4/k, hence (excess kurtosis − (3/2) skewness2 = 0) is identically satisfied by the gamma distribution regardless of the value of the parameter "k"). Pearson later noted that the chi-squared distribution is a special case of Pearson's type III and also shares this boundary line (as it is apparent from the fact that for the chi-squared distribution the excess kurtosis is 12/k and the square of the skewness is 8/k, hence (excess kurtosis − (3/2) skewness2 = 0) is identically satisfied regardless of the value of the parameter "k"). This is to be expected, since the chi-squared distribution X ~ χ2(k) is a special case of the gamma distribution, with parametrization X ~ Γ(k/2, 1/2) where k is a positive integer that specifies the "number of degrees of freedom" of the chi-squared distribution.
+An example of a beta distribution near the upper boundary (excess kurtosis − (3/2) skewness2 = 0) is given by α = 0.1, β = 1000, for which the ratio (excess kurtosis)/(skewness2) = 1.49835 approaches the upper limit of 1.5 from below. An example of a beta distribution near the lower boundary (excess kurtosis + 2 − skewness2 = 0) is given by α= 0.0001, β = 0.1, for which values the expression (excess kurtosis + 2)/(skewness2) = 1.01621 approaches the lower limit of 1 from above. In the infinitesimal limit for both α and β approaching zero symmetrically, the excess kurtosis reaches its minimum value at −2. This minimum value occurs at the point at which the lower boundary line intersects the vertical axis (ordinate). (However, in Pearson's original chart, the ordinate is kurtosis, instead of excess kurtosis, and it increases downwards rather than upwards).
+Values for the skewness and excess kurtosis below the lower boundary (excess kurtosis + 2 − skewness2 = 0) cannot occur for any distribution, and hence Karl Pearson appropriately called the region below this boundary the "impossible region." The boundary for this "impossible region" is determined by (symmetric or skewed) bimodal "U"-shaped distributions for which parameters α and β approach zero and hence all the probability density is concentrated at each end: x = 0 and x = 1 with practically nothing in between them. Since for α ≈ β ≈ 0 the probability density is concentrated at the two ends x = 0 and x = 1, this "impossible boundary" is determined by a 2-point distribution: the probability can only take 2 values (Bernoulli distribution), one value with probability p and the other with probability q = 1−p. For cases approaching this limit boundary with symmetry α = β, skewness ≈ 0, excess kurtosis ≈ −2 (this is the lowest excess kurtosis possible for any distribution), and the probabilities are p ≈ q ≈ 1/2. For cases approaching this limit boundary with skewness, excess kurtosis ≈ −2 + skewness2, and the probability density is concentrated more at one end than the other end (with practically nothing in between), with probabilities  at the left end x = 0 and  at the right end x = 1.
+Symmetry [edit]
+All statements are conditional on α, β > 0
+Probability density function reflection symmetry
+
+Cumulative distribution function reflection symmetry plus unitary translation
+
+Mode reflection symmetry plus unitary translation
+
+Median reflection symmetry plus unitary translation
+
+Mean reflection symmetry plus unitary translation
+
+Geometric Means each is individually asymmetric, the following symmetry applies between the geometric mean based on X and the geometric mean based on its reflection (1-X)
+
+Harmonic means each is individually asymmetric, the following symmetry applies between the harmonic mean based on X and the harmonic mean based on its reflection (1-X)
+ .
+Variance symmetry
+
+Geometric variances each is individually asymmetric, the following symmetry applies between the log geometric variance based on X and the log geometric variance based on its reflection (1-X)
+
+Geometric covariance symmetry
+
+Mean absolute deviation around the mean symmetry
+
+Skewness skew-symmetry
+
+Excess kurtosis symmetry
+
+Characteristic function symmetry of Real part (with respect to the origin of variable "t")
+
+Characteristic function skew-symmetry of Imaginary part (with respect to the origin of variable "t")
+
+Characteristic function symmetry of Absolute value (with respect to the origin of variable "t")
+
+Differential entropy symmetry
+
+Relative Entropy (also called Kullback–Leibler divergence) symmetry
+
+Fisher information matrix symmetry
+
+Geometry of the probability distribution function [edit]
+Inflection points [edit]
+
+
+Inflection point location versus α and β showing showing regions with one inflection point
+
+
+Inflection point location versus α and β showing region with two inflection points
+For certain values of the shape parameters α and β, the probability distribution function has inflection points, at which the curvature changes sign. The position of these inflection points can be useful as a measure of the dispersion or spread of the distribution.
+Defining the following quantity:
+
+Points of inflection occur,[7][9][12][13] depending on the value of the shape parameters α and β, as follows:
+(α > 2, β > 2) The distribution is bell-shaped (symmetric for α = β and skewed otherwise), with two inflection points, equidistant from the mode:
+
+(α = 2, β > 2) The distribution is unimodal, positively skewed, right-tailed, with one inflection point, located to the right of the mode:
+
+(α > 2, β = 2) The distribution is unimodal, negatively skewed, left-tailed, with one inflection point, located to the left of the mode:
+
+(1 < α < 2, β > 2) The distribution is unimodal, positively skewed, right-tailed, with one inflection point, located to the right of the mode:
+
+(0 < α < 1, 1 < β < 2) The distribution has a mode at the left end x = 0 and it is positively skewed, right-tailed. There is one inflection point, located to the right of the mode:
+
+(α > 2, 1 < β < 2) The distribution is unimodal negatively skewed, left-tailed, with one inflection point, located to the left of the mode:
+
+(1 < α < 2, 0 < β < 1) The distribution has a mode at the right end x=1 and it is negatively skewed, left-tailed. There is one inflection point, located to the left of the mode:
+
+There are no inflection points in the remaining (symmetric and skewed) regions: U-shaped: (α < 1, β < 1) upside-down-U-shaped: (1 < α < 2, 1 < β < 2), reverse-J-shaped (α < 1, β > 2) or J-shaped: (α > 2, β < 1)
+The accompanying plots show the inflection point locations (shown vertically, ranging from 0 to 1) versus α and β (the horizontal axes ranging from 0 to 5). There are large cuts at surfaces intersecting the lines α = 1, β = 1, α = 2, and β = 2 because at these values the beta distribution change from 2 modes, to 1 mode to no mode.
+Shapes [edit]
+
+
+PDF for symmetric beta distribution vs. x and alpha=beta from 0 to 30
+
+
+PDF for symmetric beta distribution vs. x and alpha=beta from 0 to 2
+
+
+PDF for skewed beta distribution vs. x and beta= 2.5 alpha from 0 to 9
+
+
+PDF for skewed beta distribution vs. x and beta= 5.5 alpha from 0 to 9
+
+
+PDF for skewed beta distribution vs. x and beta= 8 alpha from 0 to 10
+The beta density function can take a wide variety of different shapes depending on the values of the two parameters α and β. The ability of the beta distribution to take this great diversity of shapes (using only two parameters) is partly responsible for finding wide application for modeling actual measurements:
+Symmetric (α = β) [edit]
+the density function is symmetric about 1/2 (blue & teal plots).
+median = mean = 1/2.
+skewness = 0.
+α = β < 1
+U-shaped (blue plot).
+bimodal: left mode = 0, right mode =1, anti-mode = 1/2
+1/12 < var(X) < 1/4[7]
+−2 < excess kurtosis(X) < −6/5
+α = β = 1/2 is the arcsine distribution
+var(X) = 1/18
+excess kurtosis(X) = −3/2
+α = β → 0 is a 2 point Bernoulli distribution with equal probability 1/2 at each Dirac delta function end x = 0 and x = 1 and zero probability everywhere else. A coin toss: one face of the coin being x = 0 and the other face being x = 1.
+
+ a lower value than this is impossible for any distribution to reach.
+The differential entropy approaches a minimum value of −∞
+α = β = 1
+the uniform [0, 1] distribution
+no mode
+var(X) = 1/12
+excess kurtosis(X) = −6/5
+The (negative anywhere else) differential entropy reaches its maximum value of zero
+α = β > 1
+symmetric unimodal
+mode = 1/2.
+0 < var(X) < 1/12[7]
+−6/5 < excess kurtosis(X) < 0
+α = β = 3/2 is a semi-elliptic [0, 1] distribution, see: Wigner semicircle distribution
+var(X) = 1/16.
+excess kurtosis(X) = −1
+α = β = 2 is the parabolic [0, 1] distribution
+var(X) = 1/20
+excess kurtosis(X) = −6/7
+α = β > 2 is bell-shaped, with inflection points located to either side of the mode
+0 < var(X) < 1/20
+−6/7 < excess kurtosis(X) < 0
+α = β → ∞ is a 1 point Degenerate distribution with a Dirac delta function spike at the midpoint x = 1/2 with probability 1, and zero probability everywhere else. There is 100% probability (absolute certainty) concentrated at the single point x = 1/2.
+
+
+The differential entropy approaches a minimum value of −∞
+Skewed (α ≠ β) [edit]
+The density function is skewed. An interchange of parameter values yields the mirror image (the reverse) of the initial curve, some more specific cases:
+α < 1, β < 1
+U-shaped
+Positive skew for α < β, negative skew for α > β.
+bimodal: left mode = 0, right mode = 1, anti-mode = 
+0 < median < 1.
+0 < var(X) < 1/4
+α > 1, β > 1
+unimodal (magenta & cyan plots),
+Positive skew for α < β, negative skew for α > β.
+
+0 < median < 1
+0 < var(X) < 1/12
+α < 1, β ≥ 1
+reverse J-shaped with a right tail,
+positively skewed,
+strictly decreasing, convex
+mode = 0
+0 < median < 1/2.
+ (maximum variance occurs for , or α = Φ the golden ratio conjugate)
+α ≥ 1, β < 1
+J-shaped with a left tail,
+negatively skewed,
+strictly increasing, convex
+mode = 1
+1/2 < median < 1
+ (maximum variance occurs for , or β = Φ the golden ratio conjugate)
+α = 1, β > 1
+positively skewed,
+strictly decreasing (red plot),
+a reversed (mirror-image) power function [0,1] distribution
+mode = 0
+α = 1, 1 < β < 2
+concave
+
+1/18 < var(X) < 1/12.
+α = 1, β = 2
+a straight line with slope −2, the right-triangular distribution with right angle at the left end, at x = 0
+
+var(X) = 1/18
+α = 1, β > 2
+reverse J-shaped with a right tail,
+convex
+
+0 < var(X) < 1/18
+α > 1, β = 1
+negatively skewed,
+strictly increasing (green plot),
+the power function [0, 1] distribution[12]
+mode =1
+2 > α > 1, β = 1
+concave
+
+1/18 < var(X) < 1/12
+α = 2, β = 1
+a straight line with slope +2, the right-triangular distribution with right angle at the right end, at x = 1
+
+var(X) = 1/18
+α > 2, β = 1
+J-shaped with a left tail, convex
+
+0 < var(X) < 1/18
+Parameter estimation [edit]
+
+Method of moments [edit]
+Two unknown parameters [edit]
+Two unknown parameters ( of a beta distribution supported in the [0,1] interval) can be estimated, using the method of moments, with the first two moments (sample mean and sample variance) as follows. Let:
+
+be the sample mean estimate and
+
+be the sample variance estimate. The method-of-moments estimates of the parameters are
+ conditional on 
+ conditional on 
+When the distribution is required over known interval other than [0, 1] with random variable X, say [a, c] with random variable Y, then replace  with  and  with  in the above couple of equations for the shape parameters (see "Alternative parametrizations, four parameters" section below).,[37] where:
+
+
+Four unknown parameters [edit]
+
+
+Solutions for parameter estimates vs. (sample) excess Kurtosis and (sample) squared Skewness Beta distribution
+All four parameters ( of a beta distribution supported in the [a, c] interval -see section "Alternative parametrizations, Four parameters"-) can be estimated, using the method of moments developed by Karl Pearson, by equating sample and population values of the first four central moments (mean, variance, skewness and excess kurtosis).[7][38][39] The excess kurtosis was expressed in terms of the square of the skewness, and the sample size ν = α + β, (see previous section "Kurtosis") as follows:
+
+One can use this equation to solve for the sample size ν= α + β in terms of the square of the skewness and the excess kurtosis as follows:[38]
+
+This is the ratio (multiplied by a factor of 3) between the previously derived limit boundaries for the beta distribution in a space (as originally done by Karl Pearson[26]) defined with coordinates of the square of the skewness in one axis and the excess kurtosis in the other axis (see previous section titled "Kurtosis bounded by the square of the skewness"):
+The case of zero skewness, can be immediately solved because for zero skewness, α = β and hence ν = 2α = 2β, therefore α = β = ν/2
+
+(Excess kurtosis is negative for the beta distribution with zero skewness, ranging from -2 to 0, so that  -and therefore the sample shape parameters- is positive, ranging from zero when the shape parameters approach zero and the excess kurtosis approaches -2, to infinity when the shape parameters approach infinity and the excess kurtosis approaches zero).
+For non-zero sample skewness one needs to solve a system of two coupled equations. Since the skewness and the excess kurtosis are independent of the parameters , the parameters  can be uniquely determined from the sample skewness and the sample excess kurtosis, by solving the coupled equations with two known variables (sample skewness and sample excess kurtosis) and two unknowns (the shape parameters):
+
+
+resulting in the following solution:[38]
+
+Where one should take the solutions as follows:  for (negative) sample skewness < 0, and  for (positive) sample skewness > 0.
+The accompanying plot shows these two solutions as surfaces in a space with horizontal axes of (sample excess kurtosis) and (sample squared skewness) and the shape parameters as the vertical axis. The surfaces are constrained by the condition that the sample excess kurtosis must be bounded by the sample squared skewness as stipulated in the above equation. The two surfaces meet at the right edge defined by zero skewness. Along this right edge, both parameters are equal and the distribution is symmetric U-shaped for α = β < 1, uniform for α = β = 1, upside-down-U-shaped for 1 < α = β < 2 and bell-shaped for α = β > 2. The surfaces also meet at the front (lower) edge defined by "the impossible boundary" line (excess kurtosis + 2 - skewness2 = 0). Along this front (lower) boundary both shape parameters approach zero, and the probability density is concentrated more at one end than the other end (with practically nothing in between), with probabilities  at the left end x = 0 and  at the right end x = 1. The two surfaces become further apart towards the rear edge. At this rear edge the surface parameters are quite different from each other. As remarked, for example, by Bowman and Shenton,[40] sampling in the neighborhood of the line (sample excess kurtosis - (3/2)(sample skewness)2 = 0) (the just-J-shaped portion of the rear edge where blue meets beige), "is dangerously near to chaos", because at that line the denominator of the expression above for the estimate ν = α + β becomes zero and hence ν approaches infinity as that line is approached. Bowman and Shenton [40] write that "the higher moment parameters (kurtosis and skewness) are extremely fragile (near that line). However the mean and standard deviation are fairly reliable." Therefore the problem is for the case of four parameter estimation for very skewed distributions such that the excess kurtosis approaches (3/2) times the square of the skewness. This boundary line is produced by extremely skewed distributions with very large values of one of the parameters and very small values of the other parameter. See section titled "Kurtosis bounded by the square of the skewness" for a numerical example and further comments about this rear edge boundary line (sample excess kurtosis - (3/2)(sample skewness)2 = 0). As remarked by Karl Pearson himself [41] this issue may not be of much practical importance as this trouble arises only for very skewed J-shaped (or mirror-image J-shaped) distributions with very different values of shape parameters that are unlikely to occur much in practice). The usual skewed skewed-bell-shape distributions that occur in practice do not have this parameter estimation problem.
+The remaining two parameters  can be determined using the sample mean and the sample variance using a variety of equations.[7][38] One alternative is to calculate the support interval range  based on the sample variance and the sample kurtosis. For this purpose one can solve, in terms of the range , the equation expressing the excess kurtosis in terms of the sample variance, and the sample size ν (see section titled "Kurtosis" and "Alternative parametrizations, four parameters"):
+
+to obtain:
+
+Another alternative is to calculate the support interval range  based on the sample variance and the sample skewness.[38] For this purpose one can solve, in terms of the range , the equation expressing the squared skewness in terms of the sample variance, and the sample size ν (see section titled "Skewness" and "Alternative parametrizations, four parameters"):
+
+to obtain:[38]
+
+The remaining parameter can be determined from the sample mean and the previously obtained parameters: :
+
+and finally, of course, .
+In the above formulas one may take, for example, as estimates of the sample moments:
+
+The estimators G1 for sample skewness and G2 for sample kurtosis are used by DAP/SAS, PSPP/SPSS, and Excel. However, they are not used by BMDP and (according to [42]) they were not used by MINITAB in 1998. Actually, Joanes and Gill in their 1998 study[42] concluded that the skewness and kurtosis estimators used in BMDP and in MINITAB (at that time) had smaller variance and mean-squared error in normal samples, but the skewness and kurtosis estimators used in DAP/SAS, PSPP/SPSS, namely G1 and G2, had smaller mean-squared error in samples from a very skewed distribution. It is for this reason that we have spelled out "sample skewness", etc., in the above formulas, to make it explicit that the user should choose the best estimator according to the problem at hand, as the best estimator for skewness and kurtosis depends on the amount of skewness (as shown by Joanes and Gill[42]).
+Maximum likelihood [edit]
+Two unknown parameters [edit]
+
+
+Max (Joint Log Likelihood/N) for Beta distribution Maxima at alpha=beta=2
+
+
+Max (Joint Log Likelihood/N) for Beta distribution Maxima at alpha=beta= {0.25,0.5,1,2,4,6,8}
+As it is also the case for maximum likelihood estimates for the gamma distribution, the maximum likelihood estimates for the beta distribution do not have a general closed form solution for arbitrary values of the shape parameters. If X1, ..., XN are independent random variables each having a beta distribution, the joint log likelihood function for N iid observations is:
+
+Finding the maximum with respect to a shape parameter involves taking the partial derivative with respect to the shape parameter and setting the expression equal to zero yielding the maximum likelihood estimator of the shape parameters:
+
+
+where:
+
+
+since the digamma function denoted ψ(α) is defined as the logarithmic derivative of the gamma function:[24]
+
+To ensure that the values with zero tangent slope are indeed a maximum (instead of a saddle-point or a minimum) one has to also satisfy the condition that the curvature is negative. This amounts to satisfying that the second partial derivative with respect to the shape parameters is negative
+
+
+using the previous equations, this is equivalent to:
+
+
+where the trigamma function, denoted ψ1(α), is the second of the polygamma functions, and is defined as the derivative of the digamma function:
+.
+These conditions are equivalent to stating that the variances of the logarithmically transformed variables are positive, since:
+
+
+Therefore the condition of negative curvature at a maximum is equivalent to the statements:
+
+
+Alternatively, the condition of negative curvature at a maximum is also equivalent to stating that the following logarithmic derivatives of the geometric means GX and G(1−X) are positive, since:
+
+
+While these slopes are indeed positive, the other slopes are negative:
+
+The slopes of the mean and the median with respect to α and β display similar sign behavior.
+From the condition that at a maximum, the partial derivative with respect to the shape parameter equals zero, we obtain the following system of coupled maximum likelihood estimate equations (for the average log-likelihoods) that needs to be inverted to obtain the (unknown) shape parameter estimates  in terms of the (known) average of logarithms of the samples X1, ..., XN:[7]
+
+
+where we recognize  as the logarithm of the sample geometric mean and  as the logarithm of the sample geometric mean based on (1-X), the mirror-image of X. For , it follows that .
+
+
+These coupled equations containing digamma functions of the shape parameter estimates  must be solved by numerical methods as done, for example, by Beckman et al.[43] Gnanadesikan et al. give numerical solutions for a few cases.[44] N.L.Johnson and S.Kotz[7] suggest that for "not too small" shape parameter estimates , the logarithmic approximation to the digamma function  may be used to obtain initial values for an iterative solution, since the equations resulting from this approximation can be solved exactly:
+
+
+which leads to the following solution for the initial values (of the estimate shape parameters in terms of the sample geometric means) for an iterative solution:
+
+
+Alternatively, the estimates provided by the method of moments can instead be used as initial values for an iterative solution of the maximum likelihood coupled equations in terms of the digamma functions.
+When the distribution is required over a known interval other than [0, 1] with random variable X, say [a, c] with random variable Y, then replace ln(Xi) in the first equation with and replace ln(1−Xi) in the second equation with  (see "Alternative parametrizations, four parameters" section below).
+If one of the shape parameters is known, the problem is considerably simplified. The following logit transformation can be used to solve for the unknown shape parameter (for skewed cases such that , otherwise, if symmetric, both -equal- parameters are known when one is known):
+
+This logit transformation is the logarithm of the transformation that divides the variable X by its mirror-image (X/(1 - X) resulting in the "inverted beta distribution" or beta prime distribution (also known as beta distribution of the second kind or Pearson's Type VI) with support [0, +∞). As previously discussed in the section "Moments of logarithmically-transformed random variables," the logit transformation , studied by Johnson,[29] extends the finite support [0, 1] based on the original variable X to infinite support in both directions of the real line (−∞, +∞).
+If, for example,  is known, the unknown parameter  can be obtained in terms of the inverse[45] digamma function of the right hand side of this equation:
+
+
+In particular, if one of the shape parameters has a value of unity, for example for  (the power function distribution with bounded support [0,1]), using the identity ψ(x + 1) = ψ(x) + 1/x in the equation , the maximum likelihood estimator for the unknown parameter  is,[7] exactly:
+
+The beta has support [0, 1], therefore , and hence , and therefore  .
+In conclusion, the maximum likelihood estimates of the shape parameters of a beta distribution are (in general) a complicated function of the sample geometric mean, and of the sample geometric mean based on (1−X), the mirror-image of X. One may ask, if the variance (in addition to the mean) is necessary to estimate two shape parameters with the method of moments, why is the (logarithmic or geometric) variance not necessary to estimate two shape parameters with the maximum likelihood method, for which only the geometric means suffice? The answer is because the mean does not provide as much information as the geometric mean. For a beta distribution with equal shape parameters α = β, the mean is exactly 1/2, regardless of the value of the shape parameters, and therefore regardless of the value of the statistical dispersion (the variance). On the other hand, the geometric mean of a beta distribution with equal shape parameters α = β, depends on the value of the shape parameters, and therefore it contains more information. Also, the geometric mean of a beta distribution does not satisfy the symmetry conditions satisfied by the mean, therefore, by employing both the geometric mean based on X and geometric mean based on (1−X), the maximum likelihood method is able to provide best estimates for both parameters α = β, without need of employing the variance.
+One can express the joint log likelihood per N iid observations in terms of the sufficient statistics (the sample geometric means) as follows:
+
+We can plot the joint log likelihood per N observations for fixed values of the sample geometric means to see the behavior of the likelihood function as a function of the shape parameters α and β. In such a plot, the shape parameter estimators  correspond to the maxima of the likelihood function. See the accompanying graph that shows that all the likelihood functions intersect at α = β = 1, which corresponds to the values of the shape parameters that give the maximum entropy (the maximum entropy occurs for shape parameters equal to unity: the uniform distribution). It is evident from the plot that the likelihood function gives sharp peaks for values of the shape parameter estimators close to zero, but that for values of the shape parameters estimators greater than one, the likelihood function becomes quite flat, with less defined peaks. Obviously, the maximum likelihood parameter estimation method for the beta distribution becomes less acceptable for larger values of the shape parameter estimators, as the uncertainty in the peak definition increases with the value of the shape parameter estimators. One can arrive at the same conclusion by noticing that the expression for the curvature of the likelihood function is in terms of the geometric variances
+
+
+These variances (and therefore the curvatures) are much larger for small values of the shape parameter α and β. However, for shape parameter values α > 1, β > 1, the variances (and therefore the curvatures) flatten out. Equivalently, this result follows from the Cramér–Rao bound, since the Fisher information matrix components for the beta distribution are these logarithmic variances. The Cramér–Rao bound states that the variance of any unbiased estimator  of α is bounded by the reciprocal of the Fisher information:
+
+
+so the variance of the estimators increases with increasing α and β, as the logarithmic variances decrease.
+Also one can express the joint log likelihood per N iid observations in terms of the digamma function expressions for the logarithms of the sample geometric means as follows:
+
+this expression is identical to the negative of the cross-entropy (see section on "Quantities of information (entropy)"). Therefore, finding the maximum of the joint log likelihood of the shape parameters, per N iid observations, is identical to finding the minimum of the cross-entropy for the beta distribution, as a function of the shape parameters.
+
+with the cross-entropy defined as follows:
+
+Four unknown parameters [edit]
+The procedure is similar to the one followed in the two unknown parameter case. If Y1, ..., YN are independent random variables each having a beta distribution with four parameters, the joint log likelihood function for N iid observations is:
+
+Finding the maximum with respect to a shape parameter involves taking the partial derivative with respect to the shape parameter and setting the expression equal to zero yielding the maximum likelihood estimator of the shape parameters:
+
+
+
+
+these equations can be re-arranged as the following system of four coupled equations (the first two equations are geometric means and the second two equations are the harmonic means) in terms of the maximum likelihood estimates for the four parameters :
+
+
+
+
+with sample geometric means:
+
+
+The parameters  are embedded inside the geometric mean expressions in a nonlinear way (to the power 1/N). This precludes, in general, a closed form solution, even for an initial value approximation for iteration purposes. One alternative is to use as initial values for iteration the values obtained from the method of moments solution for the four parameter case. Furthermore, the expressions for the harmonic means are well-defined only for , which precludes a maximum likelihood solution for shape parameters less than unity in the four-parameter case. Fisher's information matrix for the four parameter case is positive-definite only for α, β > 2 (for further discussion, see section on Fisher information matrix, four parameter case), for bell-shaped (symmetric or unsymmetric) beta distributions, with inflection points located to either side of the mode. The following Fisher information components (that represent the expectations of the curvature of the log likelihood function) have singularities at the following values:
+
+
+
+
+(for further discussion see section on Fisher information matrix). Thus, it is not possible to strictly carry on the maximum likelihood estimation for some well known distributions belonging to the four-parameter beta distribution family, like the uniform distribution (Beta(1, 1, a, c)), and the arcsine distribution (Beta(1/2, 1/2, a, c)). N.L.Johnson and S.Kotz[7] ignore the equations for the harmonic means and instead suggest "If a and c are unknown, and maximum likelihood estimators of a, c, α and β are required, the above procedure (for the two unknown parameter case, with X transformed as X = (Y−a)/(c−a)) can be repeated using a succession of trial values of a and c, until the pair (a, c) for which maximum likelihood (given a and c) is as great as possible, is attained" (where, for the purpose of clarity, their notation for the parameters has been translated into the present notation).
+Fisher information matrix [edit]
+Let a random variable X have a probability density f(x;α). The partial derivative with respect to the (unknown, and to be estimated) parameter α of the log likelihood function is called the score. The second moment of the score is called the Fisher information:
+
+The expectation of the score is zero, therefore the Fisher information is also the second moment centered around the mean of the score: the variance of the score.
+If the log likelihood function is twice differentiable with respect to the parameter α, and under certain regularity conditions,[46] then the Fisher information may also be written as follows (which is often a more convenient form for calculation purposes):
+
+Thus, the Fisher information is the negative of the expectation of the second derivative with respect to the parameter α of the log likelihood function. Therefore Fisher information is a measure of the curvature of the log likelihood function of α. A low curvature (and therefore high radius of curvature), flatter log likelihood function curve has low Fisher information; while a log likelihood function curve with large curvature (and therefore low radius of curvature) has high Fisher information. When the Fisher information matrix is computed at the evaluates of the parameters ("the observed Fisher information matrix") it is equivalent to the replacement of the true log likelihood surface by a Taylor's series approximation, taken as far as the quadratic terms.[47] The word information, in the context of Fisher information, refers to information about the parameters. Information such as: estimation, sufficiency and properties of variances of estimators. The Cramér–Rao bound states that the inverse of the Fisher information is a lower bound on the variance of any estimator of a parameter α:
+
+The precision to which one can estimate the estimator of a parameter α is limited by the Fisher Information of the log likelihood function. The Fisher information is a measure of the minimum error involved in estimating a parameter of a distribution and it can be viewed as a measure of the resolving power of an experiment needed to discriminate between two alternative hypothesis of a parameter.[48]
+When there are N parameters , then the Fisher information takes the form of an NxN positive semidefinite symmetric matrix, the Fisher Information Matrix, with typical element:
+
+Under certain regularity conditions,[46] the Fisher Information Matrix may also be written in the following form, which is often more convenient for computation:
+
+With X1, ..., XN iid random variables, an N-dimensional "box" can be constructed with sides X1, ..., XN. Costa and Cover[49] show that the (Shannon) differential entropy h(X) is related to the volume of the typical set (having the sample entropy close to the true entropy), while the Fisher information is related to the surface of this typical set.
+Two parameters [edit]
+For X1, ..., XN independent random variables each having a beta distribution parametrized with shape parameters α and β, the joint log likelihood function for N iid observations is:
+
+therefore the joint log likelihood function per N iid observations is:
+
+For the two parameter case, the Fisher information has 4 components: 2 diagonal and 2 off-diagonal. Since the Fisher information matrix is symmetric, one of these off diagonal components is independent. Therefore the Fisher information matrix has 3 independent components (2 diagonal and 1 off diagonal).
+Aryal and Nadarajah[50] calculated Fisher's information matrix for the four parameter case, from which the two parameter case can be obtained as follows:
+
+
+
+Since the Fisher information matrix is symmetric
+
+The Fisher information components are equal to the log geometric variances and log geometric covariance. Therefore they can be expressed as trigamma functions, denoted ψ1(α), the second of the polygamma functions, defined as the derivative of the digamma function:
+.
+These derivatives are also derived in the section titled "Parameter estimation", "Maximum likelihood", "Two unknown parameters," and plots of the log likelihood function are also shown in that section. The section titled "Geometric variance and covariance" contains plots and further discussion of the Fisher information matrix components: the log geometric variances and log geometric covariance as a function of the shape parameters α and β. The section titled "Other moments", "Moments of transformed random variables", "Moments of logarithmically-transformed random variables" contains formulas for moments of logarithmically-transformed random variables. Images for the Fisher information components  and  are shown in the section titled "Geometric variance".
+The determinant of Fisher's information matrix is of interest (for example for the calculation of Jeffreys prior probability). From the expressions for the individual components of the Fisher information matrix, it follows that the determinant of Fisher's (symmetric) information matrix for the beta distribution is:
+
+From Sylvester's criterion (checking whether the diagonal elements are all positive), it follows that the Fisher information matrix for the two parameter case is positive-definite (under the standard condition that the shape parameters are positive α>0 and β>0).
+Four parameters [edit]
+
+
+Fisher Information I(a,a) for α=β vs range (c-a) and exponent α=β
+
+
+Fisher Information I(α,a) for α=β, vs. range (c - a) and exponent α=β
+If Y1, ..., YN are independent random variables each having a beta distribution with four parameters: the exponents α and β, as well as "a" (the minimum of the distribution range), and "c" (the maximum of the distribution range) (section titled "Alternative parametrizations", "Four parameters"), with probability density function:
+
+the joint log likelihood function per N iid observations is:
+
+For the four parameter case, the Fisher information has 4*4=16 components. It has 12 off-diagonal components = (4*4 total - 4 diagonal). Since the Fisher information matrix is symmetric, half of these components (12/2=6) are independent. Therefore the Fisher information matrix has 6 independent off-diagonal + 4 diagonal = 10 independent components. Aryal and Nadarajah[50] calculated Fisher's information matrix for the four parameter case as follows:
+
+
+
+In the above expressions, the use of X instead of Y in the expressions var[ln(X)] = ln(varGX) is not an error. The expressions in terms of the log geometric variances and log geometric covariance occur as functions of the two parameter X ~ Beta(α, β) parametrization because when taking the partial derivatives with respect to the exponents (α, β) in the four parameter case, one obtains the identical expressions as for the two parameter case: these terms of the four parameter Fisher information matrix are independent of the minimum "a" and maximum "c" of the distribution's range. The only non-zero term upon double differentiation of the log likelihood function with respect to the exponents α and β is the second derivative of the log of the beta function: ln(B(α, β)). This term is independent of the minimum "a" and maximum "c" of the distribution's range. Double differentiation of this term results in trigamma functions. The sections titled "Maximum likelihood", "Two unknown parameters" and "Four unknown parameters" also show this fact.
+The Fisher information for N i.i.d. samples is N times the individual Fisher information (eq. 11.279, page 394 of Cover and Thomas[32]). (Aryal and Nadarajah[50] take a single observation, N = 1, to calculate the following components of the Fisher information, which leads to the same result as considering the derivatives of the log likelihood per N observations. Moreover below the erroneous expression for  in Aryal and Nadarajah has been corrected.)
+
+The lower two diagonal entries of the Fisher information matrix, with respect to the parameter "a" (the minimum of the distribution's range): , and with respect to the parameter "c" (the maximum of the distribution's range):  are only defined for exponents α > 2 and β > 2 respectively. The Fisher information matrix component  for the minimum "a" approaches infinity for exponent α approaching 2 from above, and the Fisher information matrix component  for the maximum "c" approaches infinity for exponent β approaching 2 from above.
+The Fisher information matrix for the four parameter case does not depend on the individual values of the minimum "a" and the maximum "c", but only on the total range (c−a). Moreover, the components of the Fisher information matrix that depend on the range (c−a), depend only through its inverse (or the square of the inverse), such that the Fisher information decreases for increasing range (c−a).
+The accompanying images show the Fisher information components  and . Images for the Fisher information components  and  are shown in the section titled "Geometric variance". All these Fisher information components look like a basin, with the "walls" of the basin being located at low values of the parameters.
+The following four-parameter-beta-distribution Fisher information components can be expressed in terms of the two-parameter: X ~ Beta(α, β) expectations of the transformed ratio ((1-X)/X) and of its mirror image (X/(1-X)), scaled by the range (c−a), which may be helpful for interpretation:
+
+
+These are also the expected values of the "inverted beta distribution" or beta prime distribution (also known as beta distribution of the second kind or Pearson's Type VI) [7] and its mirror image, scaled by the range (c−a).
+Also, the following Fisher information components can be expressed in terms of the harmonic (1/X) variances or of variances based on the ratio transformed variables ((1-X)/X) as follows:
+
+See section "Moments of linearly-transformed, product and inverted random variables" for these expectations.
+The determinant of Fisher's information matrix is of interest (for example for the calculation of Jeffreys prior probability). From the expressions for the individual components, it follows that the determinant of Fisher's (symmetric) information matrix for the beta distribution with four parameters is:
+
+Using Sylvester's criterion (checking whether the diagonal elements are all positive), and since diagonal components  and  have singularities at α=2 and β=2 it follows that the Fisher information matrix for the four parameter case is positive-definite for α>2 and β>2. Since for α > 2 and β > 2 the beta distribution is (symmetric or unsymmetric) bell shaped, it follows that the Fisher information matrix is positive-definite only for bell-shaped (symmetric or unsymmetric) beta distributions, with inflection points located to either side of the mode. Thus, important well known distributions belonging to the four-parameter beta distribution family, like the parabolic distribution (Beta(2,2,a,c)) and the uniform distribution (Beta(1,1,a,c)) have Fisher information components () that blow up (approach infinity) in the four-parameter case (although their Fisher information components are all defined for the two parameter case). The four-parameter Wigner semicircle distribution (Beta(3/2,3/2,a,c)) and arcsine distribution (Beta(1/2,1/2,a,c)) have negative Fisher information determinants for the four-parameter case.
+Generating beta-distributed random variates [edit]
+
+If X and Y are independent, with  and  then , so one algorithm for generating beta variates is to generate X/(X + Y), where X is a gamma variate with parameters (α, 1) and Y is an independent gamma variate with parameters (β, 1).[51]
+Also, the kth order statistic of n uniformly distributed variates is , so an alternative if α and β are small integers is to generate α + β − 1 uniform variates and choose the α-th largest.[52]
+Related distributions [edit]
+
+Transformations [edit]
+If X ~ Beta(α, β) then 1−X ~ Beta(β, α) mirror-image symmetry
+If X ~ Beta(α, β) then . The beta prime distribution, also called "beta distribution of the second kind".
+If X ~ Beta(n/2, m/2) then  (assuming n > 0 and m > 0). The Fisher-Snedecor F distribution
+If  then min+X(max−min) ~ PERT(min, max, m, λ) where PERT denotes a distribution used in PERT analysis, and m=most likely value.[53] Traditionally[2] λ = 4 in PERT analysis.
+If X ~ Beta(1, β) then X ~ Kumaraswamy distribution with parameters (1, β)
+If X ~ Beta(α, 1) then X ~ Kumaraswamy distribution with parameters (α, 1)
+If X ~ Beta(α, 1) then −ln(X) ~ Exponential(α)
+Special and limiting cases [edit]
+
+
+Example of eight realizations of a random walk in one dimension starting at 0: the probability for the time of the last visit to the origin is distributed as Beta(1/2, 1/2)
+
+
+Beta(1/2, 1/2): The arcsine distribution probability density was proposed by Harold Jeffreys to represent uncertainty for a Bernoulli or a binomial distribution in Bayesian inference, and is now commonly referred to as Jeffreys prior: p−1/2(1−p)−1/2. This distribution also appears in several random walk fundamental theorems
+Beta(1, 1) ~ U(0, 1).
+If X ~ Beta(3/2, 3/2) and r > 0 then 2rX−r ~ Wigner semicircle distribution.
+Beta(1/2, 1/2) is equivalent to the arcsine distribution. This distribution is also Jeffreys prior probability for the Bernoulli and binomial distributions . The arcsine probability density is a distribution that appears in several random walk fundamental theorems. In a fair coin toss random walk, the probability for the time of the last visit to the origin is distributed as an (U-shaped) arcsine distribution.[11][19] In a two-player fair-coin-toss game, a player is said to be in the lead if the random walk (that started at the origin) is above the origin. The most probable number of times that a given player will be in the lead, in a game of length 2N, is not N. On the contrary, N is the least likely number of times that the player will be in the lead. The most likely number of times in the lead is 0 or 2N (following the arcsine distribution).
+ the exponential distribution
+ the gamma distribution
+Derived from other distributions [edit]
+The kth order statistic of a sample of size n from the uniform distribution is a beta random variable, U(k) ~ Beta(k, n+1−k).[52]
+If X ~ Gamma(α, θ) and Y ~ Gamma(β, θ) then 
+If  and  then 
+If X ~ U(0, 1) and α > 0 then X1/α ~ Beta(α, 1). The power function distribution.
+Combination with other distributions [edit]
+X ~ Beta(α, β) and Y ~ F(2α, 2β) then  for all x > 0.
+Compounding with other distributions [edit]
+If p ~ Beta(α, β) and X ~ Bin(k, p) then X ~ beta-binomial distribution
+If p ~ Beta(α, β) and X ~ NB(r, p) then X ~ beta negative binomial distribution
+Generalisations [edit]
+The Dirichlet distribution is a multivariate generalization of the beta distribution. Univariate marginals of the Dirichlet distribution have a beta distribution. The beta distribution is conjugate to the binomial and Bernoulli distributions in exactly the same way as the Dirichlet distribution is conjugate to the multinomial distribution and categorical distribution.
+The Pearson type I distribution is identical to the beta distribution (except for arbitrary shifting and re-scaling that can also be accomplished with the four parameter parametrization of the beta distribution).
+ the noncentral beta distribution
+Applications [edit]
+
+Order statistics [edit]
+Main article: Order statistic
+The beta distribution has an important application in the theory of order statistics. A basic result is that the distribution of the kth smallest of a sample of size n from a continuous uniform distribution has a beta distribution.[52] This result is summarized as:
+
+From this, and application of the theory related to the probability integral transform, the distribution of any individual order statistic from any continuous distribution can be derived.[52]
+Rule of succession [edit]
+Main article: Rule of succession
+A classic application of the beta distribution is the rule of succession, introduced in the 18th century by Pierre-Simon Laplace[54] in the course of treating the sunrise problem. It states that, given s successes in n conditionally independent Bernoulli trials with probability p, that the estimate of the expected value in the next trial is . This estimate is the expected value of the posterior distribution over p, namely Beta(s+1, n−s+1), which is given by Bayes' rule if one assumes a uniform prior probability over p (i.e., Beta(1, 1)) and then observes that p generated s successes in n trials. Laplace's rule of succession has been criticized by prominent scientists. R. T. Cox described Laplace's application of the rule of succession to the sunrise problem ([55] p. 89) as "a travesty of the proper use of the principle." Keynes remarks ([56] Ch.XXX, p. 382) "indeed this is so foolish a theorem that to entertain it is discreditable." Karl Pearson[57] showed that the probability that the next (n + 1) trials will be successes, after n successes in n trials, is only 50%, which has been considered too low by scientists like Jeffreys and unacceptable as a representation of the scientific process of experimentation to test a proposed scientific law. As pointed out by Jeffreys ([58] p. 128) (crediting C. D. Broad[59] ) Laplace's rule of succession establishes a high probability of success ((n+1)/(n+2)) in the next trial, but only a moderate probability (50%) that a further sample (n+1) comparable in size will be equally successful. As pointed out by Perks,[60] "The rule of succession itself is hard to accept. It assigns a probability to the next trial which implies the assumption that the actual run observed is an average run and that we are always at the end of an average run. It would, one would think, be more reasonable to assume that we were in the middle of an average run. Clearly a higher value for both probabilities is necessary if they are to accord with reasonable belief." These problems with Laplace's rule of succession motivated Haldane, Perks, Jeffreys and others to search for other forms of prior probability (see the next section titled "Bayesian inference"). According to Jaynes,[48] the main problem with the rule of succession is that it is not valid when s=0 or s=n (see rule of succession, for an analysis of its validity).
+Bayesian inference [edit]
+Main article: Bayesian inference
+
+
+: The uniform distribution probability density was proposed by Thomas Bayes to represent ignorance of prior probabilities in Bayesian inference. It describes not a state of complete ignorance, but the state of knowledge in which we have observed at least one success and one failure, and therefore we have prior knowledge that both states are physically possible.
+The use of Beta distributions in Bayesian inference is due to the fact that they provide a family of conjugate prior probability distributions for binomial (including Bernoulli) and geometric distributions. The domain of the beta distribution can be viewed as a probability, and in fact the beta distribution is often used to describe the distribution of a probability value p:[28] . Examples of beta distributions used as prior probabilities to represent ignorance of prior parameter values in Bayesian inference are Beta(1,1), Beta(0,0) and Beta(1/2,1/2).
+Bayes' prior probability ( Beta(1,1) ) [edit]
+The beta distribution achieves maximum differential entropy for Beta(1,1): the uniform probability density, for which all values in the domain of the distribution have equal density. This uniform distribution Beta(1,1) was suggested ("with a great deal of doubt") by Thomas Bayes[61] as the prior probability distribution to express ignorance about the correct prior distribution. This prior distribution was adopted (apparently, from his writings, with little sign of doubt[54]) by Pierre-Simon Laplace, and hence it was also known as the "Bayes-Laplace rule" or the "Laplace rule" of "inverse probability" in publications of the first half of the 20th century. In the later part of the 19th century and early part of the 20th century, scientists realized that the assumption of uniform "equal" probability density depended on the actual functions (for example whether a linear or a logarithmic scale was most appropriate) and parametrizations used. In particular, the behavior near the ends of distributions with finite support (for example near x=0, for a distribution with initial support at x=0) required particular attention. Keynes (,[56] Ch.XXX, p. 381) criticized the use of Bayes's uniform prior probability (Beta(1,1)) that all values between zero and one are equiprobable, as follows: "Thus experience, if it shows anything, shows that there is a very marked clustering of statistical ratios in the neighborhoods of zero and unity, of those for positive theories and for correlations between positive qualities in the neighborhood of zero, and of those for negative theories and for correlations between negative qualities in the neighborhood of unity. "
+Haldane's prior probability ( Beta(0,0) ) [edit]
+
+
+Beta(0, 0) The Haldane prior probability expressing total ignorance about prior information, where we are not even sure whether it is physically possible for an experiment to yield either a success or a failure. A beta distribution approaches, as α, β → 0, a two point Bernoulli distribution with all probability density concentrated at each Dirac delta function end, at 0 and 1, and nothing in between. A coin-toss: one face of the coin being at 0 and the other face being at 1.
+The Beta(0,0) distribution was proposed by J.B.S. Haldane,[62] who suggested that the prior probability representing complete uncertainty should be proportional to p−1(1−p)−1. The function p−1(1−p)−1 can be viewed as the limit of the numerator of the beta distribution as both shape parameters approach zero: α, β → 0. The Beta function (in the denominator of the beta distribution) approaches infinity, for both parameters approaching zero, α, β → 0. Therefore p−1(1−p)−1 divided by the Beta function approaches a 2 point Bernoulli distribution with equal probability 1/2 at each Dirac delta function end, at 0 and 1, and nothing in between, as α, β → 0. A coin-toss: one face of the coin being at 0 and the other face being at 1. The Haldane prior probability distribution Beta(0, 0) is an "improper prior" because its integration (from 0 to 1) fails to strictly converge to 1 due to the Dirac delta function singularities at each end. However, this is not an issue for computing posterior probabilities unless the sample size is very small. Furthermore, Zellner[63] points out that on the log-odds scale, (the logit transformation ln(p/1−p)), the Haldane prior is the uniformly flat prior. The fact that a uniform prior probability on the logit transformed variable ln(p/1−p) (with domain (-∞, ∞)) is equivalent to the Haldane prior on the domain [0, 1] was pointed out by Harold Jeffreys in the first edition (1939) of his book Theory of Probability ([58] p. 123). Jeffreys writes "Certainly if we take the Bayes-Laplace rule right up to the extremes we are led to results that do not correspond to anybody's way of thinking. The (Haldane) rule dx/(x(1−x)) goes too far the other way. It would lead to the conclusion that if a sample is of one type with respect to some property there is a probability 1 that the whole population is of that type." The fact that "uniform" depends on the parametrization, led Jeffreys to seek a form of prior that would be invariant under different parametrizations.
+Jeffreys' prior probability (Beta(1/2, 1/2) for a Bernoulli or for a binomial distribution) [edit]
+Main article: Jeffreys prior
+
+
+Jeffreys prior probability for the beta distribution: the square root of the determinant of Fisher's information matrix: is a function of the trigamma function ψ1 of shape parameters α, β
+
+
+Posterior Beta densities with samples having success=“s”, failure=“f” of s/(s+f)=1/2, and s+f={3,10,50}, based on 3 different prior probability functions: Haldane (Beta(0, 0), Jeffreys (Beta(1/2, 1/2)) and Bayes (Beta(1, 1)). The image shows that there is little difference between the priors for the posterior with sample size of 50 (with more pronounced peak near p=1/2). Significant differences appear for very small sample sizes (the flatter distribution for sample size of 3)
+
+
+Posterior Beta densities with samples having success=“s”, failure=“f” of s/(s+f)=1/4, and s+f={3,10,50}, based on 3 different prior probability functions: Haldane (Beta(0,0), Jeffreys (Beta(1/2,1/2)) and Bayes (Beta(1,1)). The image shows that there is little difference between the priors for the posterior with sample size of 50 (with more pronounced peak near p=1/4). Significant differences appear for very small sample sizes (the very skewed distribution for the degenerate case of sample size=3, in this degenerate and unlikely case the Haldane prior results in a reverse "J" shape with mode at p=0 instead of p=1/4. If there is sufficient sampling data, the three priors of Bayes (Beta(1,1)), Jeffreys (Beta(1/2,1/2)) and Haldane (Beta(0,0)) should yield similar posterior probability densities.
+
+
+Posterior Beta densities with samples having success=“s”, failure=“f” of s/(s+f)=1/4, and s+f={4,12,40}, based on 3 different prior probability functions: Haldane (Beta(0,0), Jeffreys (Beta(1/2,1/2)) and Bayes (Beta(1,1)). The image shows that there is little difference between the priors for the posterior with sample size of 40 (with more pronounced peak near p=1/4). Significant differences appear for very small sample sizes
+Harold Jeffreys[58][64] proposed to use an uninformative prior probability measure that should be invariant under reparameterization: proportional to the square root of the determinant of Fisher's information matrix. For the Bernoulli distribution, this can be shown as follows: for a coin that is "heads" with probability p ∈ [0, 1] and is "tails" with probability 1−p, for a given (H,T) ∈ {(0,1), (1,0)} the probability is pH(1−p)T. Since T = 1−H, the Bernoulli distribution is pH(1−p)1−H. Considering p as the only parameter, it follows that the log likelihood for the Bernoulli distribution is
+
+The Fisher information matrix has only one component (it is a scalar, because there is only one parameter: p), therefore:
+
+Similarly, for the Binomial distribution with n Bernoulli trials, it can be shown that
+
+Thus, for the Bernoulli, and Binomial distributions, Jeffreys prior is proportional to , which happens to be proportional to a beta distribution with domain variable x = p, and shape parameters α = β = 1/2, the arcsine distribution Beta(1/2, 1/2) = .
+It will be shown in the next section that the normalizing constant for Jeffreys prior is immaterial to the final result because the normalizing constant cancels out in Bayes theorem for the posterior probability. Hence Beta(1/2,1/2) is used as the Jeffreys prior for both Bernoulli and binomial distributions. As shown in the next section, when using this expression as a prior probability times the likelihood in Bayes theorem, the posterior probability turns out to be a beta distribution. It is important to realize, however, that Jeffreys prior is proportional to  for the Bernoulli and binomial distribution, but not for the beta distribution. Jeffreys prior for the beta distribution is given by the determinant of Fisher's information for the beta distribution, which, as shown in the section titled "Fisher information" is a function of the trigamma function ψ1 of shape parameters α and β as follows:
+
+As previously discussed, Jeffreys prior for the Bernoulli and binomial distributions is proportional to the arcsine distribution Beta(1/2,1/2), a one-dimensional curve that looks like a basin as a function of the parameter p of the Bernoulli and binomial distributions. The walls of the basin are formed by p approaching the singularities at the ends p → 0 and p → 1, where Beta(1/2,1/2) approaches infinity. Jeffreys prior for the beta distribution is a two-dimensional surface (embedded in a three dimensional space) that looks like a basin with only two of its walls meeting at the corner α = β = 0 (and missing the other two walls) as a function of the shape parameters α and β of the beta distribution. The two adjoining walls of this two-dimensional surface are formed by the shape parameters α and β approaching the singularities (of the trigamma function) at α, β → 0. It has no walls for α, β → ∞ because in this case the determinant of Fisher's information matrix for the beta distribution approaches zero.
+It will be shown in the next section that Jeffreys prior probability results in posterior probabilities (when multiplied by the binomial likelihood function) that are intermediate between the posterior probability results of the Haldane and Bayes prior probabilities.
+Jeffreys prior may be difficult to obtain analytically, and for some cases it just doesn't exist (even for simple distribution functions like the asymmetric triangular distribution). Berger, Bernardo and Sun, in a 2009 paper[65] defined a reference prior probability distribution that (unlike Jeffreys prior) exists for the asymmetric triangular distribution. They cannot obtain a closed-form expression for their reference prior, but numerical calculations show it to be "nearly perfectly ﬁtted by the (proper) prior Beta(1/2, 1/2) ∝ " where θ is the vertex variable for the asymmetric triangular distribution with support [0, 1] (corresponding to the following parameter values in Wikipedia's article on the triangular distribution: vertex c=θ, left end a=0,and right end b=1). Berger et al. also give a heuristic argument that Beta(1/2, 1/2) could indeed be the exact Berger-Bernardo-Sun reference prior for the asymmetric triangular distribution. Therefore, Beta(1/2, 1/2) not only is Jeffreys prior for the Bernoulli and binomial distributions, but also seems to be the Berger-Bernardo-Sun reference prior for the asymmetric triangular distribution (for which the Jeffreys prior does not exist), a distribution used in project management and PERT analysis to describe the cost and duration of project tasks.
+Clarke and Barron[66] prove that, among continuous positive priors, Jeffreys prior (when it exists) asymptotically maximizes Shannon's mutual information between a sample of size n and the parameter, and therefore Jeffreys prior is the most uninformative prior (measuring information as Shannon information). The proof rests on an examination of the Kullback-Leibler distance between probability density functions for iid random variables.
+Effect of different prior probability choices on the posterior beta distribution [edit]
+If samples are drawn from the population of a random variable X that result in s successes and f failures in "n" Bernoulli trials n=s+f, then the likelihood function for parameters s and f given x=p (the notation x=p in the expressions below will emphasize that the domain x stands for the value of the parameter p in the binomial distribution), is the following binomial distribution:
+
+If beliefs about prior probability information are reasonably well approximated by a beta distribution with parameters αPrior and βPrior, then:
+
+According to Bayes' theorem for a continuous event space, the posterior probability is given by the product of the prior probability and the likelihood function (given the evidence s and f=n-s), normalized so that the area under the curve equals one, as follows:
+
+The binomial coefficient  appears both in the numerator and the denominator of the posterior probability, and it does not depend on the integration variable x, hence it cancels out, and it is irrelevant to the final result. Similarly the normalizing factor for the prior probability, the beta function B(αPrior,βPrior) cancels out and it is immaterial to the final result. The same posterior probability result can be obtained if one uses an un-normalized prior  because the normalizing factors all cancel out. Several authors (including Jeffreys himself) thus use an un-normalized prior formula since the normalization constant cancels out. The numerator of the posterior probability ends up being just the (un-normalized) product of the prior probability and the likelihood function, and the denominator is its integral from zero to one. The beta function in the denominator, B(s + αPrior,n - s + βPrior), appears as a normalization constant to ensure that the total posterior probability integrates to unity.
+The ratio s/n of the number of successes to the total number of trials is a sufficient statistic in the binomial case, which is relevant for the following results.
+For the Bayes' prior probability (Beta(1,1)), the posterior probability is:
+
+For the Jeffreys' prior probability (Beta(1/2,1/2)), the posterior probability is:
+
+and for the Haldane prior probability (Beta(0,0)), the posterior probability is:
+
+From the above expressions it follows that for (s/n)=(1/2) all the above three prior probabilities result in the identical location for the posterior probability mean=mode=1/2. For (s/n)<(1/2), the mean of the posterior probabilities, using the following priors, are such that: mean for Bayes prior > mean for Jeffreys prior > mean for Haldane prior. For (s/n)>(1/2) the order of these inequalities is reversed such that the Haldane prior probability results in the largest posterior mean. The Haldane prior probability Beta(0,0) results in a posterior probability density with mean (the expected value for the probability of success in the "next" trial) identical to the ratio s/n of the number of successes to the total number of trials. Therefore the Haldane prior results in a posterior probability with expected value in the next trial equal to the maximum likelihood. The Bayes prior probability Beta(1,1) results in a posterior probability density with mode identical to the ratio s/n (the maximum likelihood).
+In the case that 100% of the trials have been successful (s=n), the Bayes prior probability Beta(1,1) results in a posterior expected value equal to the rule of succession (n+1)/(n+2), while the Haldane prior Beta(0,0) results in a posterior expected value of 1 (absolute certainty of success in the next trial). Jeffreys prior probability results in a posterior expected value equal to (n + 1/2)/(n+1), Perks[60] (p. 303) points out: "This provides a new rule of succession and expresses a 'reasonable' position to take up, namely, that after an unbroken run of n successes we assume a probability for the next trial equivalent to the assumption that we are about half-way through an average run, i.e. that we expect a failure once in (2n + 2) trials. The Bayes-Laplace rule implies that we are about at the end of an average run or that we expect a failure once in (n + 2) trials. The comparison clearly favours the new result (what is now called Jeffreys prior) from the point of view of 'reasonableness'."
+Conversely, in the case that 100% of the trials have resulted in failure (s=0), the Bayes prior probability Beta(1,1) results in a posterior expected value for success in the next trial equal to 1/(n+2), while the Haldane prior Beta(0,0) results in a posterior expected value of success in the next trial of 0 (absolute certainty of failure in the next trial). Jeffreys prior probability results in a posterior expected value for success in the next trial equal to (1/2)/(n+1), which Perks[60] (p. 303) points out: "is a much more reasonably remote result than the Bayes-Laplace result 1/(n + 2)".
+Jaynes[48] questions (for the uniform prior Beta(1,1)) the use of these formulas for the cases s=0 or s=n because the integrals do not converge (Beta(1,1) is an improper prior for s=0 or s=n). In practice, the conditions 0<s<n necessary for a mode to exist between both ends for the Bayes prior are usually met, and therefore the Bayes prior (as long as 0<s<n) results in a posterior mode located between both ends of the domain.
+As remarked in the section on the rule of succession, K. Pearson showed that after n successes in n trials the posterior probability (based on the Bayes Beta(1,1) distribution as the prior probability) that the next (n + 1) trials will all be successes is exactly 1/2, whatever the value of n. Based on the Haldane Beta(0,0) distribution as the prior probability, this posterior probability is 1 (absolute certainty that after n successes in n trials the next (n + 1) trials will all be successes). Perks[60] (p. 303) shows that, for what is now known as the Jeffreys prior, this probability is ((n + 1/2)/(n+1))((n + 3/2)/(n+2))...(2n - 1/2)/(2n), which for n=1,2,3 gives 3/4, 35/48, 693/960; rapidly approaching a limiting value of  as n tends to infinity. Perks remarks that what is now known as the Jeffreys prior: "is clearly more 'reasonable' than either the Bayes-Laplace result or the result on the (Haldane) alternative rule rejected by Jeffreys which gives certainty as the probability. It clearly provides a very much better correspondence with the process of induction. Whether it is 'absolutely' reasonable for the purpose, i.e. whether it is yet large enough, without the absurdity of reaching unity, is a matter for others to decide. But it must be realized that the result depends on the assumption of complete indifference and absence of knowledge prior to the sampling experiment."
+Following are the variances of the posterior distribution obtained with these three prior probability distributions:
+for the Bayes' prior probability (Beta(1,1)), the posterior variance is:
+
+for the Jeffreys' prior probability (Beta(1/2,1/2)), the posterior variance is:
+
+and for the Haldane prior probability (Beta(0,0)), the posterior variance is:
+
+So, as remarked by Silvey,[46] for large n, the variance is small and hence the posterior distribution is highly concentrated, whereas the assumed prior distribution was very diffuse. This is in accord with what one would hope for, as vague prior knowledge is transformed (through Bayes theorem) into a more precise posterior knowledge by an informative experiment. For small n the Haldane Beta(0,0) prior results in the largest posterior variance while the Bayes Beta(1,1) prior results in the more concentrated posterior. Jeffreys prior Beta(1/2,1/2) results in a posterior variance in between the other two. As n increases, the variance rapidly decreases so that the posterior variance for all three priors converges to approximately the same value (approaching zero variance as n approaches infinity). Recalling the previous result that the Haldane prior probability Beta(0,0) results in a posterior probability density with mean (the expected value for the probability of success in the "next" trial) identical to the ratio s/n of the number of successes to the total number of trials, it follows from the above expression that also the Haldane prior Beta(0,0) results in a posterior with variance identical to the variance expressed in terms of the max. likelihood estimate s/n and sample size (in section titled "Variance"): with the mean μ=s/n and the sample size ν = n.
+In Bayesian inference, using a prior distribution Beta(αPrior,βPrior) prior to a binomial distribution is equivalent to adding (αPrior - 1) pseudo-observations of "success" and (βPrior - 1) pseudo-observations of "failure" to the actual number of successes and failures observed, then estimating the parameter p of the binomial distribution by the proportion of successes over both real- and pseudo-observations. A uniform prior Beta(1,1) does not add (or subtract) any pseudo-observations since for Beta(1,1) it follows that (αPrior - 1)=0 and (βPrior - 1)=0. The Haldane prior Beta(0,0) subtracts one pseudo observation from each and Jeffreys prior Beta(1/2,1/2) subtracts 1/2 pseudo-observation of success and an equal number of failure. This subtraction has the effect of smoothing out the posterior distribution. If the proportion of successes is not 50% (s/n ≠ 1/2) values of αPrior and βPrior less than 1 (and therefore negative (αPrior - 1) and (βPrior - 1)) favor sparsity, i.e. distributions where the parameter p is closer to either 0 or 1. In effect, values of αPrior and βPrior between 0 and 1, when operating together, function as a concentration parameter.
+The accompanying plots show the posterior probability density functions for sample sizes n={3,10,50}, successes s={n/2,n/4} and Beta(αPrior,βPrior)={Beta(0,0),Beta(1/2,1/2),Beta(1,1)}. Also shown are the cases for n={4,12,40}, success s={n/4} and Beta(αPrior,βPrior)={Beta(0,0),Beta(1/2,1/2),Beta(1,1)}. The first plot shows the symmetric cases, for successes s={n/2}, with mean=mode=1/2 and the second plot shows the skewed cases s={n/4}. The images show that there is little difference between the priors for the posterior with sample size of 50 (characterized by a more pronounced peak near p=1/2). Significant differences appear for very small sample sizes (in particular for the flatter distribution for the degenerate case of sample size=3). Therefore, the skewed cases, with successes s={n/4}, show a larger effect from the choice of prior, at small sample size, than the symmetric cases. For symmetric distributions, the Bayes prior Beta(1,1) results in the most "peaky" and highest posterior distributions and the Haldane prior Beta(0,0) results in the flattest and lowest peak distribution. The Jeffreys prior Beta(1/2,1/2) lies in between them. For nearly symmetric, not too skewed distributions the effect of the priors is similar. For very small sample size (in this case for a sample size of 3) and skewed distribution (in this example for s={n/4} ) the Haldane prior can result in a reverse-J-shaped distribution with a singularity at the left end. However, this happens only in degenerate cases (in this example n=3 and hence s=3/4<1, a degenerate value because s should be greater than unity in order for the posterior of the Haldane prior to have a mode located between the ends, and because s=3/4 is not an integer number, hence it violates the initial assumption of a binomial distribution for the likelihood) and it is not an issue in generic cases of reasonable sample size (such that the condition 1<s<n - 1, necessary for a mode to exist between both ends, is fulfilled).
+In Chapter 12 (p. 385) of his book, Jaynes[48] asserts that the Haldane prior Beta(0,0) describes a prior state of knowledge of complete ignorance, where we are not even sure whether it is physically possible for an experiment to yield either a success or a failure, while the Bayes (uniform) prior Beta(1,1) applies if one knows that both binary outcomes are possible. Jaynes states: "interpret the Bayes-Laplace (Beta(1,1)) prior as describing not a state of complete ignorance, but the state of knowledge in which we have observed one success and one failure...once we have seen at least one success and one failure, then we know that the experiment is a true binary one, in the sense of physical possibility." Jaynes [48] does not specifically discuss Jeffreys prior Beta(1/2,1/2) (Jaynes discussion of "Jeffreys prior" on pp. 181, 423 and on chapter 12 of Jaynes book[48] refers instead to the improper, un-normalized, prior "1/p" introduced by Jeffreys in the 1939 edition of his book,[58] seven years before he introduced what is now known as Jeffreys' invariant prior: the square root of the determinant of Fisher's information matrix. "1/p" is Jeffreys' (1946) invariant prior for the exponential distribution, not for the Bernoulli or binomial distributions). However, it follows from the above discussion that Jeffreys Beta(1/2,1/2) prior represents a state of knowledge in between the Haldane Beta(0,0) and Bayes Beta (1,1) prior.
+Similarly, Karl Pearson in his 1892 book The Grammar of Science[67][68] (p. 144 of 1900 edition) maintained that the Bayes (Beta(1,1) uniform prior was not a complete ignorance prior, and that it should be used when prior information justified to "distribute our ignorance equally”". K. Pearson wrote: "Yet the only supposition that we appear to have made is this: that, knowing nothing of nature, routine and anomy (from the Greek ανομία, namely: a- "without", and nomos "law") are to be considered as equally likely to occur. Now we were not really justified in making even this assumption, for it involves a knowledge that we do not possess regarding nature. We use our experience of the constitution and action of coins in general to assert that heads and tails are equally probable, but we have no right to assert before experience that, as we know nothing of nature, routine and breach are equally probable. In our ignorance we ought to consider before experience that nature may consist of all routines, all anomies (normlessness), or a mixture of the two in any proportion whatever, and that all such are equally probable. Which of these constitutions after experience is the most probable must clearly depend on what that experience has been like."
+If there is sufficient sampling data, and the posterior probability mode is not located at one of the extremes of the domain (x=0 or x=1), the three priors of Bayes (Beta(1,1)), Jeffreys (Beta(1/2,1/2)) and Haldane (Beta(0,0)) should yield similar posterior probability densities. Otherwise, as Gelman et al.[69] (p. 65) point out, "if so few data are available that the choice of noninformative prior distribution makes a difference, one should put relevant information into the prior distribution", or as Berger[16] (p. 125) points out "when different reasonable priors yield substantially different answers, can it be right to state that there is a single answer? Would it not be better to admit that there is scientific uncertainty, with the conclusion depending on prior beliefs?."
+Subjective logic [edit]
+Main article: Subjective logic
+In standard logic, propositions are considered to be either true or false. In contradistinction, subjective logic assumes that humans cannot determine with absolute certainty whether a proposition about the real world is absolutely true or false. In subjective logic the posteriori probability estimates of binary events can be represented by beta distributions.[70]
+Wavelet analysis [edit]
+Main article: Beta wavelet
+A wavelet is a wave-like oscillation with an amplitude that starts out at zero, increases, and then decreases back to zero. It can typically be visualized as a "brief oscillation" that promptly decays. Wavelets can be used to extract information from many different kinds of data, including – but certainly not limited to – audio signals and images. Thus, wavelets are purposefully crafted to have specific properties that make them useful for signal processing. Wavelets are localized in both time and frequency whereas the standard Fourier transform is only localized in frequency. Therefore, standard Fourier Transforms are only applicable to stationary processes, while wavelets are applicable to non-stationary processes. Continuous wavelets can be constructed based on the beta distribution. Beta wavelets[71] can be viewed as a soft variety of Haar wavelets whose shape is fine-tuned by two shape parameters α and β.
+Project Management: task cost and schedule modeling [edit]
+The beta distribution can be used to model events which are constrained to take place within an interval defined by a minimum and maximum value. For this reason, the beta distribution — along with the triangular distribution — is used extensively in PERT, critical path method (CPM), Joint Cost Schedule Modeling (JCSM) and other project management/control systems to describe the time to completion and the cost of a task. In project management, shorthand computations are widely used to estimate the mean and standard deviation of the beta distribution:[2]
+
+where a is the minimum, c is the maximum, and b is the most likely value (the mode for α > 1 and β > 1).
+The above estimate for the mean  is known as the PERT three-point estimation and it is exact for either of the following values of β (for arbitrary α within these ranges):
+β = α > 1 (symmetric case) with standard deviation , skewness = 0, and excess kurtosis = 
+
+or
+β = 6−α for 5 > α > 1 (skewed case) with standard deviation , skewness = , and excess kurtosis = 
+
+The above estimate for the standard deviation σ(X) = (c−a)/6 is exact for either of the following values of α and β:
+α = β = 4 (symmetric) with skewness = 0, and excess kurtosis = −6/11.
+β = 6−α and  (right-tailed, positive skew) with skewness = , and excess kurtosis = 0
+β = 6−α and  (left-tailed, negative skew) with skewness = , and excess kurtosis = 0
+
+Otherwise, these can be poor approximations for beta distributions with other values of α and β. For example, the particular values  and  resulting in σ(X) = (c−a)/6 and  have been shown to exhibit average errors of 40% in the mean and 549% in the variance[72][73][74]
+Alternative parametrizations [edit]
+
+Two parameters [edit]
+Mean and sample size [edit]
+The beta distribution may also be reparameterized in terms of its mean μ (0 < μ < 1) and the addition of both shape parameters ν = α + β > 0([15] p. 83). Denoting by αPosterior and βPosterior the shape parameters of the posterior beta distribution resulting from applying Bayes theorem to a binomial likelihood function and a prior probability, the interpretation of the addition of both shape parameters to be sample size = ν = αPosterior + βPosterior is only correct for the Haldane prior probability Beta(0,0). Specifically, for the Bayes (uniform) prior Beta(1,1) the correct interpretation would be sample size = αPosterior + βPosterior − 2, or ν = (sample size) + 2. Of course, for sample size much larger than 2, the difference between these two priors becomes negligible. (See section titled "Bayesian inference" for further details.) In the rest of this article ν = α + β will be referred to as "sample size", but one should remember that it is, strictly speaking, the "sample size" of a binomial likelihood function only when using a Haldane Beta(0,0) prior in Bayes theorem.
+This parametrization may be useful in Bayesian parameter estimation. For example, one may administer a test to a number of individuals. If it is assumed that each person's score (0 ≤ θ ≤ 1) is drawn from a population-level Beta distribution, then an important statistic is the mean of this population-level distribution. The mean and sample size parameters are related to the shape parameters α and β via[15]
+α = μν, β = (1−μ)ν
+Under this parametrization, one may place an uninformative prior probability over the mean, and a vague prior probability (such as an exponential or gamma distribution) over the positive reals for the sample size, if they are independent, and prior data and/or beliefs justify it.
+Mean (allele frequency) and (Wright's) genetic distance between two populations [edit]
+The Balding–Nichols model[1] is a two-parameter parametrization of the beta distribution used in population genetics. It is a statistical description of the allele frequencies in the components of a sub-divided population:
+
+See the articles Balding–Nichols model, F-statistics, fixation index and coefficient of relationship, for further information.
+Mean and variance [edit]
+Solving the system of (coupled) equations given in the above sections as the equations for the mean and the variance of the beta distribution in terms of the original parameters α and β, one can express the α and β parameters in terms of the mean (μ) and the variance (var):
+
+This parametrization of the beta distribution may lead to a more intuitive understanding (than the one based on the original parameters α and β), for example, by expressing the mode, skewness, excess kurtosis and differential entropy in terms of the mean and the variance:
+   
+Four parameters [edit]
+A beta distribution with the two shape parameters α and β is supported on the range [0,1]. It is possible to alter the location and scale of the distribution by introducing two further parameters representing the minimum, a, and maximum c (c > a), values of the distribution,[7] by a linear transformation substituting the non-dimensional variable x in terms of the new variable y (with support [a,c]) and the parameters a and c:
+
+The probability density function of the four parameter beta distribution is equal to the two parameter distribution, scaled by the range (c-a), (so that the total area under the density curve equals a probability of one), and with the "y" variable shifted and scaled as follows:
+
+That a random variable Y is Beta-distributed with four parameters α, β, a, and c will be denoted by:
+.
+The measures of central location are scaled (by (c-a)) and shifted (by a), as follows:
+
+The statistical dispersion measures are scaled (they do not need to be shifted because they are already centered around the mean) by the range (c-a), linearly for the mean deviation and nonlinearly for the variance:
+
+
+Since the skewness and excess kurtosis are non-dimensional quantities (as moments centered around the mean and normalized by the standard deviation), they are independent of the parameters a and c, and therefore equal to the expressions given above in terms of X (with support [0,1]):
+
+
+History [edit]
+
+
+
+Karl Pearson analyzed the beta distribution as the solution "Type I" of Pearson distributions
+The first systematic, modern discussion of the beta distribution is probably due to Karl Pearson FRS[75] (27 March 1857 – 27 April 1936[76]), an influential English mathematician who has been credited with establishing the discipline of mathematical statistics.[77] In Pearson's papers[26][36] the beta distribution is couched as a solution of a differential equation: Pearson's Type I distribution. The beta distribution is essentially identical to Pearson's Type I distribution except for arbitrary shifting and re-scaling (the beta and Pearson Type I distributions can always be equalized by proper choice of parameters). In fact, in several English books and journal articles in the few decades prior to World War II, it was common to refer to the beta distribution as Pearson's Type I distribution. William P. Elderton (1877–1962) in his 1906 monograph "Frequency curves and correlation"[38] further analyzes the beta distribution as Pearson's Type I distribution, including a full discussion of the method of moments for the four parameter case, and diagrams of (what Elderton describes as) U-shaped, J-shaped, twisted J-shaped, "cocked-hat" shapes, horizontal and angled straight-line cases. Elderton wrote "I am chiefly indebted to Professor Pearson, but the indebtedness is of a kind for which it is impossible to offer formal thanks." Elderton in his 1906 monograph [38] provides an impressive amount of information on the beta distribution, including equations for the origin of the distribution chosen to be the mode, as well as for other Pearson distributions: types I through VII. Elderton also included a number of appendixes, including one appendix ("II") on the beta and gamma functions. In later editions, Elderton added equations for the origin of the distribution chosen to be the mean, and analysis of Pearson distributions VIII through XII.
+As remarked by Bowman and Shenton [40] "Fisher and Pearson had a difference of opinion in the approach to (parameter) estimation, in particular relating to (Pearson's method of) moments and (Fisher's method of) maximum likelihood in the case of the Beta distribution." Also according to Bowman and Shenton, "the case of a Type I (beta distribution) model being the center of the controversy was pure serendipity. A more difficult model of 4 parameters would have been hard to find." Ronald Fisher (17 February 1890 – 29 July 1962) was one of the giants of statistics in the first half of the 20th century, and his long running public conflict with Karl Pearson can be followed in a number of articles in prestigious journals. For example, concerning the estimation of the four parameters for the beta distribution, and Fisher's criticism of Pearson's method of moments as being arbitrary, see Pearson's article "Method of moments and method of maximum likelihood" [41] (published three years after his retirement from University College, London, where his position had been divided between Fisher and Pearson's son Egon) in which Pearson writes "I read (Koshai's paper in the Journal of the Royal Statistical Society, 1933) which as far as I am aware is the only case at present published of the application of Professor Fisher's method. To my astonishment that method depends on first working out the constants of the frequency curve by the (Pearson) Method of Moments and then superposing on it, by what Fisher terms "the Method of Maximum Likelihood" a further approximation to obtain, what he holds, he will thus get, "more efficient values" of the curve constants."
+David and Edwards's treatise on the history of statistics[78] cites the first modern treatment of the beta distribution, in 1911,[79] using the beta designation that has become standard, due to Corrado Gini,(May 23, 1884 – March 13, 1965), an Italian statistician, demographer, and sociologist, who developed the Gini coefficient. N.L.Johnson and S.Kotz, in their comprehensive and very informative monograph[80] on leading historical personalities in statistical sciences credit Corrado Gini[81] as "an early Bayesian...who dealt with the problem of eliciting the parameters of an initial Beta distribution, by singling out techniques which anticipated the advent of the so called empirical Bayes approach." Bayes, in a posthumous paper [61] published in 1763 by Richard Price, obtained a beta distribution as the density of the probability of success in Bernoulli trials (see the section titled "Applications, Bayesian inference" in this article), but the paper does not analyze any of the moments of the beta distribution or discuss any of its properties.

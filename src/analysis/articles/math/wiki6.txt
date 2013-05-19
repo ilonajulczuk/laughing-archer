@@ -1,0 +1,320 @@
+An eigenvector of a square matrix  is a non-zero vector  that, when multiplied by , yields the original vector multiplied by a single number ; that is:
+
+The number  is called the eigenvalue of  corresponding to .[1]
+In analytic geometry, for example, a three-element vector may be seen as an arrow in three-dimensional space starting at the origin. In that case, an eigenvector of a 3×3 matrix  is an arrow whose direction is either preserved or exactly reversed after multiplication by . The corresponding eigenvalue determines how the length of the arrow is changed by the operation, and whether its direction is reversed or not.
+In abstract linear algebra, these concepts are naturally extended to more general situations, where the set of real scale factors is replaced by any field of scalars (such as algebraic or complex numbers); the set of Cartesian vectors  is replaced by any vector space (such as the continuous functions, the polynomials or the trigonometric series), and matrix multiplication is replaced by any linear operator that maps vectors to vectors (such as the derivative from calculus). In such cases, the "vector" in "eigenvector" may be replaced by a more specific term, such as "eigenfunction", "eigenmode", "eigenface", or "eigenstate". Thus, for example, the exponential function  is an eigenfunction of the derivative operator "  ", with eigenvalue , since its derivative is .
+The set of all eigenvectors of a matrix (or linear operator), each paired with its corresponding eigenvalue, is called the eigensystem of that matrix.[2] An eigenspace of a matrix  is the set of all eigenvectors with the same eigenvalue, together with the zero vector.[1] An eigenbasis for  is any basis for the set of all vectors that consists of linearly independent eigenvectors of . Not every real matrix has real eigenvalues, but every complex matrix has at least one complex eigenvalue.
+The terms characteristic vector, characteristic value, and characteristic space are also used for these concepts. The prefix eigen- is adopted from the German word eigen for "self" or "proper".
+Eigenvalues and eigenvectors have many applications in both pure and applied mathematics. They are used in matrix factorization, in quantum mechanics, and in many other areas.
+Contents  [hide] 
+1 Definition
+1.1 Eigenvectors and eigenvalues of a real matrix
+1.1.1 An example
+1.1.2 Another example
+1.1.3 Trivial cases
+1.2 General definition
+1.3 Eigenspace and spectrum
+1.4 Eigenbasis
+2 Generalizations to infinite-dimensional spaces
+2.1 Eigenfunctions
+2.2 Spectral theory
+2.3 Associative algebras and representation theory
+3 Eigenvalues and eigenvectors of matrices
+3.1 Characteristic polynomial
+3.1.1 In the real domain
+3.1.2 In the complex domain
+3.2 Algebraic multiplicities
+3.2.1 Example
+3.3 Diagonalization and eigendecomposition
+3.4 Further properties
+3.5 Left and right eigenvectors
+4 Calculation
+4.1 Computing the eigenvalues
+4.2 Computing the eigenvectors
+5 History
+6 Applications
+6.1 Eigenvalues of geometric transformations
+6.2 Schrödinger equation
+6.3 Molecular orbitals
+6.4 Geology and glaciology
+6.5 Principal components analysis
+6.6 Vibration analysis
+6.7 Eigenfaces
+6.8 Tensor of moment of inertia
+6.9 Stress tensor
+6.10 Eigenvalues of a graph
+6.11 Basic reproduction number
+7 See also
+8 Notes
+9 References
+10 External links
+Definition [edit]
+
+Eigenvectors and eigenvalues of a real matrix [edit]
+
+
+Matrix  acts by stretching the vector , not changing its direction, so  is an eigenvector of .
+See also: Euclidean vector and Matrix (mathematics)
+In many contexts, a vector can be assumed to be a list of real numbers (called elements), written vertically with brackets around the entire list, such as the vectors u and v below. Two vectors are said to be scalar multiples of each other (also called parallel or collinear) if they have the same number of elements, and if every element of one vector is obtained by multiplying each corresponding element in the other vector by the same number (known as a scaling factor, or a scalar). For example, the vectors
+ and 
+are scalar multiples of each other, because each element of  is −20 times the corresponding element of .
+A vector with three elements, like  or  above, may represent a point in three-dimensional space, relative to some Cartesian coordinate system. It helps to think of such a vector as the tip of an arrow whose tail is at the origin of the coordinate system. In this case, the condition " is parallel to " means that the two arrows lie on the same straight line, and may differ only in length and direction along that line.
+If we multiply any square matrix  with  rows and  columns by such a vector , the result will be another vector , also with rows and one column. That is,
+ is mapped to 
+where, for each index ,
+
+In general, if  is not all zeros, the vectors  and  will not be parallel. When they are parallel (that is, when there is some real number  such that ) we say that  is an eigenvector of . In that case, the scale factor  is said to be the eigenvalue corresponding to that eigenvector.
+In particular, multiplication by a 3×3 matrix  may change both the direction and the magnitude of an arrow  in three-dimensional space. However, if  is an eigenvector of  with eigenvalue , the operation may only change its length, and either keep its direction or flip it (make the arrow point in the exact opposite direction). Specifically, the length of the arrow will increase if , remain the same if , and decrease it if . Moreover, the direction will be precisely the same if , and flipped if . If , then the length of the arrow becomes zero.
+An example [edit]
+
+The transformation matrix  preserves the direction of vectors parallel to  (in blue) and  (in violet). The points that lie on the line through the origin, parallel to an eigenvector, remain on the line after the transformation. The vectors in red are not eigenvectors, therefore their direction is altered by the transformation. See also: An extended version, showing all four quadrants.
+For the transformation matrix
+
+the vector
+
+is an eigenvector with eigenvalue 2. Indeed,
+
+
+On the other hand the vector
+
+is not an eigenvector, since
+
+and this vector is not a multiple of the original vector .
+Another example [edit]
+For the matrix
+
+we have
+
+ and
+
+Therefore, the vectors ,  and  are eigenvectors of  corresponding to the eigenvalues 0, 3, and 2, respectively. (Here the symbol  indicates matrix transposition, in this case turning the row vectors into column vectors.)
+Trivial cases [edit]
+The identity matrix  (whose general element  is 1 if , and 0 otherwise) maps every vector to itself. Therefore, every vector is an eigenvector of , with eigenvalue 1.
+More generally, if  is a diagonal matrix (with  whenever ), and  is a vector parallel to axis  (that is, , and  if ), then  where . That is, the eigenvalues of a diagonal matrix are the elements of its main diagonal. This is trivially the case of any 1 ×1 matrix.
+General definition [edit]
+The concept of eigenvectors and eigenvalues extends naturally to abstract linear transformations on abstract vector spaces. Namely, let  be any vector space over some field  of scalars, and let  be a linear transformation mapping  into . We say that a non-zero vector  of  is an eigenvector of  if (and only if) there is a scalar  in  such that
+.
+This equation is called the eigenvalue equation for , and the scalar  is the eigenvalue of  corresponding to the eigenvector . Note that  means the result of applying the operator to the vector , while  means the product of the scalar  by .[3]
+The matrix-specific definition is a special case of this abstract definition. Namely, the vector space  is the set of all column vectors of a certain size ×1, and  is the linear transformation that consists in multiplying a vector by the given  matrix .
+Some authors allow  to be the zero vector in the definition of eigenvector.[4] This is reasonable as long as we define eigenvalues and eigenvectors carefully: If we would like the zero vector to be an eigenvector, then we must first define an eigenvalue of  as a scalar  in  such that there is a nonzero vector  in  with . We then define an eigenvector to be a vector in  such that there is an eigenvalue  in  with . This way, we ensure that it is not the case that every scalar is an eigenvalue corresponding to the zero vector.
+Eigenspace and spectrum [edit]
+If  is an eigenvector of , with eigenvalue , then any scalar multiple  of  with nonzero  is also an eigenvector with eigenvalue , since . Moreover, if  and  are eigenvectors with the same eigenvalue , then  is also an eigenvector with the same eigenvalue . Therefore, the set of all eigenvectors with the same eigenvalue , together with the zero vector, is a linear subspace of , called the eigenspace of  associated to .[5][6] If that subspace has dimension 1, it is sometimes called an eigenline.[7]
+The geometric multiplicity  of an eigenvalue  is the dimension of the eigenspace associated to , i.e. number of linearly independent eigenvectors with that eigenvalue. These eigenvectors can be chosen so that they are pairwise orthogonal and have unit length under some arbitrary inner product defined on . In other words, every eigenspace has an orthonormal basis of eigenvectors.
+Conversely, any eigenvector with eigenvalue  must be linearly independent from all eigenvectors that are associated to a different eigenvalue . Therefore a linear transformation  that operates on an -dimensional space cannot have more than  distinct eigenvalues (or eigenspaces).[8]
+Any subspace spanned by eigenvectors of  is an invariant subspace of .
+The list of eigenvalues of  is sometimes called the spectrum of . The order of this list is arbitrary, but the number of times that an eigenvalue  appears is important.
+There is no unique way to choose a basis for an eigenspace of an abstract linear operator  based only on  itself, without some additional data such as a choice of coordinate basis for . Even for an eigenline, the basis vector is indeterminate in both magnitude and orientation. If the scalar field  is the real numbers , one can order the eigenspaces by their eigenvalues. Since the modulus  of an eigenvalue is important in many applications, the eigenspaces are often ordered by that criterion.
+Eigenbasis [edit]
+An eigenbasis for a linear operator  that operates on a vector space  is a basis for  that consists entirely of eigenvectors of  (possibly with different eigenvalues). Such a basis may not exist.
+Suppose  has finite dimension , and let  be the sum of the geometric multiplicities  over all distinct eigenvalues  of . This integer is the maximum number of linearly independent eigenvectors of , and therefore cannot exceed . If  is exactly , then  admits an eigenbasis; that is, there exists a basis for  that consists of  eigenvectors. The matrix  that represents  relative to this basis is a diagonal matrix, whose diagonal elements are the eigenvalues associated to each basis vector.
+Conversely, if the sum  is less than , then  admits no eigenbasis, and there is no choice of coordinates that will allow  to be represented by a diagonal matrix.
+Note that  is at least equal to the number of distinct eigenvalues of , but may be larger than that.[9] For example, the identity operator  on  has , and any basis of  is an eigenbasis of ; but its only eigenvalue is 1, with .
+Generalizations to infinite-dimensional spaces [edit]
+
+For more details on this topic, see Spectral theorem.
+The definition of eigenvalue of a linear transformation  remains valid even if the underlying space  is an infinite dimensional Hilbert or Banach space. Namely, a scalar  is an eigenvalue if and only if there is some nonzero vector  such that .
+Eigenfunctions [edit]
+A widely used class of linear operators acting on infinite dimensional spaces are the differential operators on function spaces. Let  be a linear differential operator in on the space  of infinitely differentiable real functions of a real argument . The eigenvalue equation for  is the differential equation
+
+The functions that satisfy this equation are commonly called eigenfunctions. For the derivative operator , an eigenfunction is a function that, when differentiated, yields a constant times the original function. If  is zero, the generic solution is a constant function. If  is non-zero, the solution is an exponential function
+
+Eigenfunctions are an essential tool in the solution of differential equations and many other applied and theoretical fields. For instance, the exponential functions are eigenfunctions of any shift invariant linear operator. This fact is the basis of powerful Fourier transform methods for solving all sorts of problems.
+Spectral theory [edit]
+If  is an eigenvalue of , then the operator  is not one-to-one, and therefore its inverse  is not defined. The converse is true for finite-dimensional vector spaces, but not for infinite-dimensional ones. In general, the operator  may not have an inverse, even if  is not an eigenvalue.
+For this reason, in functional analysis one defines the spectrum of a linear operator  as the set of all scalars  for which the operator  has no bounded inverse. Thus the spectrum of an operator always contains all its eigenvalues, but is not limited to them.
+Associative algebras and representation theory [edit]
+More algebraically, rather than generalizing the vector space to an infinite dimensional space, one can generalize the algebraic object that is acting on the space, replacing a single operator acting on a vector space with an algebra representation – an associative algebra acting on a module. The study of such actions is the field of representation theory.
+A closer analog of eigenvalues is given by the representation-theoretical concept of weight, with the analogs of eigenvectors and eigenspaces being weight vectors and weight spaces.
+Eigenvalues and eigenvectors of matrices [edit]
+
+Characteristic polynomial [edit]
+The eigenvalue equation for a matrix  is
+
+which is equivalent to
+
+where  is the  identity matrix. It is a fundamental result of linear algebra that an equation  has a non-zero solution  if and only if the determinant  of the matrix  is zero. It follows that the eigenvalues of  are precisely the real numbers  that satisfy the equation
+
+The left-hand side of this equation can be seen (using Leibniz' rule for the determinant) to be a polynomial function of the variable . The degree of this polynomial is , the order of the matrix. Its coefficients depend on the entries of , except that its term of degree  is always . This polynomial is called the characteristic polynomial of ; and the above equation is called the characteristic equation (or, less often, the secular equation) of .
+For example, let  be the matrix
+
+The characteristic polynomial of  is
+
+which is
+
+The roots of this polynomial are 2, 1, and 11. Indeed these are the only three eigenvalues of , corresponding to the eigenvectors   and  (or any non-zero multiples thereof).
+In the real domain [edit]
+Since the eigenvalues are roots of the characteristic polynomial, an  matrix has at most  eigenvalues. If the matrix has real entries, the coefficients of the characteristic polynomial are all real; but it may have fewer than  real roots, or no real roots at all.
+For example, consider the cyclic permutation matrix
+
+This matrix shifts the coordinates of the vector up by one position, and moves the first coordinate to the bottom. Its characteristic polynomial is  which has one real root . Any vector with three equal non-zero elements is an eigenvector for this eigenvalue. For example,
+
+In the complex domain [edit]
+The fundamental theorem of algebra implies that the characteristic polynomial of an  matrix , being a polynomial of degree , has exactly  complex roots. More precisely, it can be factored into the product of  linear terms,
+
+where each  is a complex number. The numbers , , ... , (which may not be all distinct) are roots of the polynomial, and are precisely the eigenvalues of .
+Even if the entries of  are all real numbers, the eigenvalues may still have non-zero imaginary parts (and the elements of the corresponding eigenvectors will therefore also have non-zero imaginary parts). Also, the eigenvalues may be irrational numbers even if all the entries of  are rational numbers, or all are integers. However, if the entries of  are algebraic numbers (which include the rationals), the eigenvalues will be (complex) algebraic numbers too.
+The non-real roots of a real polynomial with real coefficients can be grouped into pairs of complex conjugate values, namely with the two members of each pair having the same real part and imaginary parts that differ only in sign. If the degree is odd, then by the intermediate value theorem at least one of the roots will be real. Therefore, any real matrix with odd order will have at least one real eigenvalue; whereas a real matrix with even order may have no real eigenvalues.
+In the example of the 3×3 cyclic permutation matrix , above, the characteristic polynomial  has two additional non-real roots, namely
+ and ,
+where  is the imaginary unit. Note that , , and . Then
+ and 
+Therefore, the vectors  and  are eigenvectors of , with eigenvalues 1, , and , respectively.
+Algebraic multiplicities [edit]
+Let  be an eigenvalue of an  matrix . The algebraic multiplicity  of  is its multiplicity as a root of the characteristic polynomial, that is, the largest integer  such that  divides evenly that polynomial.
+Like the geometric multiplicity , the algebraic multiplicity is an integer between 1 and ; and the sum  of  over all distinct eigenvalues also cannot exceed . If complex eigenvalues are considered,  is exactly .
+It can be proved that the geometric multiplicity  of an eigenvalue never exceeds its algebraic multiplicity . Therefore,  is at most .
+Example [edit]
+For the matrix: 
+the characteristic polynomial of  is ,
+being the product of the diagonal with a lower triangular matrix.
+The roots of this polynomial, and hence the eigenvalues, are 2 and 3. The algebraic multiplicity of each eigenvalue is 2; in other words they are both double roots. On the other hand, the geometric multiplicity of the eigenvalue 2 is only 1, because its eigenspace is spanned by the vector , and is therefore 1 dimensional. Similarly, the geometric multiplicity of the eigenvalue 3 is 1 because its eigenspace is spanned by . Hence, the total algebraic multiplicity of A, denoted , is 4, which is the most it could be for a 4 by 4 matrix. The geometric multiplicity  is 2, which is the smallest it could be for a matrix which has two distinct eigenvalues.
+Diagonalization and eigendecomposition [edit]
+If the sum  of the geometric multiplicities of all eigenvalues is exactly , then  has a set of  linearly independent eigenvectors. Let  be a square matrix whose columns are those eigenvectors, in any order. Then we will have , where  is the diagonal matrix such that  is the eigenvalue associated to column  of . Since the columns of  are linearly independent, the matrix  is invertible. Premultiplying both sides by  we get . By definition, therefore, the matrix  is diagonalizable.
+Conversely, if  is diagonalizable, let  be a non-singular square matrix such that  is some diagonal matrix . Multiplying both sides on the left by  we get . Therefore each column of  must be an eigenvector of , whose eigenvalue is the corresponding element on the diagonal of . Since the columns of  must be linearly independent, it follows that . Thus  is equal to  if and only if  is diagonalizable.
+If  is diagonalizable, the space of all -element vectors can be decomposed into the direct sum of the eigenspaces of . This decomposition is called the eigendecomposition of , and it is the preserved under change of coordinates.
+A matrix that is not diagonalizable is said to be defective. For defective matrices, the notion of eigenvector can be generalized to generalized eigenvectors, and that of diagonal matrix to a Jordan form matrix. Over an algebraically closed field, any matrix  has a Jordan form and therefore admits a basis of generalized eigenvectors, and a decomposition into generalized eigenspaces
+Further properties [edit]
+Let  be an arbitrary  matrix of complex numbers with eigenvalues , , ... . (Here it is understood that an eigenvalue with algebraic multiplicity  occurs  times in this list.) Then
+The trace of , defined as the sum of its diagonal elements, is also the sum of all eigenvalues:
+.
+The determinant of  is the product of all eigenvalues:
+.
+The eigenvalues of the th power of , i.e. the eigenvalues of , for any positive integer , are 
+The matrix  is invertible if and only if all the eigenvalues  are nonzero.
+If  is invertible, then the eigenvalues of  are 
+If  is equal to its conjugate transpose  (in other words, if  is Hermitian), then every eigenvalue is real. The same is true of any a symmetric real matrix. If  is also positive-definite, positive-semidefinite, negative-definite, or negative-semidefinite every eigenvalue is positive, non-negative, negative, or non-positive respectively.
+Every eigenvalue of a unitary matrix has absolute value .
+Left and right eigenvectors [edit]
+See also: left and right (algebra)
+The use of matrices with a single column (rather than a single row) to represent vectors is traditional in many disciplines. For that reason, the word "eigenvector" almost always means a right eigenvector, namely a column vector that must placed to the right of the matrix  in the defining equation
+.
+There may be also single-row vectors that are unchanged when they occur on the left side of a product with a square matrix ; that is, which satisfy the equation
+
+Any such row vector  is called a left eigenvector of .
+The left eigenvectors of  are transposes of the right eigenvectors of the transposed matrix , since their defining equation is equivalent to
+
+It follows that, if  is Hermitian, its left and right eigenvectors are complex conjugates. In particular if  is a real symmetric matrix, they are the same except for transposition.
+Calculation [edit]
+
+Main article: Eigenvalue algorithm
+Computing the eigenvalues [edit]
+The eigenvalues of a matrix  can be determined by finding the roots of the characteristic polynomial. Explicit algebraic formulas for the roots of a polynomial exist only if the degree  is 4 or less. According to the Abel–Ruffini theorem there is no general, explicit and exact algebraic formula for the roots of a polynomial with degree 5 or more.
+It turns out that any polynomial with degree  is the characteristic polynomial of some companion matrix of order . Therefore, for matrices of order 5 or more, the eigenvalues and eigenvectors cannot be obtained by an explicit algebraic formula, and must therefore be computed by approximate numerical methods.
+In theory, the coefficients of the characteristic polynomial can be computed exactly, since they are sums of products of matrix elements; and there are algorithms that can find all the roots of a polynomial of arbitrary degree to any required accuracy.[10] However, this approach is not viable in practice because the coefficients would be contaminated by unavoidable round-off errors, and the roots of a polynomial can be an extremely sensitive function of the coefficients (as exemplified by Wilkinson's polynomial).[10]
+Efficient, accurate methods to compute eigenvalues and eigenvectors of arbitrary matrices were not known until the advent of the QR algorithm in 1961. [10] Combining the Householder transformation with the LU decomposition results in an algorithm with better convergence than the QR algorithm.[citation needed] For large Hermitian sparse matrices, the Lanczos algorithm is one example of an efficient iterative method to compute eigenvalues and eigenvectors, among several other possibilities.[10]
+Computing the eigenvectors [edit]
+Once the (exact) value of an eigenvalue is known, the corresponding eigenvectors can be found by finding non-zero solutions of the eigenvalue equation, that becomes a system of linear equations with known coefficients. For example, once it is known that 6 is an eigenvalue of the matrix
+
+we can find its eigenvectors by solving the equation , that is
+
+This matrix equation is equivalent to two linear equations
+ that is 
+Both equations reduce to the single linear equation . Therefore, any vector of the form , for any non-zero real number , is an eigenvector of  with eigenvalue .
+The matrix  above has another eigenvalue . A similar calculation shows that the corresponding eigenvectors are the non-zero solutions of , that is, any vector of the form , for any non-zero real number .
+Some numeric methods that compute the eigenvalues of a matrix also determine a set of corresponding eigenvectors as a by-product of the computation.
+History [edit]
+
+Eigenvalues are often introduced in the context of linear algebra or matrix theory. Historically, however, they arose in the study of quadratic forms and differential equations.
+Euler studied the rotational motion of a rigid body and discovered the importance of the principal axes. Lagrange realized that the principal axes are the eigenvectors of the inertia matrix.[11] In the early 19th century, Cauchy saw how their work could be used to classify the quadric surfaces, and generalized it to arbitrary dimensions.[12] Cauchy also coined the term racine caractéristique (characteristic root) for what is now called eigenvalue; his term survives in characteristic equation.[13]
+Fourier used the work of Laplace and Lagrange to solve the heat equation by separation of variables in his famous 1822 book Théorie analytique de la chaleur.[14] Sturm developed Fourier's ideas further and brought them to the attention of Cauchy, who combined them with his own ideas and arrived at the fact that real symmetric matrices have real eigenvalues.[12] This was extended by Hermite in 1855 to what are now called Hermitian matrices.[13] Around the same time, Brioschi proved that the eigenvalues of orthogonal matrices lie on the unit circle,[12] and Clebsch found the corresponding result for skew-symmetric matrices.[13] Finally, Weierstrass clarified an important aspect in the stability theory started by Laplace by realizing that defective matrices can cause instability.[12]
+In the meantime, Liouville studied eigenvalue problems similar to those of Sturm; the discipline that grew out of their work is now called Sturm–Liouville theory.[15] Schwarz studied the first eigenvalue of Laplace's equation on general domains towards the end of the 19th century, while Poincaré studied Poisson's equation a few years later.[16]
+At the start of the 20th century, Hilbert studied the eigenvalues of integral operators by viewing the operators as infinite matrices.[17] He was the first to use the German word eigen to denote eigenvalues and eigenvectors in 1904, though he may have been following a related usage by Helmholtz. For some time, the standard term in English was "proper value", but the more distinctive term "eigenvalue" is standard today.[18]
+The first numerical algorithm for computing eigenvalues and eigenvectors appeared in 1929, when Von Mises published the power method. One of the most popular methods today, the QR algorithm, was proposed independently by John G.F. Francis[19] and Vera Kublanovskaya[20] in 1961.[21]
+Applications [edit]
+
+Eigenvalues of geometric transformations [edit]
+The following table presents some example transformations in the plane along with their 2×2 matrices, eigenvalues, and eigenvectors.
+scaling	unequal scaling	rotation	horizontal shear	hyperbolic rotation
+illustration				
+
+
+matrix	
+ 
+ 	
+ 
+ 	
+
+	
+ 
+ 	
+
+
+characteristic
+polynomial					
+eigenvalues 		
+	
+		
+,
+algebraic multipl.
+		
+	
+		
+
+geometric multipl.
+		
+	
+		
+
+eigenvectors	All non-zero vectors	
+	
+		
+
+Note that the characteristic equation for a rotation is a quadratic equation with discriminant , which is a negative number whenever  is not an integer multiple of 180°. Therefore, except for these special cases, the two eigenvalues are complex numbers, ; and all eigenvectors have non-real entries. Indeed, except for those special cases, a rotation changes the direction of every nonzero vector in the plane.
+Schrödinger equation [edit]
+
+
+The wavefunctions associated with the bound states of an electron in a hydrogen atom can be seen as the eigenvectors of the hydrogen atom Hamiltonian as well as of the angular momentum operator. They are associated with eigenvalues interpreted as their energies (increasing downward: ) and angular momentum (increasing across: s, p, d, ...). The illustration shows the square of the absolute value of the wavefunctions. Brighter areas correspond to higher probability density for a position measurement. The center of each figure is the atomic nucleus, a proton.
+An example of an eigenvalue equation where the transformation  is represented in terms of a differential operator is the time-independent Schrödinger equation in quantum mechanics:
+
+where , the Hamiltonian, is a second-order differential operator and , the wavefunction, is one of its eigenfunctions corresponding to the eigenvalue , interpreted as its energy.
+However, in the case where one is interested only in the bound state solutions of the Schrödinger equation, one looks for  within the space of square integrable functions. Since this space is a Hilbert space with a well-defined scalar product, one can introduce a basis set in which  and  can be represented as a one-dimensional array and a matrix respectively. This allows one to represent the Schrödinger equation in a matrix form.
+Bra-ket notation is often used in this context. A vector, which represents a state of the system, in the Hilbert space of square integrable functions is represented by . In this notation, the Schrödinger equation is:
+
+where  is an eigenstate of . It is a self adjoint operator, the infinite dimensional analog of Hermitian matrices (see Observable). As in the matrix case, in the equation above  is understood to be the vector obtained by application of the transformation  to .
+Molecular orbitals [edit]
+In quantum mechanics, and in particular in atomic and molecular physics, within the Hartree–Fock theory, the atomic and molecular orbitals can be defined by the eigenvectors of the Fock operator. The corresponding eigenvalues are interpreted as ionization potentials via Koopmans' theorem. In this case, the term eigenvector is used in a somewhat more general meaning, since the Fock operator is explicitly dependent on the orbitals and their eigenvalues. If one wants to underline this aspect one speaks of nonlinear eigenvalue problem. Such equations are usually solved by an iteration procedure, called in this case self-consistent field method. In quantum chemistry, one often represents the Hartree–Fock equation in a non-orthogonal basis set. This particular representation is a generalized eigenvalue problem called Roothaan equations.
+Geology and glaciology [edit]
+In geology, especially in the study of glacial till, eigenvectors and eigenvalues are used as a method by which a mass of information of a clast fabric's constituents' orientation and dip can be summarized in a 3-D space by six numbers. In the field, a geologist may collect such data for hundreds or thousands of clasts in a soil sample, which can only be compared graphically such as in a Tri-Plot (Sneed and Folk) diagram,[22][23] or as a Stereonet on a Wulff Net.[24]
+The output for the orientation tensor is in the three orthogonal (perpendicular) axes of space. The three eigenvectors are ordered  by their eigenvalues ;[25]  then is the primary orientation/dip of clast,  is the secondary and  is the tertiary, in terms of strength. The clast orientation is defined as the direction of the eigenvector, on a compass rose of 360°. Dip is measured as the eigenvalue, the modulus of the tensor: this is valued from 0° (no dip) to 90° (vertical). The relative values of , , and  are dictated by the nature of the sediment's fabric. If , the fabric is said to be isotropic. If , the fabric is said to be planar. If , the fabric is said to be linear.[26]
+Principal components analysis [edit]
+
+
+PCA of the multivariate Gaussian distribution centered at  with a standard deviation of 3 in roughly the  direction and of 1 in the orthogonal direction. The vectors shown are unit eigenvectors of the (symmetric, positive-semidefinite) covariance matrix scaled by the square root of the corresponding eigenvalue. (Just as in the one-dimensional case, the square root is taken because the standard deviation is more readily visualized than the variance.
+Main article: Principal component analysis
+See also: Positive semidefinite matrix and Factor analysis
+The eigendecomposition of a symmetric positive semidefinite (PSD) matrix yields an orthogonal basis of eigenvectors, each of which has a nonnegative eigenvalue. The orthogonal decomposition of a PSD matrix is used in multivariate analysis, where the sample covariance matrices are PSD. This orthogonal decomposition is called principal components analysis (PCA) in statistics. PCA studies linear relations among variables. PCA is performed on the covariance matrix or the correlation matrix (in which each variable is scaled to have its sample variance equal to one). For the covariance or correlation matrix, the eigenvectors correspond to principal components and the eigenvalues to the variance explained by the principal components. Principal component analysis of the correlation matrix provides an orthonormal eigen-basis for the space of the observed data: In this basis, the largest eigenvalues correspond to the principal-components that are associated with most of the covariability among a number of observed data.
+Principal component analysis is used to study large data sets, such as those encountered in data mining, chemical research, psychology, and in marketing. PCA is popular especially in psychology, in the field of psychometrics. In Q methodology, the eigenvalues of the correlation matrix determine the Q-methodologist's judgment of practical significance (which differs from the statistical significance of hypothesis testing): The factors with eigenvalues greater than 1.00 are considered practically significant, that is, as explaining an important amount of the variability in the data, while eigenvalues less than 1.00 are considered practically insignificant, as explaining only a negligible portion of the data variability. More generally, principal component analysis can be used as a method of factor analysis in structural equation modeling.
+Vibration analysis [edit]
+
+
+1st lateral bending (See vibration for more types of vibration)
+Main article: Vibration
+Eigenvalue problems occur naturally in the vibration analysis of mechanical structures with many degrees of freedom. The eigenvalues are used to determine the natural frequencies (or eigenfrequencies) of vibration, and the eigenvectors determine the shapes of these vibrational modes. In particular, undamped vibration is governed by
+
+or
+
+that is, acceleration is proportional to position (i.e., we expect  to be sinusoidal in time). In  dimensions,  becomes a mass matrix and  a stiffness matrix. Admissible solutions are then a linear combination of solutions to the generalized eigenvalue problem
+
+where  is the eigenvalue and  is the angular frequency. Note that the principal vibration modes are different from the principal compliance modes, which are the eigenvectors of  alone. Furthermore, damped vibration, governed by
+
+leads to what is called a so-called quadratic eigenvalue problem,
+
+This can be reduced to a generalized eigenvalue problem by clever algebra at the cost of solving a larger system.
+The orthogonality properties of the eigenvectors allows decoupling of the differential equations so that the system can be represented as linear summation of the eigenvectors. The eigenvalue problem of complex structures is often solved using finite element analysis, but neatly generalize the solution to scalar-valued vibration problems.
+Eigenfaces [edit]
+
+
+Eigenfaces as examples of eigenvectors
+Main article: Eigenface
+In image processing, processed images of faces can be seen as vectors whose components are the brightnesses of each pixel.[27] The dimension of this vector space is the number of pixels. The eigenvectors of the covariance matrix associated with a large set of normalized pictures of faces are called eigenfaces; this is an example of principal components analysis. They are very useful for expressing any face image as a linear combination of some of them. In the facial recognition branch of biometrics, eigenfaces provide a means of applying data compression to faces for identification purposes. Research related to eigen vision systems determining hand gestures has also been made.
+Similar to this concept, eigenvoices represent the general direction of variability in human pronunciations of a particular utterance, such as a word in a language. Based on a linear combination of such eigenvoices, a new voice pronunciation of the word can be constructed. These concepts have been found useful in automatic speech recognition systems, for speaker adaptation.
+Tensor of moment of inertia [edit]
+In mechanics, the eigenvectors of the moment of inertia tensor define the principal axes of a rigid body. The tensor of moment of inertia is a key quantity required to determine the rotation of a rigid body around its center of mass.
+Stress tensor [edit]
+In solid mechanics, the stress tensor is symmetric and so can be decomposed into a diagonal tensor with the eigenvalues on the diagonal and eigenvectors as a basis. Because it is diagonal, in this orientation, the stress tensor has no shear components; the components it does have are the principal components.
+Eigenvalues of a graph [edit]
+In spectral graph theory, an eigenvalue of a graph is defined as an eigenvalue of the graph's adjacency matrix , or (increasingly) of the graph's Laplacian matrix (see also Discrete Laplace operator), which is either  (sometimes called the combinatorial Laplacian) or  (sometimes called the normalized Laplacian), where  is a diagonal matrix with  equal to the degree of vertex , and in , the th diagonal entry is . The th principal eigenvector of a graph is defined as either the eigenvector corresponding to the th largest or th smallest eigenvalue of the Laplacian. The first principal eigenvector of the graph is also referred to merely as the principal eigenvector.
+The principal eigenvector is used to measure the centrality of its vertices. An example is Google's PageRank algorithm. The principal eigenvector of a modified adjacency matrix of the World Wide Web graph gives the page ranks as its components. This vector corresponds to the stationary distribution of the Markov chain represented by the row-normalized adjacency matrix; however, the adjacency matrix must first be modified to ensure a stationary distribution exists. The second smallest eigenvector can be used to partition the graph into clusters, via spectral clustering. Other methods are also available for clustering.
+Basic reproduction number [edit]
+See Basic reproduction number
+The basic reproduction number () is a fundamental number in the study of how infectious diseases spread. If one infectious person is put into a population of completely susceptible people, then  is the average number of people that one infectious person will infect. The generation time of an infection is the time, , from one person becoming infected to the next person becoming infected. In a heterogenous population, the next generation matrix defines how many people in the population will become infected after time  has passed.  is then the largest eigenvalue of the next generation matrix.[28][29]

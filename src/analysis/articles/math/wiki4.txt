@@ -1,0 +1,169 @@
+List of linear algebra topics
+From Wikipedia, the free encyclopedia
+  (Redirected from Outline of linear algebra)
+This is a list of linear algebra topics. See also:
+List of matrices
+Glossary of tensor theory.
+Contents  [hide] 
+1 Linear equations
+2 Matrices
+3 Matrix decompositions
+4 Relations
+5 Computations
+6 Vector spaces
+7 Structures
+8 Multilinear algebra
+9 Affine space and related topics
+10 Projective space
+Linear equations [edit]
+
+System of linear equations
+Determinant
+Minor
+Cauchy–Binet formula
+Cramer's rule
+Gaussian elimination
+Gauss–Jordan elimination
+Strassen algorithm
+Matrices [edit]
+
+2 × 2 real matrices
+Matrix theory
+Matrix addition
+Matrix multiplication
+Basis transformation matrix
+Characteristic polynomial
+Trace
+Eigenvalue, eigenvector and eigenspace
+Cayley–Hamilton theorem
+Spread of a matrix
+Jordan normal form
+Rank
+Matrix inversion, invertible matrix
+Pseudoinverse
+Adjugate
+Transpose
+Dot product
+Symmetric matrix
+Orthogonal matrix
+Skew-symmetric matrix
+Conjugate transpose
+Unitary matrix
+Hermitian matrix, Antihermitian matrix
+Positive-definite, positive-semidefinite matrix
+Pfaffian
+Projection
+Spectral theorem
+Perron–Frobenius theorem
+List of matrices
+Diagonal matrix, main diagonal
+Diagonalizable matrix
+Triangular matrix
+Tridiagonal matrix
+Block matrix
+Sparse matrix
+Hessenberg matrix
+Hessian matrix
+Vandermonde matrix
+Stochastic matrix
+Toeplitz matrix
+Circulant matrix
+Hankel matrix
+(0,1)-matrix
+Matrix decompositions [edit]
+
+Cholesky decomposition
+LU decomposition
+QR decomposition
+Polar decomposition
+Spectral theorem
+Singular value decomposition
+Higher-order singular value decomposition
+Schur decomposition
+Schur complement
+Haynsworth inertia additivity formula
+Relations [edit]
+
+Matrix equivalence
+Matrix congruence
+Matrix similarity
+Matrix consimilarity
+Row equivalence
+Computations [edit]
+
+Elementary row operations
+Householder transformation
+Least squares, linear least squares
+Gram–Schmidt process
+Woodbury matrix identity
+Vector spaces [edit]
+
+Linear combination
+Linear span
+Linear independence
+Scalar multiplication
+Basis
+Change of basis
+Hamel basis
+Dimension theorem for vector spaces
+Hamel dimension
+Examples of vector spaces
+Linear map
+Shear mapping or Galilean transformation
+Squeeze mapping or Lorentz transformation
+Linear subspace
+Row and column spaces
+Column space
+Row space
+Null space, nullity
+Rank-nullity theorem
+Nullity theorem
+Dual space
+Linear function
+Linear functional
+Category of vector spaces
+Structures [edit]
+
+Topological vector space
+Normed vector space
+Inner product space
+Euclidean space
+Orthogonality
+Orthogonal complement
+Orthogonal projection
+Orthogonal group
+Pseudo-Euclidean space
+Null vector
+Indefinite orthogonal group
+Orientation (geometry)
+Improper rotation
+Symplectic structure
+Multilinear algebra [edit]
+
+Tensor
+Classical treatment of tensors
+Intermediate treatment of tensors
+Component-free treatment of tensors
+Outer product
+Tensor algebra
+Exterior algebra
+Symmetric algebra
+Clifford algebra
+Geometric algebra
+Affine space and related topics [edit]
+
+Affine transformation
+Affine group
+Affine geometry
+Affine coordinate system
+Flat (geometry)
+Cartesian coordinate system
+Euclidean group
+Poincaré group
+Galilean group
+Projective space [edit]
+
+Projective transformation
+Projective geometry
+Projective linear group
+Quadric and conic section

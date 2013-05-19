@@ -1,0 +1,15 @@
+Belgian lab Imec and Renesas are to develop low-power radio for automotive and industrial sensor networks.
+
+“Various applications of sensor networks for a smart society need ultra-low power wireless communication technologies. So we develop RF architectures and circuit technologies for them,” said Renesas manager Koichi Yahagi. “We are pleased to join imec’s program to develop new ultra-low power technologies. By combining our microcontroller units with ultra-low power wireless communication technologies led by this collaboration, we aim to supply solutions for a smart society.”
+
+Renesas will be joining Imec’s ‘Green Radio’ programme which is based at Holst Centre in Eindhoven, itself is a joint venture between Imec and Netherlands research lab TNO.
+
+The programme develops analogue front-ends and baseband algorithms to go with them. These are implemented, along with essential MAC features, in SoCs or systems-in-package.
+
+Currently, three types of radio are under the spotlight at Holst:
+
+Impulse ultra-wide band for 0.1-20Mbit/s at under 5mW (1Mbit/s), supporting IEEE 802.15.4a and 802.15.6, used to stream continuous data.
+
+2.4GHz narrow-band radios for IEEE 802.15.6 body-area networks.
+
+2.4GHz event-driven radios, consuming 50μW when permanently scanning the reception channel, intended for low data-rates (active RFID, for example), or as a secondary radio used to wake up a higher data rate radio on request.
