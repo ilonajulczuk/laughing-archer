@@ -1,7 +1,7 @@
 package hello
 
 import java.util.prefs.Preferences
-import analysis.{Category, CategoryTree, BookAnalyzer}
+import analysis.{Category, CategoryTree, BookAnalyzer, CategoryClassifier}
 import scalafx.beans.property.StringProperty
 import mobireader.Book
 import javafx.beans.{value => jfxbv}
@@ -336,7 +336,7 @@ object BigMain extends JFXApp {
 	
 	def createAnalyzisPage(): Node = {
 	  val analyzer = new BookAnalyzer
-	  val summaryText = analyzer.makeSummary(model.bookText)
+	  val summaryText = analyzer.makeSummary(model.shortenBookText)
 	  
 	  val summary = new TextArea {
 		text = summaryText
@@ -361,6 +361,14 @@ object BigMain extends JFXApp {
 	    	},
 	    	new Label("Asossiated categories"){
 	    		font = new Font("Verdana", 14)
+	    	},
+	    	new Label() {
+	    	  var maxTextSize = model.bookText.size
+	    	  if(maxTextSize  > 1000) {
+	    	    maxTextSize = 1000
+	    	  }
+	    	  val winningCategory = CategoryClassifier.matchCategory(model.bookText.slice(0, maxTextSize))
+	    	  text = winningCategory._1 + " with " + winningCategory._2 +  "% match" 
 	    	}
 	      )
 	    }

@@ -70,4 +70,13 @@ class AppModel {
 	var file: File = _
 	
 	var bookText = ""
+	def shortenBookText = {
+	  val paragraphs = bookText.split("\n\n")
+	  
+	  val chosenParagraphs = paragraphs.slice(0, 20) ++ paragraphs.slice(paragraphs.size - 50, paragraphs.size -20)
+	  
+	  println (paragraphs.size)
+	  println(chosenParagraphs.mkString("\n\n"))
+	  chosenParagraphs.mkString("\n\n")
+	}
 }

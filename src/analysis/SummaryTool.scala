@@ -110,7 +110,8 @@ class SummaryTool {
         	val sentence = getBestSentence(p, sentencesMap)
             if( sentence != "") summary = summary :+ formatSentence(sentence)
         }
-		summary.mkString("\n")
+		val endings = ".,!;"
+		summary.map(x => if (endings contains x.last) x else x + ".")mkString("\n\n")
 	}
 	
 	def main() {
