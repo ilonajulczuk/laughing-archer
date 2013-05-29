@@ -6,7 +6,7 @@ class CategoryTree() {
 	override def toString(): String = {
 		var description = "Root"
 		description += root.namesOfSubcategories.mkString("\n")
-		//Algorithm isn't so easy...
+		//TODO design and implement toString in Category tree
 		description
 	}
 	

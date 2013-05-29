@@ -14,7 +14,6 @@ import nl.flotsam.preon.Codec;
 import nl.flotsam.preon.Codecs;
 import nl.flotsam.preon.DecodingException;
 import java.util.ArrayList;
-import unzipping.AdaptiveHuffmanDecompress;
 import unzipping.CustomLZ77;
 
 
@@ -155,10 +154,6 @@ public class Mobi {
       {
     	  CustomLZ77 lz = new CustomLZ77();
           return lz.decompress(rawRecord);	
-      }
-      else if(palmdocHeader.Compression == 17480)
-      {
-    	  return AdaptiveHuffmanDecompress.decompress(rawRecord);
       }
       else {
     	  return "Unknown compression type, raw: " + rawRecord;
