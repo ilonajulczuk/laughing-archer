@@ -540,6 +540,7 @@ object BigMain extends JFXApp {
 
 						val bookTitle = new TextField {
 						promptText = "Title"
+						text = ""
 						prefColumnCount = 16
 							
 				}
@@ -639,7 +640,6 @@ object BigMain extends JFXApp {
 							spacing = 10
 							val button = new Button("Choose file")
 							button.onAction_=({ (_:ActionEvent) =>
-								println("Don't you have enough books?")
 								try {
 								  val fileChooser = new FileChooser()
 								  val result = fileChooser.showOpenDialog(stage)
@@ -647,19 +647,27 @@ object BigMain extends JFXApp {
 								  {
 								    val path = result.getAbsolutePath()
 								    if (model.isBookFormatSupported(path)) {
-								      if (bookTitle.text == "")
+								      if (bookTitle.text == "" || bookTitle.text == null || bookTitle.text == "Title")
+								      {
+								        println("Updating title")
 								    	  bookTitle.text = model.getBookTitleFromPath(path)
+								      }
+								      else {
+								        println("No need for updating title")
+								      }
+								      filePath.text = path
 								      model.updateBookFormatFromPath(path)
+								      model.updateBookText(path)
+								      println("Upadting preview")
+								      model.updatePreviewOfBookText()
 								      model.file = result
 								      model.filePath = path
-								      filePath.text = path
 								    }
 								    else {
 								      Dialogs.showWarningDialog(stage,  "Book format: " +
 								          model.getBookFormatFromPath(path) + " is not supported",
 								    		  "Book couldn't be added.", "Adding failure")
 								    }
-								    
 								  }
 								  
 								}
@@ -758,7 +766,7 @@ object BigMain extends JFXApp {
 			}
 			
 			val right = new ScrollPane {
-				content = new HBox {
+				content = new VBox {
 					padding = Insets(20)
 					vgrow = scalafx.scene.layout.Priority.ALWAYS
 					hgrow = scalafx.scene.layout.Priority.ALWAYS
@@ -768,9 +776,20 @@ object BigMain extends JFXApp {
 						text = "Book preview"
 						font = new Font("Verdana", 20)
 					}
+					val previewText = new TextArea {
+						text = "Content not available"
+								wrapText = true
+								editable = false
+					}
+					previewText.prefHeight.bind(left.prefHeightProperty)
+					previewText.prefWidth.bind(left.prefWidthProperty)
+					previewText.prefColumnCount = 30
+					previewText.prefRowCount = 30
+					previewText.text.bind(model.bookTextPreview)
 					previewTitle.text.bind(addingBox.bookTitle.text)
 					content = List(
-						previewTitle
+						previewTitle,
+						previewText
 					)
 				}
 			}
@@ -781,36 +800,6 @@ object BigMain extends JFXApp {
 								right
 						)
 			}
-	}
-
-	def createAlertPopup(popupText: String) = new Popup {
-		inner =>
-		content.add(new StackPane {
-			content = List(new Rectangle {
-				width = 300
-						height = 200
-						arcWidth = 20
-						arcHeight = 20
-						fill = Color.LIGHTBLUE
-						stroke = Color.GRAY
-						strokeWidth = 2
-			},
-			new BorderPane {
-				center = new Label {
-					text = popupText
-							wrapText = true
-							maxWidth = 280
-							maxHeight = 140
-				}
-				bottom = new Button("OK") {
-					onAction = {e: ActionEvent => inner.hide}
-					alignment = Pos.CENTER
-							margin = Insets(10, 0, 10, 0)
-				}
-			}
-			)
-			}.delegate
-		)
 	}
 	
 	def getLibraryPath(): String = {

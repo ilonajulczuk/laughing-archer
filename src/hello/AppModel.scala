@@ -1,17 +1,16 @@
 package hello
 
-import mobireader.Mobi
+import mobireader.{Mobi, MobiContentParser}
+import odt.OpenOfficeParser
 import analysis.CategoryTree
 import mobireader.Book
 import scalafx.beans.property.DoubleProperty
 import scalafx.collections.ObservableBuffer
-import java.io.File
+import java.io.{File, RandomAccessFile}
 import scalafx.Includes._
-
 import scalafx.scene.control._
 import javafx.beans.property.SimpleStringProperty
-
-
+import sun.security.util.Length
 class AppModel {
 	val db = new DBHandler("my_books.db");
 	db.createTablesInDB()
@@ -95,6 +94,8 @@ class AppModel {
 	
 	var bookText = ""
 	  
+	val bookTextPreview = new SimpleStringProperty("No preview available")
+	
 	def shortenBookText = {
 	  val paragraphs = bookText.split("\n\n")
 	  val chosenParagraphs = paragraphs.slice(0, 20) ++ paragraphs.slice(paragraphs.size - 50, paragraphs.size -20)
@@ -102,11 +103,42 @@ class AppModel {
 	  println(chosenParagraphs.mkString("\n\n"))
 	  chosenParagraphs.mkString("\n\n")
 	}
+	
+	def updateBookText(path: String) {
+	  if (bookFormat == "mobi" || bookFormat == "bin") {
+	    val mobiParser = new Mobi(path)
+	    mobiParser.parse()
+	    val mobiContentParser = new MobiContentParser(mobiParser.readAllRecords())
+	    bookText = mobiContentParser.bodyWithParagraphs
+	  }
+	  else if(bookFormat == "odt") {
+	    val odtParser = new OpenOfficeParser()
+	     bookText = odtParser.getText(path)
+	  }
+	  else if(bookFormat == "txt") {
+	    val book = new File(path)
+	    val fp = new RandomAccessFile(book, "r")
+	    val len = book.length.toInt
+		val buff = new  Array[Byte](book.length.toInt)
+		fp.readFully(buff)
+		bookText = new String(buff)
+	  }
+	}
+	
+	def updatePreviewOfBookText() {
+	  val shortened = bookText.substring(0, (bookText.size*0.05).toInt)
+	  val lastSpace = shortened.lastIndexOf(' ')
+	  if (lastSpace != -1)
+		  bookTextPreview.value = if (shortened(lastSpace -1) == '.') {
+			  shortened.substring(0, lastSpace) + "..\n"
+		  }
+		  else shortened.substring(0, lastSpace) + "...\n"
+	}
 }
 
 
 class BookInfoUtility {
-	val supportedBookFormats = List("mobi", "bin", "odt")
+	val supportedBookFormats = List("mobi", "bin", "odt", "txt")
 	val fileSeparator = "/"
 	  
 	def extractLastWordFromPath(path: String) = {
