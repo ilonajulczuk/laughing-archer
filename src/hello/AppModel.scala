@@ -16,7 +16,8 @@ class AppModel {
 	val db = new DBHandler("my_books.db");
 	db.createTablesInDB()
 
-	def createLibrary() = {
+	def addDummyLibrary() {
+	  def createLibrary() = {
 		val path = "/example/library/"
 				val author1 = new Author("John Doe")
 		val author2 = new Author("George Smith")
@@ -31,6 +32,8 @@ class AppModel {
 				new Book("Programming in Scala", author3, path, "Very long, but well written", "Computer Science"),
 				new Book("Magnetic fields", author2, path, "Very Hard", "Physics")
 			)
+	  }
+	  db.addBooks(createLibrary)
 	}
 	
 	var libraryPath = new SimpleStringProperty("./library/")
@@ -39,8 +42,7 @@ class AppModel {
 	val bookInfoUtility = new BookInfoUtility
 	var mobi: Mobi = null
 	
-	val library = createLibrary()
-	db.addBooks(library)
+	
 	var myBooks = db.getAllBooks()
 	
 	def isBookFormatSupported(path: String) = {

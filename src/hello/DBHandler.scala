@@ -231,15 +231,13 @@ class DBHandler(databaseFile: String)
 	}
 
 	def createTablesInDB() = {
-		val connection = prepareConnection();
-		val stat = connection.createStatement();
-		stat.executeUpdate("drop table if exists books");
-		stat.executeUpdate("drop table if exists authors");
-		stat.executeUpdate("create table books (title string, " +
+		val connection = prepareConnection()
+		val stat = connection.createStatement()
+		stat.executeUpdate("create table if not exists books (title string, " +
 				"author_name string, path_to_content string," +
-				"description string, category string)");
-		stat.executeUpdate("create table authors (name string unique, " +
-				"additional_info string)");
+				"description string, category string)")
+		stat.executeUpdate("create table if not exists authors (name string unique, " +
+				"additional_info string)")
 		connection.close()
 	}
 
