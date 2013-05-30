@@ -530,7 +530,7 @@ object BigMain extends JFXApp {
 	def createAddingFormForBooks(): Node = {
 			var usingAlreadyAddedAuthor = false
 			var usingAlreadyAddedCategory = false
-			val variousControls = new VBox {
+			val addingBox = new VBox {
 				padding = Insets(20)
 						vgrow = scalafx.scene.layout.Priority.ALWAYS
 						hgrow = scalafx.scene.layout.Priority.ALWAYS
@@ -539,8 +539,8 @@ object BigMain extends JFXApp {
 						var chosenFileName = ""
 
 						val bookTitle = new TextField {
-					promptText = "Title"
-							prefColumnCount = 16
+						promptText = "Title"
+						prefColumnCount = 16
 							
 				}
 
@@ -573,6 +573,7 @@ object BigMain extends JFXApp {
 				}
 				
 				val filePath = new Label("Nothing selected")
+				filePath.wrapText = true
 				
 				val authorBox = new ChoiceBox(ObservableBuffer(for (author <- model.db.getAllAuthors) yield author.getName)) {
 					selectionModel().selectFirst()
@@ -632,15 +633,10 @@ object BigMain extends JFXApp {
 					promptText = "Category"
 							prefColumnCount = 16
 				}
+				
 				content = List(
-						new Label {
-							text = "Adding book form"
-							font = new Font("Verdana", 20)
-						},
-						
-						new HBox {
+						new VBox {
 							spacing = 10
-							
 							val button = new Button("Choose file")
 							button.onAction_=({ (_:ActionEvent) =>
 								println("Don't you have enough books?")
@@ -649,9 +645,21 @@ object BigMain extends JFXApp {
 								  val result = fileChooser.showOpenDialog(stage)
 								  if(result != null)
 								  {
-								    model.file = result
-								    model.filePath = model.file.getAbsolutePath()
-								    filePath.text = model.filePath
+								    val path = result.getAbsolutePath()
+								    if (model.isBookFormatSupported(path)) {
+								      if (bookTitle.text == "")
+								    	  bookTitle.text = model.getBookTitleFromPath(path)
+								      model.updateBookFormatFromPath(path)
+								      model.file = result
+								      model.filePath = path
+								      filePath.text = path
+								    }
+								    else {
+								      Dialogs.showWarningDialog(stage,  "Book format: " +
+								          model.getBookFormatFromPath(path) + " is not supported",
+								    		  "Book couldn't be added.", "Adding failure")
+								    }
+								    
 								  }
 								  
 								}
@@ -659,40 +667,25 @@ object BigMain extends JFXApp {
 								  case e: NullPointerException => println("WTF, null pointer?")
 								}
 							})
-							
-							content = List(
-									button,
-									filePath
-									)
-						},
-						new Label {
-							text = "Book data"
-									font = new Font("Verdana", 16)
+							content = List(filePath, button)
 						},
 						bookTitle
 						,
 						new HBox {
 							spacing = 10
-									content = List(
-											new Label {
-												text = "Description"
-											},
-											bookDescription
-											)
+							content = List(
+							  new Label {
+							    text = "Description"
+							  },
+							  bookDescription
+							)
 						} ,
-						new Label {
-							text = "Author data"
-									font = new Font("Verdana", 16)
-						},
 						useAuthor,
 						authorBox,
 						authorName,
 						new HBox {
 						  spacing = 10
 						  content = List(
-						    new Label {
-							  text = "Info"
-							},
 							authorInfo
 						  )
 						},
@@ -757,23 +750,11 @@ object BigMain extends JFXApp {
 				  new Book(title, author, path, description, category)
 				}
 			}
-
-			val sampleContextMenu = new ContextMenu {
-				delegate.getItems.addAll(
-						new MenuItem("MenuItemA") {
-							onAction = {e: ActionEvent => println(e.eventType + " occurred on Menu Item A")}
-						}.delegate,
-						new MenuItem("MenuItemB") {
-							onAction = {e: ActionEvent => println(e.eventType + " occurred on Menu Item B")}
-						}.delegate
-				)
-			}
 			
 			val left = new ScrollPane {
-				content = variousControls
+				content = addingBox
 				hbarPolicy = ScrollBarPolicy.AS_NEEDED
 				vbarPolicy = ScrollBarPolicy.AS_NEEDED
-				contextMenu = sampleContextMenu
 			}
 			
 			val right = new ScrollPane {
@@ -783,11 +764,13 @@ object BigMain extends JFXApp {
 					hgrow = scalafx.scene.layout.Priority.ALWAYS
 					spacing = 10
 					margin = Insets(50, 0, 0, 50)
+					val previewTitle = new Label {
+						text = "Book preview"
+						font = new Font("Verdana", 20)
+					}
+					previewTitle.text.bind(addingBox.bookTitle.text)
 					content = List(
-						new Label {
-							text = "Book preview"
-							font = new Font("Verdana", 20)
-						}
+						previewTitle
 					)
 				}
 			}

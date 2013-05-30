@@ -36,11 +36,32 @@ class AppModel {
 	var libraryPath = new SimpleStringProperty("./library/")
 	var workspacePath = new SimpleStringProperty("./workspace/")
 	
+	val bookInfoUtility = new BookInfoUtility
 	var mobi: Mobi = null
 	
 	val library = createLibrary()
 	db.addBooks(library)
 	var myBooks = db.getAllBooks()
+	
+	def isBookFormatSupported(path: String) = {
+	  val format = bookInfoUtility.extractFormatFromPath(path)
+	  bookInfoUtility.isFormatSupported(format)
+	}
+	
+	def getBookTitleFromPath(path: String) = {
+	  bookInfoUtility.extractTitleFromPath(path)
+	}
+	
+	var bookFormat = ""
+	def updateBookFormatFromPath(path: String) {
+	  bookFormat = getBookFormatFromPath(path)
+	}
+	
+	def getBookFormatFromPath(path: String) = {
+	  bookInfoUtility.extractFormatFromPath(path)
+	}
+	val books = getBooks()
+
 	def getBooks() = {
 		val books = new ObservableBuffer[Book]()
 		for(book <- db.getAllBooks())
@@ -49,13 +70,13 @@ class AppModel {
 		}
 		books
 	}
-
-	val books = getBooks()
-
+	
 	def updateBooks() {
 		for(book <- getBooks())
 			if(!(books contains book)) books += book
 	}
+	
+	
 	val listViewItems = new ObservableBuffer[String]()
 	var categories = new CategoryTree
 	categories.addSubcategories(List("Science", "Fiction", "Art"))
@@ -65,18 +86,41 @@ class AppModel {
 
 	var namesOfAllCategories: ObservableBuffer[String] = ObservableBuffer(for (category <-
 					categories.allNames) yield category)
+					
 	def authors = db.getAllAuthors
 	var filePath: String = ""
 	var file: File = _
 	
 	var bookText = ""
+	  
 	def shortenBookText = {
 	  val paragraphs = bookText.split("\n\n")
-	  
 	  val chosenParagraphs = paragraphs.slice(0, 20) ++ paragraphs.slice(paragraphs.size - 50, paragraphs.size -20)
-	  
 	  println (paragraphs.size)
 	  println(chosenParagraphs.mkString("\n\n"))
 	  chosenParagraphs.mkString("\n\n")
 	}
 }
+
+
+class BookInfoUtility {
+	val supportedBookFormats = List("mobi", "bin", "odt")
+	val fileSeparator = "/"
+	  
+	def extractLastWordFromPath(path: String) = {
+	  path.split(fileSeparator).last
+	}
+	
+	def extractFormatFromPath(path: String) = {
+	  extractLastWordFromPath(path).split("\\.").last
+	}
+	
+	def extractTitleFromPath(path: String) = {
+	  extractLastWordFromPath(path).split("\\.").head
+	}
+	
+	def isFormatSupported(format: String) = {
+	  supportedBookFormats contains format
+	}
+}
+	
