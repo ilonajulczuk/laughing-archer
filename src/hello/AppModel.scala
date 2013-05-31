@@ -51,7 +51,7 @@ class AppModel {
 	var mobi: Mobi = null
 	
 	
-	var myBooks = db.getAllBooks()
+	var myBooks = db.getAllBooks
 	
 	def isBookFormatSupported(path: String) = {
 	  val format = bookInfoUtility.extractFormatFromPath(path)

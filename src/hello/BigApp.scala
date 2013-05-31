@@ -137,8 +137,8 @@ object BigMain extends JFXApp {
 			
 			if(result != null)
 			{
-				model.libraryPath.value = result.getAbsolutePath()
-				setLibraryPath(result.getAbsolutePath())
+				model.libraryPath.value = result.getAbsolutePath
+				setLibraryPath(result.getAbsolutePath)
 			}
 		}
 	
@@ -156,8 +156,8 @@ object BigMain extends JFXApp {
 			val result = chooser.showDialog(stage)
 			if(result != null)
 			{
-				model.workspacePath.value = result.getAbsolutePath()
-				setWorkspacePath(result.getAbsolutePath())
+				model.workspacePath.value = result.getAbsolutePath
+				setWorkspacePath(result.getAbsolutePath)
 			}
 		}
 	  }
@@ -240,11 +240,11 @@ object BigMain extends JFXApp {
 								  val fileChooser = new FileChooser()
 								  val result = fileChooser.showOpenDialog(stage)
 								  if(result != null && 
-								      result.getAbsolutePath().endsWith("mobi") 
-								      || result.getAbsolutePath().endsWith("bin"))
+								      result.getAbsolutePath.endsWith("mobi")
+								      || result.getAbsolutePath.endsWith("bin"))
 								  {
-								    filePath.text = result.getAbsolutePath()
-								    model.mobi = new Mobi(result.getAbsolutePath())
+								    filePath.text = result.getAbsolutePath
+								    model.mobi = new Mobi(result.getAbsolutePath)
 								    model.mobi.parse()
 								    val html = model.mobi.readAllRecords()
 								    val parser = new MobiContentParser(html)
@@ -383,9 +383,9 @@ object BigMain extends JFXApp {
 	}
 	
 	def showPageInWindow(page: Node, title: String) {
-		val dialogStage = new Stage();
-		dialogStage.setTitle(title);
-		dialogStage.initModality(Modality.WINDOW_MODAL);
+		val dialogStage = new Stage()
+		dialogStage.setTitle(title)
+		dialogStage.initModality(Modality.WINDOW_MODAL)
 		dialogStage.initOwner(stage)
 		val scene = new Scene()
 		scene.content = page
@@ -407,7 +407,7 @@ object BigMain extends JFXApp {
 			}
 			authorColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[Book, String], jfxbv.ObservableValue[String]] {
 				def call(param: CellDataFeatures[Book, String]) =  
-						new StringProperty(this, "AuthorName", param.getValue.getAuthor.getName())
+						new StringProperty(this, "AuthorName", param.getValue.getAuthor.getName)
 			})
 
 			val descriptionColumn = new TableColumn[Book, String]("Description") {
@@ -446,13 +446,13 @@ object BigMain extends JFXApp {
 			table.getSelectionModel.selectedItemProperty.onChange(
 					(_, _, newValue) => {
 					  println(newValue + " chosen in TableView")
-					  showBookManagment(newValue)
+					  showBookManagement(newValue)
 					}
 					)
 			table
 	}
 
-	def createManagmentPage(book: Book): Node = {
+	def createManagementPage(book: Book): Node = {
 	  
 	  val analyzer = new BookAnalyzer
 	  val bookSummaryText = book.detailedDescription()
@@ -462,7 +462,7 @@ object BigMain extends JFXApp {
 		wrapText = true
 	  }
 	  
-	  val managment = new VBox {
+	  val management = new VBox {
 	    padding = Insets(10)
 	    spacing = 10
 		margin = Insets(10, 10, 10, 10)
@@ -514,13 +514,13 @@ object BigMain extends JFXApp {
 		margin = Insets(10, 10, 10, 10)
 	    prefWidth = 500
 	    prefHeight = 280
-	    content = managment
+	    content = management
 	  }
 	}
 	
-	def showBookManagment(book: Book) {
-			val page = createManagmentPage(book)
-			showPageInWindow(page, "Book Managment")
+	def showBookManagement(book: Book) {
+			val page = createManagementPage(book)
+			showPageInWindow(page, "Book Management")
 	}
 	
 	private def createAccordionOfAuthors(): Accordion = new Accordion {
@@ -544,14 +544,14 @@ object BigMain extends JFXApp {
 
 	def createCategoryNode(cat: Category): TreeItem[String] = {
 			new TreeItem(cat.value) {
-				children = (for(subcatName <- cat.namesOfSubcategories)
+				children = (for(subcatName <- cat.namesOfSubcategories())
 					yield createCategoryNode(cat(subcatName)) ).toList
 			}
 	}
 
 	def createNodeListForTree(): List[TreeItem[String]] = {
 			val categories = model.categories
-			(for(subcatName <- categories.namesOfSubcategories)
+			(for(subcatName <- categories.namesOfSubcategories())
 				yield createCategoryNode(categories(subcatName)) ).toList
 
 	}
@@ -580,7 +580,7 @@ object BigMain extends JFXApp {
 								model.listViewItems += "No books found"
 								else {
 									for(book <- books) {
-										model.listViewItems += book.getTitle + " by " + book.getAuthor().getName()
+										model.listViewItems += book.getTitle + " by " + book.getAuthor.getName
 									}
 								}
 						}
