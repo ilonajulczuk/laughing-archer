@@ -54,17 +54,21 @@ object BigApp extends JFXApp {
       }
     }
   }
+
   stage = new PrimaryStage {
     scene = createScene()
     title = "Laughing archer"
   }
+
   private def createMenus() = new MenuBar {
     menus = List(
       new Menu("File") {
         items = List(
           new MenuItem("New...") {
             accelerator = KeyCombination.keyCombination("Ctrl + N")
-            onAction = {e: ActionEvent => println(e.eventType + " occurred on MenuItem New")}
+            onAction = {
+              e: ActionEvent => println(e.eventType + " occurred on MenuItem New")
+            }
           },
           new MenuItem("Save")
         )
@@ -80,12 +84,12 @@ object BigApp extends JFXApp {
   }
 
   val lib = getLibraryPath()
-  if(lib != null) {
+  if (lib != null) {
     model.libraryPath.value = getLibraryPath()
     stage.setTitle("Laughing archer with library at - " + lib)
   }
   val work = getWorkspacePath()
-  if(work != null)
+  if (work != null)
     model.workspacePath.value = getWorkspacePath()
 
 
@@ -124,15 +128,15 @@ object BigApp extends JFXApp {
 
     val changeLibraryPathButton = new Button("Change") {
       inner =>
-      onAction = { e: ActionEvent =>
-        val chooser = new DirectoryChooser()
-        val result = chooser.showDialog(stage)
+      onAction = {
+        e: ActionEvent =>
+          val chooser = new DirectoryChooser()
+          val result = chooser.showDialog(stage)
 
-        if(result != null)
-        {
-          model.libraryPath.value = result.getAbsolutePath
-          setLibraryPath(result.getAbsolutePath)
-        }
+          if (result != null) {
+            model.libraryPath.value = result.getAbsolutePath
+            setLibraryPath(result.getAbsolutePath)
+          }
       }
 
     }
@@ -144,18 +148,18 @@ object BigApp extends JFXApp {
 
     val changeWorkspacePathButton = new Button("Change") {
       inner =>
-      onAction = { e: ActionEvent =>
-        val chooser = new DirectoryChooser()
-        val result = chooser.showDialog(stage)
-        if(result != null)
-        {
-          model.workspacePath.value = result.getAbsolutePath
-          setWorkspacePath(result.getAbsolutePath)
-        }
+      onAction = {
+        e: ActionEvent =>
+          val chooser = new DirectoryChooser()
+          val result = chooser.showDialog(stage)
+          if (result != null) {
+            model.workspacePath.value = result.getAbsolutePath
+            setWorkspacePath(result.getAbsolutePath)
+          }
       }
     }
 
-    val preferences =  new ScrollPane {
+    val preferences = new ScrollPane {
       content = new VBox {
         spacing = 10
         margin = Insets(20, 10, 10, 20)
@@ -187,7 +191,7 @@ object BigApp extends JFXApp {
   }
 
   private def createMobiParsingView(): Node = {
-    val bookHtml = new TextArea{
+    val bookHtml = new TextArea {
       text = "No book html yet."
       wrapText = true
       editable = false
@@ -228,64 +232,65 @@ object BigApp extends JFXApp {
             text = "No path"
           }
           val button = new Button("Choose file")
-          button.onAction_=({ (_:ActionEvent) =>
-            try {
-              val fileChooser = new FileChooser()
-              val result = fileChooser.showOpenDialog(stage)
-              if(result != null &&
-                result.getAbsolutePath.endsWith("mobi")
-                || result.getAbsolutePath.endsWith("bin"))
-              {
-                filePath.text = result.getAbsolutePath
-                model.mobi = new Mobi(result.getAbsolutePath)
-                model.mobi.parse()
-                val html = model.mobi.readAllRecords()
-                val parser = new MobiContentParser(html)
-                bookHtml.text = html
-                val textToBeShown = parser.bodyWithParagraphs
-                if (textToBeShown == "")
-                  model.bookText = parser.bodyText
+          button.onAction_=({
+            (_: ActionEvent) =>
+              try {
+                val fileChooser = new FileChooser()
+                val result = fileChooser.showOpenDialog(stage)
+                if (result != null &&
+                  result.getAbsolutePath.endsWith("mobi")
+                  || result.getAbsolutePath.endsWith("bin")) {
+                  filePath.text = result.getAbsolutePath
+                  model.mobi = new Mobi(result.getAbsolutePath)
+                  model.mobi.parse()
+                  val html = model.mobi.readAllRecords()
+                  val parser = new MobiContentParser(html)
+                  bookHtml.text = html
+                  val textToBeShown = parser.bodyWithParagraphs
+                  if (textToBeShown == "")
+                    model.bookText = parser.bodyText
+                  else
+                    model.bookText = textToBeShown
+                  bookText.text = model.bookText
+                  metadataButton.visible = true
+                  analyzeButton.visible = true
+                }
                 else
-                  model.bookText = textToBeShown
-                bookText.text = model.bookText
-                metadataButton.visible = true
-                analyzeButton.visible = true
+                  Dialogs.showWarningDialog(stage,
+                    "File has to be in mobi format", "Reading failure")
               }
-              else
-                Dialogs.showWarningDialog(stage,
-                  "File has to be in mobi format", "Reading failure")
-            }
-            catch {
-              case e: NullPointerException => println("WTF, null pointer?")
-            }
+              catch {
+                case e: NullPointerException => println("WTF, null pointer?")
+              }
           })
 
           val metadataButton = new Button("Show metadata")
-          metadataButton.onAction_=({ (_:ActionEvent) =>
-            if(model.mobi != null)
-            {
-              val descriptor = new MobiDescriptor(model.mobi)
+          metadataButton.onAction_=({
+            (_: ActionEvent) =>
+              if (model.mobi != null) {
+                val descriptor = new MobiDescriptor(model.mobi)
 
-              def addIndentation(paragraph: String) = {
-                (for (sentence <- paragraph.split("\n"))
-                yield "  " + sentence).mkString("\n") + "\n"
+                def addIndentation(paragraph: String) = {
+                  (for (sentence <- paragraph.split("\n"))
+                  yield "  " + sentence).mkString("\n") + "\n"
+                }
+
+                var description = "First header:\n" + addIndentation(descriptor.firstHeaderInfo)
+                description += "\nPalmdoc header:\n" + addIndentation(descriptor.palmdocHeaderInfo)
+                description += "\nMobi header:\n" + addIndentation(descriptor.mobiHeaderInfo)
+                Dialogs.showInformationDialog(stage,
+                  description, "Mobi file contains multiple headers, " +
+                    "the most important have following data:", "Mobi metadata")
               }
-
-              var description ="First header:\n" + addIndentation(descriptor.firstHeaderInfo)
-              description += "\nPalmdoc header:\n" + addIndentation(descriptor.palmdocHeaderInfo)
-              description += "\nMobi header:\n" + addIndentation(descriptor.mobiHeaderInfo)
-              Dialogs.showInformationDialog(stage,
-                description, "Mobi file contains multiple headers, " +
-                  "the most important have following data:", "Mobi metadata")
-            }
 
           })
 
           metadataButton.visible = false
 
           val analyzeButton = new Button("Analyze content")
-          analyzeButton.onAction_=({ (_:ActionEvent) =>
-            showBookAnalyzis()
+          analyzeButton.onAction_=({
+            (_: ActionEvent) =>
+              showBookAnalyzis()
           })
 
           metadataButton.visible = false
@@ -307,7 +312,7 @@ object BigApp extends JFXApp {
     }
 
     val split = new SplitPane() {
-      orientation =  Orientation.VERTICAL
+      orientation = Orientation.VERTICAL
       items.addAll(
         header,
         body
@@ -339,19 +344,19 @@ object BigApp extends JFXApp {
           font = new Font("Verdana", 14)
         },
         summary,
-        new Label("Most common words"){
+        new Label("Most common words") {
           font = new Font("Verdana", 14)
         },
-        new Label("Asossiated categories"){
+        new Label("Asossiated categories") {
           font = new Font("Verdana", 14)
         },
         new Label() {
           var maxTextSize = model.bookText.size
-          if(maxTextSize  > 1000) {
+          if (maxTextSize > 1000) {
             maxTextSize = 1000
           }
           val winningCategory = CategoryClassifier.matchCategory(model.bookText.slice(0, maxTextSize))
-          text = winningCategory._1 + " with " + winningCategory._2 +  "% match"
+          text = winningCategory._1 + " with " + winningCategory._2 + "% match"
         }
       )
     }
@@ -463,10 +468,11 @@ object BigApp extends JFXApp {
         content = List(
           new Label("U mad?"),
           new Button("Update") {
-            onAction = { e: ActionEvent => {
-              //are you sure? dialog
-              model.db.addBook(book)
-            }
+            onAction = {
+              e: ActionEvent => {
+                //are you sure? dialog
+                model.db.addBook(book)
+              }
             }
           }
         )
@@ -481,16 +487,18 @@ object BigApp extends JFXApp {
               spacing = 10
               content = List(
                 new Button("Remove") {
-                  onAction = { e: ActionEvent => {
-                    //are you sure? dialog
-                    model.db.removeBook(book)
-                  }
+                  onAction = {
+                    e: ActionEvent => {
+                      //are you sure? dialog
+                      model.db.removeBook(book)
+                    }
                   }
                 },
                 new Button("Change") {
-                  onAction = { e: ActionEvent => {
-                    bookChangingForm.visible = true
-                  }
+                  onAction = {
+                    e: ActionEvent => {
+                      bookChangingForm.visible = true
+                    }
                   }
                 }
               )
@@ -521,10 +529,10 @@ object BigApp extends JFXApp {
     expandedPane = panes.head
   }
 
-  def createAccordionViewOfAuthors() : MutableList[TitledPane] = {
+  def createAccordionViewOfAuthors(): MutableList[TitledPane] = {
     val authors = model.authors
     val mutableAuthors = new MutableList[TitledPane]
-    for(author <- authors) {
+    for (author <- authors) {
       mutableAuthors += new TitledPane {
         text = author.getName
         content = new TextArea {
@@ -537,15 +545,15 @@ object BigApp extends JFXApp {
 
   def createCategoryNode(cat: Category): TreeItem[String] = {
     new TreeItem(cat.value) {
-      children = (for(subcatName <- cat.namesOfSubcategories())
-      yield createCategoryNode(cat(subcatName)) ).toList
+      children = (for (subcatName <- cat.namesOfSubcategories())
+      yield createCategoryNode(cat(subcatName))).toList
     }
   }
 
   def createNodeListForTree(): List[TreeItem[String]] = {
     val categories = model.categories
-    (for(subcatName <- categories.namesOfSubcategories())
-    yield createCategoryNode(categories(subcatName)) ).toList
+    (for (subcatName <- categories.namesOfSubcategories())
+    yield createCategoryNode(categories(subcatName))).toList
 
   }
 
@@ -569,10 +577,10 @@ object BigApp extends JFXApp {
           model.listViewItems.clear()
           val books = model.db.findBooksByCategory(newTreeItem.getValue)
           model.listViewItems += "Books in category: " + newTreeItem.getValue
-          if(books.isEmpty)
+          if (books.isEmpty)
             model.listViewItems += "No books found"
           else {
-            for(book <- books) {
+            for (book <- books) {
               model.listViewItems += book.getTitle + " by " + book.getAuthor.getName
             }
           }
@@ -614,22 +622,23 @@ object BigApp extends JFXApp {
 
       val useAuthor = new CheckBox("Use already added author") {
         inner =>
-        onAction = { e: ActionEvent =>
-          println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
-          if(inner.selected()) {
-            usingAlreadyAddedAuthor = true
-            authorName.text.value = authorBox.value.value
-            authorInfo.text.value = model.db.findAuthor(authorBox.value.value).additionalInfo
-            authorName.editable = false
-            authorInfo.editable = false
-          }
-          else {
-            usingAlreadyAddedAuthor = false
-            authorName.text.value = authorBox.value.value
-            authorInfo.text.value = model.db.findAuthor(authorBox.value.value).additionalInfo
-            authorName.editable = true
-            authorInfo.editable = true
-          }
+        onAction = {
+          e: ActionEvent =>
+            println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
+            if (inner.selected()) {
+              usingAlreadyAddedAuthor = true
+              authorName.text.value = authorBox.value.value
+              authorInfo.text.value = model.db.findAuthor(authorBox.value.value).additionalInfo
+              authorName.editable = false
+              authorInfo.editable = false
+            }
+            else {
+              usingAlreadyAddedAuthor = false
+              authorName.text.value = authorBox.value.value
+              authorInfo.text.value = model.db.findAuthor(authorBox.value.value).additionalInfo
+              authorName.editable = true
+              authorInfo.editable = true
+            }
 
         }
       }
@@ -642,8 +651,7 @@ object BigApp extends JFXApp {
         selectionModel().selectedItem.onChange(
         {
           (_, _, newValue) => println(newValue + " chosen in ChoiceBox")
-          if(usingAlreadyAddedAuthor)
-          {
+          if (usingAlreadyAddedAuthor) {
             authorName.text.value_=(newValue)
           }
         }
@@ -662,15 +670,16 @@ object BigApp extends JFXApp {
 
       val useCategory = new CheckBox("Use already added category") {
         inner =>
-        onAction = { e: ActionEvent =>
-          println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
-          usingAlreadyAddedCategory = inner.selected()
-          if(usingAlreadyAddedCategory) {
-            categoryName.text.value = categoryBox.value.value
-            categoryName.editable = false
-          }
-          else
-            categoryName.editable = true
+        onAction = {
+          e: ActionEvent =>
+            println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
+            usingAlreadyAddedCategory = inner.selected()
+            if (usingAlreadyAddedCategory) {
+              categoryName.text.value = categoryBox.value.value
+              categoryName.editable = false
+            }
+            else
+              categoryName.editable = true
         }
       }
 
@@ -683,8 +692,7 @@ object BigApp extends JFXApp {
         selectionModel().selectedItem.onChange(
         {
           (_, _, newValue) => println(newValue + " chosen in ChoiceBox")
-          if(usingAlreadyAddedCategory)
-          {
+          if (usingAlreadyAddedCategory) {
             categoryName.text.value_=(newValue)
           }
         }
@@ -700,36 +708,35 @@ object BigApp extends JFXApp {
         new VBox {
           spacing = 10
           val button = new Button("Choose file")
-          button.onAction_=({ (_:ActionEvent) =>
-            try {
-              val fileChooser = new FileChooser()
-              val result = fileChooser.showOpenDialog(stage)
-              if(result != null)
-              {
-                val path = result.getAbsolutePath()
-                if (model.isBookFormatSupported(path)) {
-                  if (bookTitle.text.value == "")
-                  {
-                    bookTitle.text = model.getBookTitleFromPath(path)
+          button.onAction_=({
+            (_: ActionEvent) =>
+              try {
+                val fileChooser = new FileChooser()
+                val result = fileChooser.showOpenDialog(stage)
+                if (result != null) {
+                  val path = result.getAbsolutePath()
+                  if (model.isBookFormatSupported(path)) {
+                    if (bookTitle.text.value == "") {
+                      bookTitle.text = model.getBookTitleFromPath(path)
+                    }
+                    filePath.text = model.normalizePath(path, 50)
+                    model.updateBookFormatFromPath(path)
+                    model.updateBookText(path)
+                    model.updatePreviewOfBookText()
+                    model.file = result
+                    model.filePath = path
                   }
-                  filePath.text = model.normalizePath(path, 50)
-                  model.updateBookFormatFromPath(path)
-                  model.updateBookText(path)
-                  model.updatePreviewOfBookText()
-                  model.file = result
-                  model.filePath = path
+                  else {
+                    Dialogs.showWarningDialog(stage, "Book format: " +
+                      model.getBookFormatFromPath(path) + " is not supported",
+                      "Book couldn't be added.", "Adding failure")
+                  }
                 }
-                else {
-                  Dialogs.showWarningDialog(stage,  "Book format: " +
-                    model.getBookFormatFromPath(path) + " is not supported",
-                    "Book couldn't be added.", "Adding failure")
-                }
-              }
 
-            }
-            catch {
-              case e: NullPointerException => println("WTF, null pointer?")
-            }
+              }
+              catch {
+                case e: NullPointerException => println("WTF, null pointer?")
+              }
           })
           content = List(filePath, button)
         },
@@ -743,7 +750,7 @@ object BigApp extends JFXApp {
             },
             bookDescription
           )
-        } ,
+        },
         useAuthor,
         authorBox,
         authorName,
@@ -757,50 +764,53 @@ object BigApp extends JFXApp {
         categoryBox,
         categoryName,
         new Button("Add to library") {
-          onAction = {e: ActionEvent =>
-            val emptyFields = getEmptyFields()
+          onAction = {
+            e: ActionEvent =>
+              val emptyFields = getEmptyFields()
 
-            if(!emptyFields.isEmpty) {
-              val capitalizedEmptyFields = emptyFields(0)(0).toUpper +
-                emptyFields(0).tail :: emptyFields.tail
-              Dialogs.showWarningDialog(stage, capitalizedEmptyFields.mkString(", ") + " cannot be empty.",
-                "Book couldn't be added.", "Adding failure")
+              if (!emptyFields.isEmpty) {
+                val capitalizedEmptyFields = emptyFields(0)(0).toUpper +
+                  emptyFields(0).tail :: emptyFields.tail
+                Dialogs.showWarningDialog(stage, capitalizedEmptyFields.mkString(", ") + " cannot be empty.",
+                  "Book couldn't be added.", "Adding failure")
 
-            }
-            else {
-              val book: Book = createBookBasedOnForm()
-              if(!model.books.contains(book)) { //TODO make it working
-                model.db.addBook(book)
-                assert(model.db.findBook(book.getTitle) != null,
-                  "Just added book cannot be found")
-                model.books += book
-                model.namesOfAllCategories += book.category
-                model.categories.addSubcategories(List(book.category))
-                val author = book.getAuthor
-                author.addTitle(book.getTitle)
-                Dialogs.showInformationDialog(stage, "You successfully added book to the library",
-                  "Book added.", "Adding complete")
-                treeViewRoot.children = createNodeListForTree()
-                accordionViewOfAuthors = createAccordionViewOfAuthors()
-                accordionOfAuthors.panes = accordionViewOfAuthors
               }
-            }
+              else {
+                val book: Book = createBookBasedOnForm()
+                if (!model.books.contains(book)) {
+                  //TODO make it working
+                  model.db.addBook(book)
+                  assert(model.db.findBook(book.getTitle) != null,
+                    "Just added book cannot be found")
+                  model.books += book
+                  model.namesOfAllCategories += book.category
+                  model.categories.addSubcategories(List(book.category))
+                  val author = book.getAuthor
+                  author.addTitle(book.getTitle)
+                  Dialogs.showInformationDialog(stage, "You successfully added book to the library",
+                    "Book added.", "Adding complete")
+                  treeViewRoot.children = createNodeListForTree()
+                  accordionViewOfAuthors = createAccordionViewOfAuthors()
+                  accordionOfAuthors.panes = accordionViewOfAuthors
+                }
+              }
           }
         }
       )
+
       def getEmptyFields(): List[String] = {
         var emptyFields = List[String]()
-        if(bookTitle.text.value == "")
+        if (bookTitle.text.value == "")
           emptyFields = "title" :: emptyFields
-        if(filePath.text.value == "")
+        if (filePath.text.value == "")
           emptyFields = "path to file" :: emptyFields
-        if(bookDescription.text.value == "")
+        if (bookDescription.text.value == "")
           emptyFields = "book description" :: emptyFields
-        if(authorName.text.value == "")
+        if (authorName.text.value == "")
           emptyFields = "name of the author" :: emptyFields
-        if(authorInfo.text.value == "")
+        if (authorInfo.text.value == "")
           emptyFields = "info about the author" :: emptyFields
-        if(categoryName.text.value == "")
+        if (categoryName.text.value == "")
           emptyFields = "category" :: emptyFields
         emptyFields
       }

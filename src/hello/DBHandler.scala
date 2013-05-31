@@ -9,13 +9,12 @@ import java.util.ArrayList
 
 import mobireader.Book
 
-class StatementBuilderA
-{
-  private def prepareStatement(connection: Connection ,
+class StatementBuilderA {
+  private def prepareStatement(connection: Connection,
                                statementText: String) = {
     val statement = connection.prepareStatement(
       statementText)
-    statement.setQueryTimeout(30)  // set timeout to 30 sec.
+    statement.setQueryTimeout(30) // set timeout to 30 sec.
     statement
   }
 
@@ -23,7 +22,7 @@ class StatementBuilderA
     prepareStatement(connection, "select * from authors where name=?")
 
   def addAuthorStatement(connection: Connection) =
-    prepareStatement(connection,"insert or replace into " +
+    prepareStatement(connection, "insert or replace into " +
       "authors(name, additional_info) values( ?, ?)")
 
   //TODO checkout, if replacing really works as supposed to
@@ -56,8 +55,7 @@ class StatementBuilderA
     prepareStatement(connection, "select * from authors")
 }
 
-class DBHandler(databaseFile: String)
-{
+class DBHandler(databaseFile: String) {
   val dbFile = "sample.db"
   val driver = "org.sqlite.JDBC"
   val statBld = new StatementBuilderA()
@@ -75,14 +73,13 @@ class DBHandler(databaseFile: String)
     books.foreach(addBook)
   }
 
-  def addBook(book: Book)  {
+  def addBook(book: Book) {
     val connection = prepareConnection()
     val author = findAuthor(book.getAuthor.getName)
-    if(author.name == "Unknown")
-    {
+    if (author.name == "Unknown") {
       this.addAuthor(book.getAuthor)
     }
-    val stat= statBld.addBookStatement(connection)
+    val stat = statBld.addBookStatement(connection)
     stat.setString(1, book.getTitle)
     stat.setString(2, book.getAuthor.getName)
     stat.setString(3, book.getPathToContent)
@@ -109,7 +106,7 @@ class DBHandler(databaseFile: String)
     val author_name = rs.getString("author_name")
     val info_about_author = rs.getString("additional_info")
     val author = new Author(author_name, info_about_author)
-    new Book(title, author, path,  description, category)
+    new Book(title, author, path, description, category)
   }
 
   def makeAuthorFromResultSet(rs: ResultSet) = {
@@ -120,7 +117,7 @@ class DBHandler(databaseFile: String)
 
   def findBook(title: String) = {
     val connection = prepareConnection()
-    val stat= statBld.findBookStatement(connection)
+    val stat = statBld.findBookStatement(connection)
     stat.setString(1, title)
     val rs = stat.executeQuery()
     val book = makeBookFromResultSet(rs)
@@ -135,8 +132,7 @@ class DBHandler(databaseFile: String)
     stat.setString(1, author.getName)
     val rs = stat.executeQuery()
     var books = List[Book]()
-    while(rs.next())
-    {
+    while (rs.next()) {
       val path = rs.getString("path_to_content")
       val title = rs.getString("title")
       books = books :+ (new Book(title, author, path))
@@ -152,8 +148,7 @@ class DBHandler(databaseFile: String)
     stat.setString(1, category)
     val rs = stat.executeQuery()
     var books = List[Book]()
-    while(rs.next())
-    {
+    while (rs.next()) {
       books = books :+ makeBookFromResultSet(rs)
     }
     rs.close()
@@ -166,8 +161,7 @@ class DBHandler(databaseFile: String)
     val stat = statBld.getAllBooksStatement(connection)
     val rs = stat.executeQuery()
     var books = List[Book]()
-    while(rs.next())
-    {
+    while (rs.next()) {
       books = books :+ (makeBookFromResultSet(rs))
     }
     assert(books.size > 0, "No books found in db")
@@ -183,10 +177,9 @@ class DBHandler(databaseFile: String)
     val stat = statBld.getAllAuthorsStatement(connection)
     val rs = stat.executeQuery()
     var authors = List[Author]()
-    while(rs.next())
-    {
+    while (rs.next()) {
       val author = (makeAuthorFromResultSet(rs))
-      val titles = for(book <- findBooksByAuthor(author))
+      val titles = for (book <- findBooksByAuthor(author))
       yield book.getTitle
       author.addTitles(new ArrayList(titles))
       authors = authors :+ author
@@ -214,7 +207,7 @@ class DBHandler(databaseFile: String)
       stat.setString(1, name)
       stat.executeQuery()
       val rs = stat.executeQuery()
-      val author = if(rs.next()) {
+      val author = if (rs.next()) {
         val additional_info = rs.getString("additional_info")
         new Author(name, additional_info)
       }
