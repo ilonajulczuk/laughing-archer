@@ -5,6 +5,7 @@
 package stuff;
 
 import java.sql.SQLException;
+
 import hello.DBHandler;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,28 +13,27 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 
 /**
- *
  * @author att
  */
 public class SqlConnectionJUnitTest {
     DBHandler handler = new DBHandler();
-    
+
     public SqlConnectionJUnitTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() throws SQLException, ClassNotFoundException {
         handler.createTablesInDB();
     }
-    
+
     @After
     public void tearDown() {
     }
