@@ -35,6 +35,15 @@ class AppModel {
 	  db.addBooks(createLibrary)
 	}
 	
+	def normalizePath(path: String, maxSize: Int) = {
+	  val parts = path.split("/")
+	  if (path.size > maxSize) {
+		  parts.head + "/.../" + parts(parts.size -2) + "/" +parts.last
+	  }
+	  else 
+	    path
+	}
+	
 	var libraryPath = new SimpleStringProperty("./library/")
 	var workspacePath = new SimpleStringProperty("./workspace/")
 	

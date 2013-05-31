@@ -98,6 +98,14 @@ class DBHandler(databaseFile: String)
 		connection.close()
 	}
 	
+	def removeBook(book: Book) {
+		println("Oh, removing book is so... so hard")
+	}
+	
+	def removeAuthor(author: Author) {
+		println("Oh, removing author is so... so hard")
+	}
+	
 	def makeBookFromResultSet(rs: ResultSet) = {
 		val path = rs.getString("path_to_content")
 		val title = rs.getString("title")

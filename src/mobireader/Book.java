@@ -56,6 +56,15 @@ public class Book {
         this.description = description;
     }
     
+    public String detailedDescription() {
+    	return "Title: " + title + "\n" +
+    			description + "\n" +
+    			"written by: " + author.getName() + "\n" +
+    			"located in: " + pathToContent + "\n" +
+    			"classified as: " + category + "\n" +
+    			"added: " + timestamp.toString() + "\n";
+    }
+    
     public String getContent()
     {
         return this.content;

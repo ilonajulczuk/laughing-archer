@@ -104,16 +104,6 @@ object BigMain extends JFXApp {
 									content = tableOfBooks
 									closable = false
 						},
-						/*new Tab {
-							text = "Authors"
-									content = accordionOfAuthors
-									closable = false
-						},
-						new Tab {
-							text = "Categories"
-									content = treeOfCategories
-									closable = false
-						},*/
 						new Tab {
 							text = "Add a book"
 									content = addingBookForm
@@ -388,15 +378,19 @@ object BigMain extends JFXApp {
 	}
 	
 	def showBookAnalyzis() {
-			val page = createAnalyzisPage();
-			val dialogStage = new Stage();
-			dialogStage.setTitle("Book Statistics");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(stage)
-			val scene = new Scene()
-			scene.content = page
-			dialogStage.setScene(scene)
-			dialogStage.show()
+		val page = createAnalyzisPage()
+		showPageInWindow(page, "Book Statistics")
+	}
+	
+	def showPageInWindow(page: Node, title: String) {
+		val dialogStage = new Stage();
+		dialogStage.setTitle(title);
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initOwner(stage)
+		val scene = new Scene()
+		scene.content = page
+		dialogStage.setScene(scene)
+		dialogStage.show()
 	}
 	
 	private def createTableOfBooks(): Node = {
@@ -450,11 +444,85 @@ object BigMain extends JFXApp {
 						)
 			}
 			table.getSelectionModel.selectedItemProperty.onChange(
-					(_, _, newValue) => println(newValue + " chosen in TableView")
+					(_, _, newValue) => {
+					  println(newValue + " chosen in TableView")
+					  showBookManagment(newValue)
+					}
 					)
 			table
 	}
 
+	def createManagmentPage(book: Book): Node = {
+	  
+	  val analyzer = new BookAnalyzer
+	  val bookSummaryText = book.detailedDescription()
+	  
+	  val summary = new TextArea {
+		text = bookSummaryText
+		wrapText = true
+	  }
+	  
+	  val managment = new VBox {
+	    padding = Insets(10)
+	    spacing = 10
+		margin = Insets(10, 10, 10, 10)
+		val bookChangingForm = new VBox {
+	      content = List(
+	          new Label("U mad?"),
+	          new Button("Update") {
+	        	  onAction = { e: ActionEvent => {
+	        		  //are you sure? dialog
+	        		  model.db.addBook(book)
+	        	  	}
+	        	  }
+	          }
+	       )
+	    }
+	    bookChangingForm.visible = false
+	    content = List( 
+	        new HBox {
+	           spacing = 10
+		    	content = List(
+			        summary,
+			        new VBox {
+			    	  spacing = 10
+			    	  content = List(
+			    	      new Button("Remove") {
+			    	        onAction = { e: ActionEvent => {
+			    	        	//are you sure? dialog
+			    	        	model.db.removeBook(book)
+			    	          }
+			    	        }
+			    	      },
+			    	      new Button("Change") {
+			    	        onAction = { e: ActionEvent => {
+			    	        	bookChangingForm.visible = true
+			    	          }
+			    	        }
+			    	      }
+			    	      )
+			    	}
+		    	)
+	        },
+	    	bookChangingForm
+	   
+	      )
+	    }
+	  
+	  
+	  new ScrollPane {
+		margin = Insets(10, 10, 10, 10)
+	    prefWidth = 500
+	    prefHeight = 280
+	    content = managment
+	  }
+	}
+	
+	def showBookManagment(book: Book) {
+			val page = createManagmentPage(book)
+			showPageInWindow(page, "Book Managment")
+	}
+	
 	private def createAccordionOfAuthors(): Accordion = new Accordion {
 		panes = accordionViewOfAuthors
 		expandedPane = panes.head
@@ -647,18 +715,13 @@ object BigMain extends JFXApp {
 								  {
 								    val path = result.getAbsolutePath()
 								    if (model.isBookFormatSupported(path)) {
-								      if (bookTitle.text == "" || bookTitle.text == null || bookTitle.text == "Title")
+								      if (bookTitle.text.value == "")
 								      {
-								        println("Updating title")
 								    	  bookTitle.text = model.getBookTitleFromPath(path)
 								      }
-								      else {
-								        println("No need for updating title")
-								      }
-								      filePath.text = path
+								      filePath.text = model.normalizePath(path, 50)
 								      model.updateBookFormatFromPath(path)
 								      model.updateBookText(path)
-								      println("Upadting preview")
 								      model.updatePreviewOfBookText()
 								      model.file = result
 								      model.filePath = path
@@ -722,6 +785,8 @@ object BigMain extends JFXApp {
 									model.categories.addSubcategories(List(book.category))
 									val author = book.getAuthor
 									author.addTitle(book.getTitle)
+									Dialogs.showInformationDialog(stage, "You successfully added book to the library",
+											"Book added.", "Adding complete")
 									treeViewRoot.children = createNodeListForTree()
 									accordionViewOfAuthors = createAccordionViewOfAuthors()
 									accordionOfAuthors.panes = accordionViewOfAuthors
@@ -749,7 +814,7 @@ object BigMain extends JFXApp {
 				
 				def createBookBasedOnForm(): Book = {
 				  val title = bookTitle.text.value
-				  val path = filePath.text.value
+				  val path = model.filePath
 				  val description = bookDescription.text.value
 				  val nameOfAuthor = authorName.text.value
 				  val additionalInfoAboutAuthor = authorInfo.text.value
@@ -783,7 +848,7 @@ object BigMain extends JFXApp {
 					}
 					previewText.prefHeight.bind(left.prefHeightProperty)
 					previewText.prefWidth.bind(left.prefWidthProperty)
-					previewText.prefColumnCount = 30
+					previewText.prefColumnCount = 28
 					previewText.prefRowCount = 30
 					previewText.text.bind(model.bookTextPreview)
 					previewTitle.text.bind(addingBox.bookTitle.text)
