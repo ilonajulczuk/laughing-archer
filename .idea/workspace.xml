@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0195eef7-d9db-473f-8266-9e532de61bea" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/bin/hello/Author.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test_analysis/CategoryTest.scala" afterPath="$PROJECT_DIR$/tests/test_analysis/CategoryTest.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/odt/OdtParsingTest.scala" afterPath="$PROJECT_DIR$/tests/odt/OdtParsingTest.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/stuff/ParsingMobiContentTest.scala" afterPath="$PROJECT_DIR$/tests/stuff/ParsingMobiContentTest.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/stuff/SqlConnectionJUnitTest.java" afterPath="$PROJECT_DIR$/tests/stuff/SqlConnectionJUnitTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/learning/SummaryToolTest.scala" afterPath="$PROJECT_DIR$/tests/learning/SummaryToolTest.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
     </list>
     <ignored path="MyProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,17 +83,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AppModel.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hello/AppModel.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="33" selection-start="2490" selection-end="2490" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#15#58#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="BookAnalyzer.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/analysis/BookAnalyzer.scala">
           <provider selected="true" editor-type-id="text-editor">
@@ -137,7 +122,16 @@
       <file leaf-file-name="EXTHHeader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mobireader/EXTHHeader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="13" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+            <state line="23" column="36" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SummaryToolTest.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/learning/SummaryToolTest.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="50" column="7" selection-start="2940" selection-end="2940" vertical-scroll-proportion="1.374502">
               <folding />
             </state>
           </provider>
@@ -146,7 +140,7 @@
       <file leaf-file-name="OpenOfficeParser.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/odt/OpenOfficeParser.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="48" selection-start="1767" selection-end="1767" vertical-scroll-proportion="0.0">
+            <state line="62" column="7" selection-start="1767" selection-end="1767" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#13#36#0" expanded="true" />
               </folding>
@@ -172,10 +166,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReadingDataFromMobiFileWithPreonTest.scala" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ReadingDataFromMobiFileWithPreonTest.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/binary_mobi/ReadingDataFromMobiFileWithPreonTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="6" selection-start="224" selection-end="224" vertical-scroll-proportion="-0.57281554">
+            <state line="9" column="6" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -213,6 +207,7 @@
         <option value="$PROJECT_DIR$/src/mobireader/Book.java" />
         <option value="$PROJECT_DIR$/src/odt/OpenOfficeParser.scala" />
         <option value="$PROJECT_DIR$/src/mobireader/Mobi.java" />
+        <option value="$PROJECT_DIR$/tests/learning/SummaryToolTest.scala" />
       </list>
     </option>
   </component>
@@ -299,6 +294,10 @@
               <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -314,7 +313,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="binary_mobi" />
+              <option name="myItemId" value="stuff" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -328,21 +327,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -360,51 +345,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mobireader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hello" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DBHandler.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hello" />
+              <option name="myItemId" value="learning" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -418,34 +363,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="analysis" />
+              <option name="myItemId" value="binary_mobi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="analysis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Category.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -474,7 +397,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
-  <component name="RunManager" selected="Application.BigMain">
+  <component name="RunManager" selected="ScalaTest.!ScalaTests in 'tests'!">
     <configuration default="false" name="BigMain" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="hello.BigMain" />
       <option name="VM_PARAMETERS" />
@@ -487,6 +410,21 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="MyProject" />
       <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="!ScalaTests in 'tests'!" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <module name="LaughingArcher" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="All in package" />
+      <setting name="showProgressMessages" value="true" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
@@ -707,12 +645,14 @@
       <setting name="showProgressMessages" value="true" />
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.BigMain" />
+      <item index="1" class="java.lang.String" itemvalue="ScalaTest.!ScalaTests in 'tests'!" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.BigMain" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.!ScalaTests in 'tests'!" />
+        <item index="1" class="java.lang.String" itemvalue="Application.BigMain" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -749,7 +689,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1358" height="714" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.6797153" order="3" side_tool="false" content_ui="tabs" />
@@ -764,7 +704,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24503817" sideWeight="0.6708185" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24503817" sideWeight="0.6708185" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291815" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -833,15 +773,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/mobireader/Mobi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="151" column="20" selection-start="5166" selection-end="5166" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/hello/BigApp.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -915,16 +846,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mobireader/EXTHHeader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/odt/OpenOfficeParser.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="48" selection-start="1767" selection-end="1767" vertical-scroll-proportion="0.0">
+        <state line="62" column="7" selection-start="1767" selection-end="1767" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#13#36#0" expanded="true" />
           </folding>
@@ -956,7 +880,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/binary_mobi/ReadingDataFromMobiFileWithPreonTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="6" selection-start="224" selection-end="224" vertical-scroll-proportion="-0.57281554">
+        <state line="9" column="6" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mobireader/EXTHHeader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="36" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/learning/SummaryToolTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="7" selection-start="2940" selection-end="2940" vertical-scroll-proportion="1.374502">
           <folding />
         </state>
       </provider>

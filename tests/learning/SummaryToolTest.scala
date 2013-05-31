@@ -45,7 +45,10 @@ Yes, we’re in the process of filing a patent for it. But basically the system 
     val sentences = summaryTool.splitContentToSentences(content)
 
     assert(sentences.size != 0)
-    assert(sentences(0) == "Lior Degani, the Co-Founder and head of Marketing of Swayy, pinged me last week when I was in California to tell me about his startup and give me beta access.")
+    assert(sentences(0) === "Lior Degani, the Co-Founder and head" +
+      " of Marketing of Swayy, pinged me last week when I was in" +
+      " California to tell me about his startup and" +
+      " give me beta access")
   }
 
   test("how format sentences work") {
