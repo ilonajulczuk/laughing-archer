@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hello;
+package domain;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 
 public class Author {
-    String name;
-    String additionalInfo = "No additional information available";
+    public String name;
+    public String additionalInfo = "No additional information available";
     List<String> writtenTitles = new ArrayList<>();
 
     public String getName() {

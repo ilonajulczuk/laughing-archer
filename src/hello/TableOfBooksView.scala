@@ -1,7 +1,6 @@
 package hello
 
 import scalafx.scene.control.{TableView, TableColumn}
-import mobireader.Book
 import javafx.{util => jfxu}
 import scalafx.Includes._
 import javafx.beans.{value => jfxbv}
@@ -11,6 +10,7 @@ import scalafx.scene.control._
 import scalafx.beans.property.StringProperty
 import scalafx.stage.Stage
 import scalafx.scene.Node
+import domain.Book
 
 
 class TableOfBooksView(model: AppModel, stage: Stage) {

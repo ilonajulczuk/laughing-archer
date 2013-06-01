@@ -2,18 +2,17 @@ package hello
 
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.geometry.Insets
-import scalafx.scene.control._
 import scalafx.event.ActionEvent
 import scalafx.application.JFXApp.PrimaryStage
 import javafx.scene.control.Dialogs
 import javafx.stage.FileChooser
-import mobireader.Book
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.scene.text.Font
 import scalafx.Includes._
 
 import scalafx.scene.control._
 import scalafx.stage.Stage
+import domain.{Book, Author}
 
 
 class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPane {
@@ -206,7 +205,8 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
                 val author = book.getAuthor
                 author.addTitle(book.getTitle)
                 model.storeBookTextOnDisk(book.getTitle, book.category)
-                Dialogs.showInformationDialog(stage, "You successfully added book to the library",
+                val dialogStage = new Stage
+                Dialogs.showInformationDialog(dialogStage, "You successfully added book to the library",
                   "Book added.", "Adding complete")
                 model.updateNamesOfAuthors()
               }

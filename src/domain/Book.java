@@ -1,7 +1,5 @@
 
-package mobireader;
-
-import hello.Author;
+package domain;
 
 import java.util.Date;
 import java.util.ArrayList;

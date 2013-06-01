@@ -5,10 +5,10 @@ import scalafx.scene.layout.{HBox, VBox}
 import scalafx.geometry.Insets
 import scalafx.event.ActionEvent
 import javafx.scene.control.Dialogs
-import mobireader.Book
 import scalafx.stage.Stage
 
 import scalafx.Includes._
+import domain.Book
 
 class BookManagementPage(book: Book, dialogStage: Stage, model: AppModel) extends ScrollPane {
   val bookSummaryText = book.detailedDescription()

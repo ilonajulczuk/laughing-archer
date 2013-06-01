@@ -7,7 +7,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
-import mobireader.Book
+import domain.{Book, Author}
 
 class StatementBuilder {
   private def prepareStatement(connection: Connection,

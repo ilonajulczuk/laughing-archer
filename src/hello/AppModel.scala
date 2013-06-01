@@ -3,13 +3,13 @@ package hello
 import mobireader.{Mobi, MobiContentParser}
 import odt.OpenOfficeParser
 import analysis.CategoryTree
-import mobireader.Book
 import scalafx.collections.{ObservableBuffer}
 import java.io.{File, RandomAccessFile, BufferedWriter, FileWriter}
 import scalafx.Includes._
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import java.util.prefs.Preferences
+import domain.{Book, Author}
 
 
 class AppModel {
