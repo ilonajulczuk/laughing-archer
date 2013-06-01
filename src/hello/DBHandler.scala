@@ -62,9 +62,8 @@ class StatementBuilder {
     prepareStatement(connection, "select * from authors")
 }
 
-class DBHandler(databaseFile: String) {
+class DBHandler(dbFile: String) {
 
-  val dbFile = "sample.db"
   val driver = "org.sqlite.JDBC"
   val statBld = new StatementBuilder()
 
@@ -128,7 +127,7 @@ class DBHandler(databaseFile: String) {
     connection.close()
   }
 
-  def makeBookFromResultSet(rs: ResultSet) = {
+  def makeBookFromResultSet(rs: ResultSet): Book = {
     val path = rs.getString("path_to_content")
     val title = rs.getString("title")
     val category = rs.getString("category")
@@ -137,9 +136,10 @@ class DBHandler(databaseFile: String) {
     val info_about_author = rs.getString("additional_info")
     val author = new Author(author_name, info_about_author)
     new Book(title, author, path, description, category)
+
   }
 
-  def makeAuthorFromResultSet(rs: ResultSet) = {
+  def makeAuthorFromResultSet(rs: ResultSet): Author = {
     val name = rs.getString("name")
     val additionalInfo = rs.getString("additional_info")
     new Author(name, additionalInfo)
@@ -150,10 +150,14 @@ class DBHandler(databaseFile: String) {
     val stat = statBld.findBookStatement(connection)
     stat.setString(1, title)
     val rs = stat.executeQuery()
-    val book = makeBookFromResultSet(rs)
-    rs.close()
-    connection.close()
-    book
+    if(rs.next()) {
+      val book = makeBookFromResultSet(rs)
+      rs.close()
+      connection.close()
+      book
+    }
+    else
+      None
   }
 
   def findBooksByAuthor(author: Author) = {
@@ -267,4 +271,10 @@ class DBHandler(databaseFile: String) {
     connection.close()
   }
 
+  def dropAllTables() {
+    val connection = prepareConnection()
+    val stat = connection.createStatement()
+    stat.executeUpdate("drop table books")
+    stat.executeUpdate("drop table authors")
+  }
 }
