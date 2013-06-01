@@ -83,14 +83,14 @@ object BigApp extends JFXApp {
     )
   }
 
-  val lib = getLibraryPath()
+  val lib = getLibraryPath
   if (lib != null) {
-    model.libraryPath.value = getLibraryPath()
+    model.libraryPath.value = getLibraryPath
     stage.setTitle("Laughing archer with library at - " + lib)
   }
-  val work = getWorkspacePath()
+  val work = getWorkspacePath
   if (work != null)
-    model.workspacePath.value = getWorkspacePath()
+    model.workspacePath.value = getWorkspacePath
 
 
   private def createTabs(): TabPane = {
@@ -743,7 +743,7 @@ object BigApp extends JFXApp {
         new VBox {
           spacing = 10
           val button = new Button("Choose file")
-          button.onAction_=({
+          button.onAction =({
             (_: ActionEvent) =>
               try {
                 val fileChooser = new FileChooser()
@@ -820,6 +820,7 @@ object BigApp extends JFXApp {
                   model.categories.addSubcategories(List(book.category))
                   val author = book.getAuthor
                   author.addTitle(book.getTitle)
+                  model.storeBookTextOnDisk(book.getTitle, book.category)
                   Dialogs.showInformationDialog(stage, "You successfully added book to the library",
                     "Book added.", "Adding complete")
                   treeViewRoot.children = createNodeListForTree()
@@ -903,12 +904,12 @@ object BigApp extends JFXApp {
     }
   }
 
-  def getLibraryPath(): String = {
+  def getLibraryPath: String = {
     val prefs = Preferences.userNodeForPackage(classOf[AppModel])
     prefs.get("libraryPath", null)
   }
 
-  def getWorkspacePath(): String = {
+  def getWorkspacePath: String = {
     val prefs = Preferences.userNodeForPackage(classOf[AppModel])
     prefs.get("workspacePath", null)
   }

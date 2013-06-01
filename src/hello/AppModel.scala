@@ -5,9 +5,10 @@ import odt.OpenOfficeParser
 import analysis.CategoryTree
 import mobireader.Book
 import scalafx.collections.ObservableBuffer
-import java.io.{File, RandomAccessFile}
+import java.io.{File, RandomAccessFile, BufferedWriter, FileWriter}
 import scalafx.Includes._
 import javafx.beans.property.SimpleStringProperty
+
 
 class AppModel {
   val db = new DBHandler("my_books.db")
@@ -143,6 +144,22 @@ class AppModel {
       }
       else shortened.substring(0, lastSpace) + "...\n"
   }
+
+  def storeBookTextOnDisk(title: String, category: String) {
+    if(bookText.nonEmpty) {
+      val pathToCategory = libraryPath.value + "/" + category
+      val directoryOfCategory: File = new File(pathToCategory)
+      if (!directoryOfCategory.exists()){
+        directoryOfCategory.mkdirs()
+      }
+      val out = new BufferedWriter(new FileWriter(pathToCategory +
+        "/" + title + ".txt"))
+      out.write(bookText)
+      out.close()
+    }
+  }
+
+
 }
 
 
