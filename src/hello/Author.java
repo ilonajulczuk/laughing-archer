@@ -10,9 +10,6 @@ import com.google.common.base.Joiner;
 
 import java.util.ArrayList;
 
-/**
- * @author att
- */
 public class Author {
     String name;
     String additionalInfo = "No additional information available";

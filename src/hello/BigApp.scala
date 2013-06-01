@@ -379,15 +379,14 @@ object BigApp extends JFXApp {
     showPageInWindow(page, "Book Statistics")
   }
 
-  def showPageInWindow(page: Node, title: String) {
-    val dialogStage = new Stage()
+  def showPageInWindow(page: Node, title: String, dialogStage: Stage = new Stage()) {
     dialogStage.setTitle(title)
     dialogStage.initModality(Modality.WINDOW_MODAL)
     dialogStage.initOwner(stage)
     val scene = new Scene()
     scene.content = page
     dialogStage.setScene(scene)
-    dialogStage.show()
+    dialogStage.show
   }
 
   private def createTableOfBooks(): Node = {
@@ -449,7 +448,7 @@ object BigApp extends JFXApp {
     table
   }
 
-  def createManagementPage(book: Book): Node = {
+  def createManagementPage(book: Book, dialogStage: Stage): Node = {
     val bookSummaryText = book.detailedDescription()
 
     val summary = new TextArea {
@@ -491,8 +490,16 @@ object BigApp extends JFXApp {
           new Button("Update") {
             onAction = {
               e: ActionEvent => {
-                //are you sure? dialog
-                model.db.addBook(book)
+                val dialogResponse = Dialogs.showConfirmDialog(dialogStage,
+                  "Update a book",
+                  "Are you sure, that you want to update this book?", "Update confirmation")
+                if (dialogResponse == Dialogs.DialogResponse.YES) {
+                  //TODO implement real updating instead of adding book which was already there
+                  model.books += book
+                  model.db.addBook(book)
+                  Dialogs.showInformationDialog(dialogStage, "Book was updated", "Update complete", "Book update info")
+                }
+
               }
             }
           }
@@ -510,8 +517,16 @@ object BigApp extends JFXApp {
                 new Button("Remove") {
                   onAction = {
                     e: ActionEvent => {
-                      //are you sure? dialog
-                      model.db.removeBook(book)
+                      val dialogResponse = Dialogs.showConfirmDialog(dialogStage,
+                       "Remove a book",
+                        "Are you sure, that you want to remove this book?", "Remove confirmation")
+                      if (dialogResponse == Dialogs.DialogResponse.YES) {
+                        model.db.removeBook(book)
+                        model.books.remove(book)
+                        Dialogs.showInformationDialog(dialogStage, "Book was removed", "Removal complete", "Book removal info")
+                        dialogStage.close
+                      }
+
                     }
                   }
                 },
@@ -527,10 +542,8 @@ object BigApp extends JFXApp {
           )
         },
         bookChangingForm
-
       )
     }
-
 
     new ScrollPane {
       margin = Insets(10, 10, 10, 10)
@@ -541,8 +554,9 @@ object BigApp extends JFXApp {
   }
 
   def showBookManagement(book: Book) {
-    val page = createManagementPage(book)
-    showPageInWindow(page, "Book Management")
+    val dialogStage = new Stage()
+    val page = createManagementPage(book, dialogStage)
+    showPageInWindow(page, "Book Management", dialogStage)
   }
 
   private def createAccordionOfAuthors(): Accordion = new Accordion {
@@ -645,7 +659,7 @@ object BigApp extends JFXApp {
         inner =>
         onAction = {
           e: ActionEvent =>
-            println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
+            println(e.eventType + " occurred on CheckBox, and `selected` property is: " + inner.selected())
             if (inner.selected()) {
               usingAlreadyAddedAuthor = true
               authorName.text.value = authorBox.value.value
@@ -737,9 +751,7 @@ object BigApp extends JFXApp {
                 if (result != null) {
                   val path = result.getAbsolutePath
                   if (model.isBookFormatSupported(path)) {
-                    if (bookTitle.text.value == "") {
-                      bookTitle.text = model.getBookTitleFromPath(path)
-                    }
+                    if (bookTitle.text.value == "") bookTitle.text = model.getBookTitleFromPath(path)
                     filePath.text = model.normalizePath(path, 50)
                     model.updateBookFormatFromPath(path)
                     model.updateBookText(path)
