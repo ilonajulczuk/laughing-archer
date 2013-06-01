@@ -22,7 +22,7 @@ class StatementBuilder {
     prepareStatement(connection, "select * from authors where name=?")
 
   def addAuthorStatement(connection: Connection) =
-    prepareStatement(connection, "insert or replace into " +
+    prepareStatement(connection, "insert into " +
       "authors(name, additional_info) values( ?, ?)")
 
   def removeAuthorStatement(connection: Connection) =
@@ -31,7 +31,7 @@ class StatementBuilder {
 
   //TODO checkout, if replacing really works as supposed to
   def addBookStatement(connection: Connection) =
-    prepareStatement(connection, "insert or replace into books(title, author_name," +
+    prepareStatement(connection, "insert into books(title, author_name," +
       " path_to_content, description, category) values( ?, ?, ?, ?, ?)")
 
   def removeBookStatement(connection: Connection) =

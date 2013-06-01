@@ -4,10 +4,11 @@ import mobireader.{Mobi, MobiContentParser}
 import odt.OpenOfficeParser
 import analysis.CategoryTree
 import mobireader.Book
-import scalafx.collections.ObservableBuffer
+import scalafx.collections.{ObservableBuffer}
 import java.io.{File, RandomAccessFile, BufferedWriter, FileWriter}
 import scalafx.Includes._
 import javafx.beans.property.SimpleStringProperty
+import javafx.collections.FXCollections
 
 
 class AppModel {
@@ -73,6 +74,20 @@ class AppModel {
 
   val books = getBooks()
 
+  //Updates authors in model. Check if any authors should be removed or added compared to DB
+  def updateNamesOfAuthors() {
+    val authorsNamesFromDB = for (author <- db.getAllAuthors()) yield author.getName
+    for (author <- namesOfAuthors) {
+      if (! authorsNamesFromDB.contains(author)) {
+        namesOfAuthors.remove(author)
+      }
+    }
+    for (author <- authorsNamesFromDB) {
+      if (!namesOfAuthors.contains(author)) {
+        namesOfAuthors.add(author)
+      }
+    }
+  }
   def getBooks() = {
     val books = new ObservableBuffer[Book]()
     for (book <- db.getAllBooks()) {
@@ -98,6 +113,7 @@ class AppModel {
                                                                              categories.allNames) yield category)
 
   def authors = db.getAllAuthors
+  def namesOfAuthors = FXCollections.observableArrayList((for (author <- authors) yield author.getName):_*)
 
   var filePath: String = ""
   var file: File = _
@@ -158,7 +174,6 @@ class AppModel {
       out.close()
     }
   }
-
 
 }
 

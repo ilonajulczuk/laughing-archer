@@ -497,6 +497,7 @@ object BigApp extends JFXApp {
                   //TODO implement real updating instead of adding book which was already there
                   model.books += book
                   model.db.addBook(book)
+                  model.updateNamesOfAuthors()
                   Dialogs.showInformationDialog(dialogStage, "Book was updated", "Update complete", "Book update info")
                 }
 
@@ -523,6 +524,8 @@ object BigApp extends JFXApp {
                       if (dialogResponse == Dialogs.DialogResponse.YES) {
                         model.db.removeBook(book)
                         model.books.remove(book)
+                        println("Updating names of authors")
+                        model.updateNamesOfAuthors()
                         Dialogs.showInformationDialog(dialogStage, "Book was removed", "Removal complete", "Book removal info")
                         dialogStage.close
                       }
@@ -659,7 +662,6 @@ object BigApp extends JFXApp {
         inner =>
         onAction = {
           e: ActionEvent =>
-            println(e.eventType + " occurred on CheckBox, and `selected` property is: " + inner.selected())
             if (inner.selected()) {
               usingAlreadyAddedAuthor = true
               authorName.text.value = authorBox.value.value
@@ -681,7 +683,8 @@ object BigApp extends JFXApp {
       val filePath = new Label("Nothing selected")
       filePath.wrapText = true
 
-      val authorBox = new ChoiceBox(ObservableBuffer(for (author <- model.db.getAllAuthors) yield author.getName)) {
+      val authorBox = new ChoiceBox[String]() {
+        items = model.namesOfAuthors
         selectionModel().selectFirst()
         selectionModel().selectedItem.onChange(
         {
@@ -707,7 +710,9 @@ object BigApp extends JFXApp {
         inner =>
         onAction = {
           e: ActionEvent =>
-            println(e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected())
+            println {
+              e.eventType + " occured on CheckBox, and `selected` property is: " + inner.selected()
+            }
             usingAlreadyAddedCategory = inner.selected()
             if (usingAlreadyAddedCategory) {
               categoryName.text.value = categoryBox.value.value
@@ -823,6 +828,7 @@ object BigApp extends JFXApp {
                   model.storeBookTextOnDisk(book.getTitle, book.category)
                   Dialogs.showInformationDialog(stage, "You successfully added book to the library",
                     "Book added.", "Adding complete")
+                  model.updateNamesOfAuthors()
                   treeViewRoot.children = createNodeListForTree()
                   accordionViewOfAuthors = createAccordionViewOfAuthors()
                   accordionOfAuthors.panes = accordionViewOfAuthors
