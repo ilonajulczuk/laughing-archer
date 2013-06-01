@@ -9,6 +9,7 @@ import java.io.{File, RandomAccessFile, BufferedWriter, FileWriter}
 import scalafx.Includes._
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
+import java.util.prefs.Preferences
 
 
 class AppModel {
@@ -174,7 +175,33 @@ class AppModel {
       out.close()
     }
   }
+  def getLibraryPath: String = {
+    val prefs = Preferences.userNodeForPackage(classOf[AppModel])
+    prefs.get("libraryPath", null)
+  }
 
+  def getWorkspacePath: String = {
+    val prefs = Preferences.userNodeForPackage(classOf[AppModel])
+    prefs.get("workspacePath", null)
+  }
+
+  def setLibraryPath(path: String) {
+    val prefs = Preferences.userNodeForPackage(classOf[AppModel])
+    if (path != null) {
+      prefs.put("libraryPath", path)
+    } else {
+      prefs.remove("libraryPath")
+    }
+  }
+
+  def setWorkspacePath(path: String) {
+    val prefs = Preferences.userNodeForPackage(classOf[AppModel])
+    if (path != null) {
+      prefs.put("workspacePath", path)
+    } else {
+      prefs.remove("workspacePath")
+    }
+  }
 }
 
 

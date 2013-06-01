@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195eef7-d9db-473f-8266-9e532de61bea" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my_books.db" afterPath="$PROJECT_DIR$/my_books.db" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hello/AddingBooksFormView.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hello/BookManagementPage.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hello/MobiParsingView.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hello/PreferencesView.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hello/ReadingPlanView.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hello/StageUtil.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hello/TableOfBooksView.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/AppModel.scala" afterPath="$PROJECT_DIR$/src/hello/AppModel.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/BigApp.scala" afterPath="$PROJECT_DIR$/src/hello/BigApp.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/DBHandler.scala" afterPath="$PROJECT_DIR$/src/hello/DBHandler.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MyProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -14,11 +20,17 @@
     <file path="/App.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370019753419" ignored="false" />
     <file path="/fragment.java" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370075341680" ignored="false" />
     <file path="/DBHandler.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370097032602" ignored="false" />
-    <file path="/BigApp.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370100605318" ignored="false" />
+    <file path="/BigApp.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370107219816" ignored="false" />
     <file path="/a.dummy" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370090622183" ignored="false" />
     <file path="/Mobi.java" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370030505195" ignored="false" />
     <file path="/AppModel.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370100404433" ignored="false" />
     <file path="/DBHandlerRemovalTest.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370097184255" ignored="false" />
+    <file path="/ReadingPlanView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370104054114" ignored="false" />
+    <file path="/MobiParsingView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370108008484" ignored="false" />
+    <file path="/StageUtil.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370105819919" ignored="false" />
+    <file path="/AddingBooksFormView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370107931453" ignored="false" />
+    <file path="/TableOfBooksView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370107139976" ignored="false" />
+    <file path="/BookManagmentPage.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370106923727" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,33 +100,75 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Author.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hello/Author.java">
+      <file leaf-file-name="BigApp.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/hello/BigApp.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="54" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0">
+            <state line="119" column="27" selection-start="2733" selection-end="2733" vertical-scroll-proportion="0.72727275">
+              <folding>
+                <element signature="e#15#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BookManagementPage.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/BookManagementPage.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="112" column="11" selection-start="3376" selection-end="3376" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#15#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TableOfBooksView.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/TableOfBooksView.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="43" selection-start="241" selection-end="272" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBHandler.scala" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/hello/DBHandler.scala">
+      <file leaf-file-name="AddingBooksFormView.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/AddingBooksFormView.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="174" column="91" selection-start="5659" selection-end="5659" vertical-scroll-proportion="-0.0028490028">
+            <state line="136" column="45" selection-start="3793" selection-end="3819" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="e#16#42#0" expanded="true" />
+                <element signature="e#15#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BigApp.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hello/BigApp.scala">
+      <file leaf-file-name="MobiParsingView.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/MobiParsingView.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="686" column="24" selection-start="20554" selection-end="20554" vertical-scroll-proportion="0.0">
+            <state line="120" column="77" selection-start="3366" selection-end="3366" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="e#24394#24525#0" expanded="false" />
+                <element signature="e#15#45#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StageUtil.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/StageUtil.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="0" selection-start="447" selection-end="447" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#15#49#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReadingPlanView.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/ReadingPlanView.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="0" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -122,7 +176,7 @@
       <file leaf-file-name="AppModel.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hello/AppModel.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="0" selection-start="1411" selection-end="1411" vertical-scroll-proportion="0.0">
+            <state line="192" column="33" selection-start="6364" selection-end="6364" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#15#58#0" expanded="true" />
               </folding>
@@ -133,19 +187,10 @@
       <file leaf-file-name="DBHandlerRemovalTest.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/database_operations/DBHandlerRemovalTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="50" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
+            <state line="44" column="3" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#29#51#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Book.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mobireader/Book.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="13" selection-start="157" selection-end="157" vertical-scroll-proportion="0.0">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -175,17 +220,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/analysis/BookAnalyzer.scala" />
-        <option value="$PROJECT_DIR$/src/mobireader/Book.java" />
-        <option value="$PROJECT_DIR$/src/odt/OpenOfficeParser.scala" />
         <option value="$PROJECT_DIR$/src/mobireader/Mobi.java" />
         <option value="$PROJECT_DIR$/tests/learning/SummaryToolTest.scala" />
         <option value="$PROJECT_DIR$/src/analysis/SummaryTool.scala" />
         <option value="$PROJECT_DIR$/src/hello/Author.java" />
         <option value="$PROJECT_DIR$/tests/database_operations/DBHandlerRemovalTest.scala" />
-        <option value="$PROJECT_DIR$/src/hello/BigApp.scala" />
-        <option value="$PROJECT_DIR$/src/hello/AppModel.scala" />
         <option value="$PROJECT_DIR$/src/hello/DBHandler.scala" />
+        <option value="$PROJECT_DIR$/src/hello/ReadingPlanView.scala" />
+        <option value="$PROJECT_DIR$/src/hello/AppModel.scala" />
+        <option value="$PROJECT_DIR$/src/hello/PreferencesView.scala" />
+        <option value="$PROJECT_DIR$/src/hello/StageUtil.scala" />
+        <option value="$PROJECT_DIR$/src/hello/BookManagmentPage.scala" />
+        <option value="$PROJECT_DIR$/src/hello/BookManagementPage.scala" />
+        <option value="$PROJECT_DIR$/src/hello/TableOfBooksView.scala" />
+        <option value="$PROJECT_DIR$/src/hello/AddingBooksFormView.scala" />
+        <option value="$PROJECT_DIR$/src/hello/MobiParsingView.scala" />
+        <option value="$PROJECT_DIR$/src/hello/BigApp.scala" />
       </list>
     </option>
   </component>
@@ -376,10 +426,6 @@
               <option name="myItemId" value="hello" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DBHandler.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -397,6 +443,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="hello" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DBHandler.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -754,8 +804,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24503817" sideWeight="0.6708185" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3291815" sideWeight="0.48167938" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24503817" sideWeight="0.6708185" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3291815" sideWeight="0.48167938" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291815" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -828,50 +878,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/binary_mobi/HeaderJUnitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="13" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/binary_mobi/ReadingDataFromMobiFileWithPreonTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="6" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mobireader/EXTHHeader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="36" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/analysis/Category.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="6" selection-start="24" selection-end="24" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mobireader/CompressionCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="125" selection-end="125" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/odt/OpenOfficeParser.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="7" selection-start="1767" selection-end="1767" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/analysis/CategoryClassifier.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="28" selection-start="2772" selection-end="2772" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/analysis/SummaryTool.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="334" selection-start="6697" selection-end="6697" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/binary_mobi/ParsingMobiContentTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="21" selection-end="106" vertical-scroll-proportion="0.0" />
@@ -879,7 +885,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hello/Author.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="54" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0">
+        <state line="34" column="53" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -896,38 +902,102 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/DBHandler.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="166" column="32" selection-start="5418" selection-end="5418" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#16#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/PreferencesView.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="225" selection-end="250" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/StageUtil.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="447" selection-end="447" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#15#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/ReadingPlanView.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="0" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/database_operations/DBHandlerRemovalTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="50" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
+        <state line="44" column="3" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#29#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/BigApp.scala">
+    <entry file="jar://$USER_HOME$/resources/resource/scalafx_2.10-1.0.0-M3.jar!/scalafx/stage/FileChooser.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="686" column="24" selection-start="20554" selection-end="20554" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#24394#24525#0" expanded="false" />
-          </folding>
+        <state line="22" column="0" selection-start="1809" selection-end="1809" vertical-scroll-proportion="0.7773973">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hello/AppModel.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="0" selection-start="1411" selection-end="1411" vertical-scroll-proportion="0.0">
+        <state line="192" column="33" selection-start="6364" selection-end="6364" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#15#58#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/DBHandler.scala">
+    <entry file="file://$PROJECT_DIR$/src/hello/MobiParsingView.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="174" column="91" selection-start="5659" selection-end="5659" vertical-scroll-proportion="-0.0028490028">
+        <state line="120" column="77" selection-start="3366" selection-end="3366" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#16#42#0" expanded="true" />
+            <element signature="e#15#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/AddingBooksFormView.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="45" selection-start="3793" selection-end="3819" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#15#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/TableOfBooksView.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="43" selection-start="241" selection-end="272" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/BookManagementPage.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="11" selection-start="3376" selection-end="3376" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#15#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/BigApp.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="119" column="27" selection-start="2733" selection-end="2733" vertical-scroll-proportion="0.72727275">
+          <folding>
+            <element signature="e#15#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
