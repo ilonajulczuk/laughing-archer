@@ -14,7 +14,6 @@ import domain.Book
 
 
 class TableOfBooksView(model: AppModel, stage: Stage) {
-  println("Creating tables...")
   val titleColumn = new TableColumn[Book, String]("Title") {
     prefWidth = 180
   }
@@ -75,7 +74,6 @@ class TableOfBooksView(model: AppModel, stage: Stage) {
   }
   table.getSelectionModel.selectedItemProperty.onChange(
     (_, _, newValue) => {
-      println(newValue + " chosen in TableView")
       showBookManagement(newValue)
     }
   )

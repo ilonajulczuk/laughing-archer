@@ -141,7 +141,7 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
                   "File has to be in mobi format", "Reading failure")
             }
             catch {
-              case e: NullPointerException => println("WTF, null pointer?")
+              case e: NullPointerException => println("WTF, null pointer? Probably problem with file chooser")
             }
         })
 

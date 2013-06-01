@@ -126,8 +126,6 @@ class AppModel {
   def shortenBookText = {
     val paragraphs = bookText.split("\n\n")
     val chosenParagraphs = paragraphs.slice(0, 20) ++ paragraphs.slice(paragraphs.size - 50, paragraphs.size - 20)
-    println(paragraphs.size)
-    println(chosenParagraphs.mkString("\n\n"))
     chosenParagraphs.mkString("\n\n")
   }
 
@@ -201,6 +199,12 @@ class AppModel {
     } else {
       prefs.remove("workspacePath")
     }
+  }
+
+  def updateWorkspacePath() {
+    val workspacePathFromPreferences = getWorkspacePath
+    if ( workspacePathFromPreferences != null)
+      workspacePath.value = workspacePathFromPreferences
   }
 }
 

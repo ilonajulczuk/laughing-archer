@@ -13,10 +13,7 @@ import scalafx.application.JFXApp.PrimaryStage
 object BigApp extends JFXApp {
 
   private val model = new AppModel()
-  var tableOfBooks = createTableOfBooks()
-  var addingBookForm = createAddingFormForBooks()
-  var mobiParsingView = createMobiParsingView()
-
+  model.updateWorkspacePath()
   def createScene() = {
     new Scene(900, 600) {
       root = new BorderPane {
@@ -58,36 +55,32 @@ object BigApp extends JFXApp {
     )
   }
 
-  val lib = model.getLibraryPath
-  if (lib != null) {
-    model.libraryPath.value = model.getLibraryPath
-    stage.setTitle("Laughing archer with library at - " + lib)
-  }
-  val work = model.getWorkspacePath
-  if (work != null)
-    model.workspacePath.value = model.getWorkspacePath
-
   private def createTabs(): TabPane = {
     new TabPane {
       tabs = List(
         new Tab {
           text = "All books"
-          content = tableOfBooks
+          content = createTableOfBooks()
           closable = false
         },
         new Tab {
           text = "Add a book"
-          content = addingBookForm
+          content = createAddingFormForBooks()
           closable = false
         },
         new Tab {
           text = "Parse a mobi"
-          content = mobiParsingView
+          content = createMobiParsingView()
           closable = false
         },
         new Tab {
           text = "Preferences"
           content = createPreferencesView()
+          closable = false
+        },
+        new Tab {
+          text = "Reading Plan"
+          content = createReadingPlanView()
           closable = false
         }
       )
@@ -100,7 +93,6 @@ object BigApp extends JFXApp {
 
   private def createReadingPlanView(): Node = {
     new ReadingPlanView()
-
   }
 
   private def createMobiParsingView(): Node = {

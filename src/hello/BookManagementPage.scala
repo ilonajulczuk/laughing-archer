@@ -86,7 +86,6 @@ class BookManagementPage(book: Book, dialogStage: Stage, model: AppModel) extend
                     if (dialogResponse == Dialogs.DialogResponse.YES) {
                       model.db.removeBook(book)
                       model.books.remove(book)
-                      println("Updating names of authors")
                       model.updateNamesOfAuthors()
                       Dialogs.showInformationDialog(dialogStage, "Book was removed", "Removal complete", "Book removal info")
                       dialogStage.close

@@ -98,7 +98,6 @@ class DBHandler(dbFile: String) {
   }
 
   def removeBook(book: Book) {
-    println("Oh, removing book is so... so hard")
     val connection = prepareConnection()
     val author = findAuthor(book.getAuthor.getName)
     val stat = statBld.removeBookStatement(connection)
@@ -115,7 +114,6 @@ class DBHandler(dbFile: String) {
   }
 
   def removeAuthor(author: Author) {
-    println("Oh, removing author is so... so hard")
     val connection = prepareConnection()
     val books = findBooksByAuthor(author)
     val stat = statBld.removeAuthorStatement(connection)
