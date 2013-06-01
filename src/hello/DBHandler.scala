@@ -9,7 +9,7 @@ import java.util.ArrayList
 
 import mobireader.Book
 
-class StatementBuilderA {
+class StatementBuilder {
   private def prepareStatement(connection: Connection,
                                statementText: String) = {
     val statement = connection.prepareStatement(
@@ -25,10 +25,17 @@ class StatementBuilderA {
     prepareStatement(connection, "insert or replace into " +
       "authors(name, additional_info) values( ?, ?)")
 
+  def removeAuthorStatement(connection: Connection) =
+    prepareStatement(connection, "delete from authors where name =" +
+      "  ?")
+
   //TODO checkout, if replacing really works as supposed to
   def addBookStatement(connection: Connection) =
     prepareStatement(connection, "insert or replace into books(title, author_name," +
       " path_to_content, description, category) values( ?, ?, ?, ?, ?)")
+
+  def removeBookStatement(connection: Connection) =
+    prepareStatement(connection, "delete from books where title = ? and author_name = ?")
 
   def findBookStatement(connection: Connection) =
     prepareStatement(connection, "select b.title, b.author_name," +
@@ -56,9 +63,10 @@ class StatementBuilderA {
 }
 
 class DBHandler(databaseFile: String) {
+
   val dbFile = "sample.db"
   val driver = "org.sqlite.JDBC"
-  val statBld = new StatementBuilderA()
+  val statBld = new StatementBuilder()
 
   def this() = {
     this("sample.db")
@@ -92,10 +100,32 @@ class DBHandler(databaseFile: String) {
 
   def removeBook(book: Book) {
     println("Oh, removing book is so... so hard")
+    val connection = prepareConnection()
+    val author = findAuthor(book.getAuthor.getName)
+    val stat = statBld.removeBookStatement(connection)
+    stat.setString(1, book.getTitle)
+    stat.setString(2, book.getAuthor.getName)
+    stat.executeUpdate()
+
+    if(author.getName != "Unknown") {
+      val anotherBooksWrittenByTheSameAuthor = findBooksByAuthor(author)
+      if (anotherBooksWrittenByTheSameAuthor.isEmpty)
+        removeAuthor(author)
+    }
+    connection.close()
   }
 
   def removeAuthor(author: Author) {
     println("Oh, removing author is so... so hard")
+    val connection = prepareConnection()
+    val books = findBooksByAuthor(author)
+    val stat = statBld.removeAuthorStatement(connection)
+    stat.setString(1, author.getName)
+    stat.executeUpdate()
+    for (book <- books) {
+      removeBook(book)
+    }
+    connection.close()
   }
 
   def makeBookFromResultSet(rs: ResultSet) = {

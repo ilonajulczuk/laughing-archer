@@ -1,4 +1,4 @@
-package stuff
+package binary_mobi
 
 import mobireader._
 import org.scalatest.FunSuite

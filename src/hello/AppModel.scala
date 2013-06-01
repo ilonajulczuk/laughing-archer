@@ -4,16 +4,13 @@ import mobireader.{Mobi, MobiContentParser}
 import odt.OpenOfficeParser
 import analysis.CategoryTree
 import mobireader.Book
-import scalafx.beans.property.DoubleProperty
 import scalafx.collections.ObservableBuffer
 import java.io.{File, RandomAccessFile}
 import scalafx.Includes._
-import scalafx.scene.control._
 import javafx.beans.property.SimpleStringProperty
-import sun.security.util.Length
 
 class AppModel {
-  val db = new DBHandler("my_books.db");
+  val db = new DBHandler("my_books.db")
   db.createTablesInDB()
 
   def addDummyLibrary() {
@@ -131,7 +128,7 @@ class AppModel {
       val book = new File(path)
       val fp = new RandomAccessFile(book, "r")
       val len = book.length.toInt
-      val buff = new Array[Byte](book.length.toInt)
+      val buff = new Array[Byte](len)
       fp.readFully(buff)
       bookText = new String(buff)
     }

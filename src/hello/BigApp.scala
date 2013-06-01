@@ -113,7 +113,7 @@ object BigApp extends JFXApp {
         },
         new Tab {
           text = "Preferences"
-          content = createPreferencesView
+          content = createPreferencesView()
           closable = false
         }
       )
@@ -290,7 +290,7 @@ object BigApp extends JFXApp {
           val analyzeButton = new Button("Analyze content")
           analyzeButton.onAction_=({
             (_: ActionEvent) =>
-              showBookAnalyzis()
+              showBookAnalysis()
           })
 
           metadataButton.visible = false
@@ -322,7 +322,7 @@ object BigApp extends JFXApp {
     split
   }
 
-  def createAnalyzisPage(): Node = {
+  def createAnalysisPage(): Node = {
     val analyzer = new BookAnalyzer
     val summaryText = analyzer.makeSummary(model.shortenBookText)
 
@@ -332,12 +332,12 @@ object BigApp extends JFXApp {
       editable = false
     }
 
-    val analyzis = new VBox {
+    val analysis = new VBox {
       padding = Insets(10)
       spacing = 10
       margin = Insets(10, 10, 10, 10)
       content = List(
-        new Label("Results of analyzis") {
+        new Label("Results of analysis") {
           font = new Font("Verdana", 20)
         },
         new Label("Summary") {
@@ -347,7 +347,7 @@ object BigApp extends JFXApp {
         new Label("Most common words") {
           font = new Font("Verdana", 14)
         },
-        new Label("Asossiated categories") {
+        new Label("Assosiated categories") {
           font = new Font("Verdana", 14)
         },
         new Label() {
@@ -361,22 +361,21 @@ object BigApp extends JFXApp {
       )
     }
 
-    summary.prefHeight.bind(analyzis.prefHeightProperty)
-    summary.prefWidth.bind(analyzis.prefWidthProperty)
+    summary.prefHeight.bind(analysis.prefHeightProperty)
+    summary.prefWidth.bind(analysis.prefWidthProperty)
     summary.prefColumnCount = 35
-    summary.prefRowCount = 35
     summary.prefRowCount = 35
 
     new ScrollPane {
       margin = Insets(10, 10, 10, 10)
       prefWidth = 500
       prefHeight = 580
-      content = analyzis
+      content = analysis
     }
   }
 
-  def showBookAnalyzis() {
-    val page = createAnalyzisPage()
+  def showBookAnalysis() {
+    val page = createAnalysisPage()
     showPageInWindow(page, "Book Statistics")
   }
 
@@ -451,13 +450,13 @@ object BigApp extends JFXApp {
   }
 
   def createManagementPage(book: Book): Node = {
-
-    val analyzer = new BookAnalyzer
     val bookSummaryText = book.detailedDescription()
 
     val summary = new TextArea {
       text = bookSummaryText
       wrapText = true
+      prefColumnCount = 26
+      prefRowCount = 10
     }
 
     val management = new VBox {
@@ -465,8 +464,30 @@ object BigApp extends JFXApp {
       spacing = 10
       margin = Insets(10, 10, 10, 10)
       val bookChangingForm = new VBox {
+        spacing = 10
+        val titleEdit = new TextField() {
+          text = book.getTitle
+        }
+        val authorEdit = new TextField() {
+          text = book.getAuthor.getName
+        }
+        val descriptionEdit = new TextArea() {
+          text = book.description
+          wrapText = true
+          prefColumnCount = 26
+          prefRowCount = 5
+        }
+
+        val categoryEdit = new ComboBox[String]() {
+          items = model.namesOfAllCategories
+        }
+
         content = List(
           new Label("U mad?"),
+          titleEdit,
+          authorEdit,
+          descriptionEdit,
+          categoryEdit,
           new Button("Update") {
             onAction = {
               e: ActionEvent => {
@@ -714,7 +735,7 @@ object BigApp extends JFXApp {
                 val fileChooser = new FileChooser()
                 val result = fileChooser.showOpenDialog(stage)
                 if (result != null) {
-                  val path = result.getAbsolutePath()
+                  val path = result.getAbsolutePath
                   if (model.isBookFormatSupported(path)) {
                     if (bookTitle.text.value == "") {
                       bookTitle.text = model.getBookTitleFromPath(path)
