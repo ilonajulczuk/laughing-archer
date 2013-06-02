@@ -5,27 +5,48 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * @author att
- */
+
 public class Book {
     String title;
     Author author;
+    public Integer id = -1;
     Date timestamp;
-    String content = "";
+    public ArrayList<Tag> tags = new ArrayList<>();
     String pathToContent = "";
-    Boolean isContentFetched = false;
     public String description = "";
-    public String category = "";
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        if (!author.equals(book.author)) return false;
+        if (!category.equals(book.category)) return false;
+        if (!description.equals(book.description)) return false;
+        if (!id.equals(book.id)) return false;
+        if (!pathToContent.equals(book.pathToContent)) return false;
+        if (!title.equals(book.title)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title.hashCode();
+        result = 31 * result + author.hashCode();
+        result = 31 * result + id.hashCode();
+        result = 31 * result + pathToContent.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + category.hashCode();
+        return result;
+    }
+
+    public Category category;
 
     public String toString() {
         return title + " written by " + author.getName();
-    }
-
-    public Book(String title, Author author, Date timestamp) {
-        this.title = title;
-        this.author = author;
-        this.timestamp = timestamp;
     }
 
     public Book(String title, Author author) {
@@ -41,7 +62,7 @@ public class Book {
         this.pathToContent = pathToContent;
     }
 
-    public Book(String title, Author author, String pathToContent, String description, String category) {
+    public Book(String title, Author author, String pathToContent, String description, Category category) {
         this.title = title;
         this.author = author;
         this.timestamp = new Date();
@@ -59,16 +80,9 @@ public class Book {
                 "added: " + timestamp.toString() + "\n";
     }
 
-    public String getContent() {
-        return this.content;
-    }
 
     public String getPathToContent() {
         return this.pathToContent;
-    }
-
-    public Boolean isContentAvailable() {
-        return isContentFetched;
     }
 
     public String getTitle() {
@@ -81,20 +95,5 @@ public class Book {
 
     public Date getTimestamp() {
         return this.timestamp;
-    }
-
-    static public Book exemplaryBook() {
-        return new Book("Hakuna Matata",
-                new Author("Mr. Elephant", "Hakuna Matata"));
-    }
-
-    static public ArrayList<Book> createSomeExamples() {
-        ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book("Hakuna Matata", new Author("Mr. Elephant", "Hakuna Matata")));
-        books.add(new Book("Life of a star", new Author("Elvis Presley", "Life of a star")));
-        String[] titles = {"Real physics", "Kartofle"};
-        books.add(new Book("Real physics", new Author("Wise old physicist",
-                new ArrayList<String>(Arrays.asList(titles)))));
-        return books;
     }
 }

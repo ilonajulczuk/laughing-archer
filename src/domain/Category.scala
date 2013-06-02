@@ -1,4 +1,5 @@
-package analysis
+package domain
+
 
 class CategoryTree() {
   var root = new Category("Root")
@@ -23,7 +24,6 @@ class CategoryTree() {
       yield getNamesOfAllSubNodes(node(subcatName))).toList.flatten
       names
     }
-
   }
 
   def addSubcategories(newCategories: Iterable[String]) {
@@ -49,6 +49,14 @@ import scala.collection.mutable.Map
 
 class Category(override val value: String)
   extends Node(value) {
+  def category = value
+  var id: Integer = -1
+
+  override def toString: String = {
+    return "Category{" + "category='" + category + '\'' + ", id=" + id + '}'
+  }
+
+  def equals(that: Category): Boolean = this.category == that.category
 
   var subcategories = Map[String, Category]()
 

@@ -50,7 +50,7 @@ class TableOfBooksView(model: AppModel, stage: Stage) {
   }
   categoryColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[Book, String], jfxbv.ObservableValue[String]] {
     def call(param: CellDataFeatures[Book, String]) =
-      new StringProperty(this, "Category", param.getValue.category)
+      new StringProperty(this, "Category", param.getValue.category.category)
   })
 
   def createManagementPage(book: Book, dialogStage: Stage): Node = {

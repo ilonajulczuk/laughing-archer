@@ -2,18 +2,17 @@ package hello
 
 import mobireader.{Mobi, MobiContentParser}
 import odt.OpenOfficeParser
-import analysis.CategoryTree
 import scalafx.collections.{ObservableBuffer}
 import java.io.{File, RandomAccessFile, BufferedWriter, FileWriter}
 import scalafx.Includes._
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import java.util.prefs.Preferences
-import domain.{Book, Author}
+import domain.{Category, CategoryTree, Book, Author}
 
 
 class AppModel {
-  val db = new DBHandler("my_books.db")
+  val db = new DBHandler("laughing.db")
   db.createTablesInDB()
 
   def addDummyLibrary() {
@@ -22,15 +21,16 @@ class AppModel {
       val author1 = new Author("John Doe")
       val author2 = new Author("George Smith")
       val author3 = new Author("Anna White")
-      List(new Book("Dynamics", author1, path, "", "Physics"),
-        new Book("Calculus for dummies", author2, path, "Easy", "Math"),
-        new Book("Worms", author3, path, "Bleh", "Biology"),
-        new Book("Algebra for dummies", author1, path, "Easy", "Math"),
-        new Book("Birds", author1, path, "Nice", "Biology"),
-        new Book("Black magic", author2, path, "Hard", "Math"),
-        new Book("Nothing brings something", author1, path, "There isn't really much to say", "Fiction"),
-        new Book("Programming in Scala", author3, path, "Very long, but well written", "Computer Science"),
-        new Book("Magnetic fields", author2, path, "Very Hard", "Physics")
+
+      val Physics = new Category("Physics")
+      val Math = new Category("Math")
+      val Biology = new Category("Biology")
+
+      List(new Book("Dynamics", author1, path, "", Physics),
+        new Book("Calculus for dummies", author2, path, "Easy", Math),
+        new Book("Worms", author3, path, "Bleh", Biology),
+        new Book("Algebra for dummies", author1, path, "Easy", Math)
+
       )
     }
     db.addBooks(createLibrary)
@@ -78,17 +78,10 @@ class AppModel {
   //Updates authors in model. Check if any authors should be removed or added compared to DB
   def updateNamesOfAuthors() {
     val authorsNamesFromDB = for (author <- db.getAllAuthors()) yield author.getName
-    for (author <- namesOfAuthors) {
-      if (! authorsNamesFromDB.contains(author)) {
-        namesOfAuthors.remove(author)
-      }
-    }
-    for (author <- authorsNamesFromDB) {
-      if (!namesOfAuthors.contains(author)) {
-        namesOfAuthors.add(author)
-      }
-    }
+    namesOfAuthors ++= authorsNamesFromDB
+    namesOfAuthors.retainAll(authorsNamesFromDB)
   }
+
   def getBooks() = {
     val books = new ObservableBuffer[Book]()
     for (book <- db.getAllBooks()) {
@@ -98,8 +91,9 @@ class AppModel {
   }
 
   def updateBooks() {
-    for (book <- getBooks())
-      if (!(books contains book)) books += book
+    val newBooks = getBooks()
+    books ++= newBooks
+    books.retainAll(newBooks)
   }
 
 
@@ -114,7 +108,7 @@ class AppModel {
                                                                              categories.allNames) yield category)
 
   def authors = db.getAllAuthors
-  def namesOfAuthors = FXCollections.observableArrayList((for (author <- authors) yield author.getName):_*)
+  var namesOfAuthors = FXCollections.observableArrayList((for (author <- authors) yield author.getName):_*)
 
   var filePath: String = ""
   var file: File = _

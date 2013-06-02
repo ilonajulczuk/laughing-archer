@@ -1,11 +1,10 @@
 package test_analysis
 
 
-import analysis.{CategoryTree, Category}
-
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 import scala.collection.mutable.Stack
+import domain.{CategoryTree, Category}
 
 class CategoryTest extends FunSuite with BeforeAndAfter {
 

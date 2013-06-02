@@ -14,6 +14,8 @@ import analysis.{CategoryClassifier, BookAnalyzer}
 
 class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
 
+  val dialogStage = new Stage
+
   def createAnalysisPage(): Node = {
     val analyzer = new BookAnalyzer
     val summaryText = analyzer.makeSummary(model.shortenBookText)
@@ -67,8 +69,9 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
   }
 
   def showBookAnalysis() {
+    val dialogStage = new Stage
     val page = createAnalysisPage()
-    StageUtil.showPageInWindow(page, "Book Statistics", stage)
+    StageUtil.showPageInWindow(page, "Book Statistics", dialogStage)
   }
 
   val bookHtml = new TextArea {
@@ -111,18 +114,31 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
         val filePath = new Label {
           text = "No path"
         }
-        val button = new Button("Choose file")
-        button.onAction_=({
+
+        def chooseFile() = {
+          val fileChooser = new FileChooser()
+          val result = fileChooser.showOpenDialog(dialogStage)
+          try {
+            result.getAbsolutePath
+          }
+          catch {
+            case e: NullPointerException => ""
+          }
+        }
+
+        val button = new Button("Choose file")  {
+          onAction = loadFile _
+        }
+
+        def loadFile(e: ActionEvent) {
           (_: ActionEvent) =>
             try {
-              val fileChooser = new FileChooser()
-              val newStage = new Stage()
-              val result = fileChooser.showOpenDialog(newStage)
-              if (result != null &&
-                result.getAbsolutePath.endsWith("mobi")
-                || result.getAbsolutePath.endsWith("bin")) {
-                filePath.text = result.getAbsolutePath
-                model.mobi = new Mobi(result.getAbsolutePath)
+              val pathToFile = chooseFile()
+              if (pathToFile != "" &&
+                pathToFile.endsWith("mobi")
+                || pathToFile.endsWith("bin")) {
+
+                model.mobi = new Mobi(pathToFile)
                 model.mobi.parse()
                 val html = model.mobi.readAllRecords()
                 val parser = new MobiContentParser(html)
@@ -132,6 +148,7 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
                   model.bookText = parser.bodyText
                 else
                   model.bookText = textToBeShown
+                filePath.text = model.filePath
                 bookText.text = model.bookText
                 metadataButton.visible = true
                 analyzeButton.visible = true
@@ -143,28 +160,10 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
             catch {
               case e: NullPointerException => println("WTF, null pointer? Probably problem with file chooser")
             }
-        })
+        }
 
         val metadataButton = new Button("Show metadata")
-        metadataButton.onAction_=({
-          (_: ActionEvent) =>
-            if (model.mobi != null) {
-              val descriptor = new MobiDescriptor(model.mobi)
-
-              def addIndentation(paragraph: String) = {
-                (for (sentence <- paragraph.split("\n"))
-                yield "  " + sentence).mkString("\n") + "\n"
-              }
-
-              var description = "First header:\n" + addIndentation(descriptor.firstHeaderInfo)
-              description += "\nPalmdoc header:\n" + addIndentation(descriptor.palmdocHeaderInfo)
-              description += "\nMobi header:\n" + addIndentation(descriptor.mobiHeaderInfo)
-              Dialogs.showInformationDialog(stage,
-                description, "Mobi file contains multiple headers, " +
-                  "the most important have following data:", "Mobi metadata")
-            }
-
-        })
+        metadataButton.onAction = showMetadata _
 
         metadataButton.visible = false
 
@@ -182,9 +181,12 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
           metadataButton,
           analyzeButton
         )
-      }
-    )
+
+      }  )
   }
+
+
+
   val body = new SplitPane {
     items.addAll(
       left,
@@ -199,4 +201,25 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
   )
 
   setDividerPosition(0, 0.1)
+
+  def showMetadata(e: ActionEvent)  {
+    if (model.mobi != null) {
+      val descriptor = new MobiDescriptor(model.mobi)
+
+      def addIndentation(paragraph: String) = {
+        (for (sentence <- paragraph.split("\n"))
+        yield "  " + sentence).mkString("\n") + "\n"
+      }
+
+      var description = "First header:\n" + addIndentation(descriptor.firstHeaderInfo)
+      description += "\nPalmdoc header:\n" + addIndentation(descriptor.palmdocHeaderInfo)
+      description += "\nMobi header:\n" + addIndentation(descriptor.mobiHeaderInfo)
+      val dialogStage = new Stage
+      Dialogs.showInformationDialog(dialogStage,
+        description, "Mobi file contains multiple headers, " +
+          "the most important have following data:", "Mobi metadata")
+    }
+  }
+
+
 }

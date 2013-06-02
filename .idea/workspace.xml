@@ -2,34 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0195eef7-d9db-473f-8266-9e532de61bea" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/domain/Tag.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/analysis/Category.scala" afterPath="$PROJECT_DIR$/src/domain/Category.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/AddingBooksFormView.scala" afterPath="$PROJECT_DIR$/src/hello/AddingBooksFormView.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/AppModel.scala" afterPath="$PROJECT_DIR$/src/hello/AppModel.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/BigApp.scala" afterPath="$PROJECT_DIR$/src/hello/BigApp.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/BookManagementPage.scala" afterPath="$PROJECT_DIR$/src/hello/BookManagementPage.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/domain/Author.java" afterPath="$PROJECT_DIR$/src/domain/Author.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/domain/Book.java" afterPath="$PROJECT_DIR$/src/domain/Book.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/test_analysis/CategoryTest.scala" afterPath="$PROJECT_DIR$/tests/test_analysis/CategoryTest.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/DBHandler.scala" afterPath="$PROJECT_DIR$/src/hello/DBHandler.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/MobiParsingView.scala" afterPath="$PROJECT_DIR$/src/hello/MobiParsingView.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hello/TableOfBooksView.scala" afterPath="$PROJECT_DIR$/src/hello/TableOfBooksView.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scala_settings.xml" afterPath="$PROJECT_DIR$/.idea/scala_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MyProject.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370121190179" ignored="false" />
+    <file path="/Dummy.txt" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370188708814" ignored="false" />
     <file path="$USER_HOME$/projects/IdeaProjects/meaw/src/App.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370019753419" ignored="false" />
     <file path="/App.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370019753419" ignored="false" />
     <file path="/fragment.java" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370075341680" ignored="false" />
-    <file path="/DBHandler.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370097032602" ignored="false" />
+    <file path="/DBHandler.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370194752728" ignored="false" />
     <file path="/BigApp.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370122660905" ignored="false" />
     <file path="/a.dummy" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370090622183" ignored="false" />
     <file path="/Mobi.java" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370030505195" ignored="false" />
-    <file path="/AppModel.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370122489399" ignored="false" />
+    <file path="/AppModel.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370194023005" ignored="false" />
     <file path="/DBHandlerRemovalTest.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370097184255" ignored="false" />
     <file path="/ReadingPlanView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370104054114" ignored="false" />
-    <file path="/MobiParsingView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370123186138" ignored="false" />
+    <file path="/MobiParsingView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370182838297" ignored="false" />
     <file path="/StageUtil.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370105819919" ignored="false" />
-    <file path="/AddingBooksFormView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370122107578" ignored="false" />
-    <file path="/TableOfBooksView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370107139976" ignored="false" />
+    <file path="/AddingBooksFormView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370194310209" ignored="false" />
+    <file path="/TableOfBooksView.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370171764490" ignored="false" />
     <file path="/BookManagmentPage.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370106923727" ignored="false" />
     <file path="/Author.java" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370121510863" ignored="false" />
+    <file path="/Book.java" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370173200117" ignored="false" />
+    <file path="/Category.java" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370167138533" ignored="false" />
+    <file path="/Tag.java" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370167101705" ignored="false" />
+    <file path="/Category.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370183413518" ignored="false" />
+    <file path="/BookManagementPage.scala" changelist="0195eef7-d9db-473f-8266-9e532de61bea" time="1370171576671" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,23 +94,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/hello/AppModel.scala" line="138" class="hello.AppModel" package="hello">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -119,10 +110,8 @@
       <file leaf-file-name="BigApp.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hello/BigApp.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="36" selection-start="380" selection-end="380" vertical-scroll-proportion="454.0">
-              <folding>
-                <element signature="e#15#40#0" expanded="true" />
-              </folding>
+            <state line="14" column="0" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -130,7 +119,7 @@
       <file leaf-file-name="DBHandler.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hello/DBHandler.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="255" column="78" selection-start="7809" selection-end="7809" vertical-scroll-proportion="0.0">
+            <state line="269" column="19" selection-start="8201" selection-end="8201" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#16#42#0" expanded="true" />
               </folding>
@@ -138,30 +127,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BookManagementPage.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hello/BookManagementPage.scala">
+      <file leaf-file-name="Book.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/Book.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="87" column="46" selection-start="2717" selection-end="2717" vertical-scroll-proportion="0.0">
+            <state line="42" column="74" selection-start="1248" selection-end="1248" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TableOfBooksView.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hello/TableOfBooksView.scala">
+      <file leaf-file-name="Category.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/Category.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="25" selection-start="2769" selection-end="2769" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#15#68#0" expanded="true" />
-              </folding>
+            <state line="44" column="52" selection-start="1324" selection-end="1324" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReadingPlanView.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hello/ReadingPlanView.scala">
+      <file leaf-file-name="AddingBooksFormView.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/AddingBooksFormView.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
+            <state line="154" column="5" selection-start="4443" selection-end="4443" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MobiParsingView.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/MobiParsingView.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="212" column="54" selection-start="5738" selection-end="5738" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BookManagementPage.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hello/BookManagementPage.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="60" column="38" selection-start="1788" selection-end="1788" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TableOfBooksView.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/hello/TableOfBooksView.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="56" column="0" selection-start="2197" selection-end="2197" vertical-scroll-proportion="0.7048872">
               <folding />
             </state>
           </provider>
@@ -170,16 +184,7 @@
       <file leaf-file-name="AppModel.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hello/AppModel.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="114" selection-start="4258" selection-end="4258" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DBHandlerRemovalTest.scala" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tests/database_operations/DBHandlerRemovalTest.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="3" selection-start="1327" selection-end="1327" vertical-scroll-proportion="1.6528926">
+            <state line="107" column="32" selection-start="3227" selection-end="3227" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -210,21 +215,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/tests/learning/SummaryToolTest.scala" />
-        <option value="$PROJECT_DIR$/src/analysis/SummaryTool.scala" />
-        <option value="$PROJECT_DIR$/src/hello/Author.java" />
-        <option value="$PROJECT_DIR$/tests/database_operations/DBHandlerRemovalTest.scala" />
         <option value="$PROJECT_DIR$/src/hello/ReadingPlanView.scala" />
         <option value="$PROJECT_DIR$/src/hello/PreferencesView.scala" />
         <option value="$PROJECT_DIR$/src/hello/StageUtil.scala" />
         <option value="$PROJECT_DIR$/src/hello/BookManagmentPage.scala" />
-        <option value="$PROJECT_DIR$/src/domain/Author.java" />
-        <option value="$PROJECT_DIR$/src/hello/AddingBooksFormView.scala" />
         <option value="$PROJECT_DIR$/src/hello/BigApp.scala" />
+        <option value="$PROJECT_DIR$/src/domain/Category.java" />
+        <option value="$PROJECT_DIR$/src/domain/Author.java" />
+        <option value="$PROJECT_DIR$/src/domain/Tag.java" />
         <option value="$PROJECT_DIR$/src/hello/BookManagementPage.scala" />
         <option value="$PROJECT_DIR$/src/hello/TableOfBooksView.scala" />
         <option value="$PROJECT_DIR$/src/hello/MobiParsingView.scala" />
+        <option value="$PROJECT_DIR$/src/domain/Book.java" />
+        <option value="$PROJECT_DIR$/src/domain/Category.scala" />
         <option value="$PROJECT_DIR$/src/hello/AppModel.scala" />
+        <option value="$PROJECT_DIR$/src/hello/AddingBooksFormView.scala" />
         <option value="$PROJECT_DIR$/src/hello/DBHandler.scala" />
       </list>
     </option>
@@ -282,6 +287,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -297,74 +303,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="learning" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="database_operations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="binary_mobi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -432,13 +370,96 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="hello" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DBHandler.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hello" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AppModel.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Category.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="analysis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -456,11 +477,11 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="last.edited.regexp" value="  " />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="last.edited.regexp" value="  " />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager" selected="Application.BigApp">
     <configuration default="false" name="!ScalaTests in 'tests'!" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
@@ -679,6 +700,19 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <method />
+    </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -693,19 +727,6 @@
       <option name="NETWORK_SPEED" value="full" />
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
       <method />
     </configuration>
     <list size="4">
@@ -759,9 +780,9 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.6797153" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.6735751" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291815" sideWeight="0.5183206" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328152" sideWeight="0.5183206" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31951642" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -769,8 +790,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24318182" sideWeight="0.671848" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.328152" sideWeight="0.48167938" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21515152" sideWeight="0.6735751" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32642487" sideWeight="0.48167938" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291815" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -843,120 +864,103 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/domain/Book.java">
+    <entry file="jar://$USER_HOME$/libraries/scala-2.10.1/lib/scala-library.jar!/scala/runtime/AbstractFunction0.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="157" selection-end="157" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="3" column="0" selection-start="129" selection-end="129" vertical-scroll-proportion="0.14195584" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/PreferencesView.scala">
+    <entry file="file://$PROJECT_DIR$/src/hello/ReadingPlanView.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="225" selection-end="250" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="6" column="0" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/StageUtil.scala">
+    <entry file="file://$PROJECT_DIR$/tests/database_operations/DBHandlerRemovalTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="447" selection-end="447" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/resources/resource/scalafx_2.10-1.0.0-M3.jar!/scalafx/stage/FileChooser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="1809" selection-end="1809" vertical-scroll-proportion="0.7773973" />
+        <state line="43" column="3" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/Author.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="11" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
+        <state line="14" column="26" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/AddingBooksFormView.scala">
+    <entry file="file://$PROJECT_DIR$/src/domain/Tag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="205" column="58" selection-start="6228" selection-end="6228" vertical-scroll-proportion="0.8658777">
-          <folding>
-            <element signature="e#15#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/resources/resource/scalafx_2.10-1.0.0-M3.jar!/scalafx/stage/Stage.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="0" selection-start="2490" selection-end="2490" vertical-scroll-proportion="1.70347">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/libraries/scala-2.10.1/lib/scala-library.jar!/scala/runtime/AbstractFunction0.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="129" selection-end="129" vertical-scroll-proportion="0.14195584">
+        <state line="9" column="23" selection-start="147" selection-end="147" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hello/BigApp.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="36" selection-start="380" selection-end="380" vertical-scroll-proportion="454.0">
-          <folding>
-            <element signature="e#15#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/MobiParsingView.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="53" selection-start="4381" selection-end="4388" vertical-scroll-proportion="0.4731861">
+        <state line="14" column="0" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/DBHandler.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="255" column="78" selection-start="7809" selection-end="7809" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#16#42#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hello/BookManagementPage.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="46" selection-start="2717" selection-end="2717" vertical-scroll-proportion="0.0">
+        <state line="60" column="38" selection-start="1788" selection-end="1788" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/TableOfBooksView.scala">
+    <entry file="jar://$USER_HOME$/resources/resource/scalafx_2.10-1.0.0-M3.jar!/scalafx/stage/Stage.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="25" selection-start="2769" selection-end="2769" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#15#68#0" expanded="true" />
-          </folding>
+        <state line="36" column="0" selection-start="2490" selection-end="2490" vertical-scroll-proportion="0.81781375">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello/ReadingPlanView.scala">
+    <entry file="file://$PROJECT_DIR$/src/hello/MobiParsingView.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
+        <state line="212" column="54" selection-start="5738" selection-end="5738" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hello/AppModel.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="114" selection-start="4258" selection-end="4258" vertical-scroll-proportion="0.0">
+        <state line="107" column="32" selection-start="3227" selection-end="3227" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/database_operations/DBHandlerRemovalTest.scala">
+    <entry file="file://$PROJECT_DIR$/src/hello/DBHandler.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="3" selection-start="1327" selection-end="1327" vertical-scroll-proportion="1.6528926">
+        <state line="269" column="19" selection-start="8201" selection-end="8201" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#16#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/Book.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="74" selection-start="1248" selection-end="1248" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/AddingBooksFormView.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="5" selection-start="4443" selection-end="4443" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/Category.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="52" selection-start="1324" selection-end="1324" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hello/TableOfBooksView.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="0" selection-start="2197" selection-end="2197" vertical-scroll-proportion="0.7048872">
           <folding />
         </state>
       </provider>

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Author {
     public String name;
+    public Integer id = -1;
     public String additionalInfo = "No additional information available";
     List<String> writtenTitles = new ArrayList<>();
 
@@ -43,21 +44,11 @@ public class Author {
         this.name = name;
     }
 
-    public void addAdditionalInfo(String info) {
-        this.additionalInfo = info;
-    }
 
     public String getAdditionalInfo() {
         return this.additionalInfo;
     }
 
-    public String provideAllInfo() {
-        String separator = "\n";
-        String info = "Name: " + this.name + "\n";
-        info += "Wrote:\n" + Joiner.on(separator).join(this.writtenTitles);
-        info += "\n" + this.additionalInfo;
-        return info;
-    }
 
 
 }
