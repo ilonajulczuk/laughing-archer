@@ -92,7 +92,7 @@ object BigApp extends JFXApp {
   }
 
   private def createReadingPlanView(): Node = {
-    new ReadingPlanView()
+    new ReadingPlanView(model, stage)
   }
 
   private def createMobiParsingView(): Node = {

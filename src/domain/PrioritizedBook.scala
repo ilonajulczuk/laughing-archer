@@ -11,4 +11,13 @@ class PrioritizedBook( book: Book, prio: Int = 0, deadl : Date = new Date()) {
   var progress = 0.0
 
   def title = book.getTitle
+
+  override
+  def toString(): String = {
+    "priority = " + priority + "\n" +
+    "deadline = " + deadline  + "\n" +
+    "progress =" + progress   + "\n" +
+    "title = " + book.getTitle + "\n"
+  }
+
 }
