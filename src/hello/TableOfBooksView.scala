@@ -1,6 +1,5 @@
 package hello
 
-import scalafx.scene.control.{TableView, TableColumn}
 import javafx.{util => jfxu}
 import scalafx.Includes._
 import javafx.beans.{value => jfxbv}

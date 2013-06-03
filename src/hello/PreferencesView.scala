@@ -18,7 +18,6 @@ class PreferencesView(model: AppModel, stage: Stage) extends ScrollPane {
     pathToLibrary.text.bind(model.libraryPath)
 
     val changeLibraryPathButton = new Button("Change") {
-      inner =>
       onAction = {
         e: ActionEvent =>
           val chooser = new DirectoryChooser()
@@ -26,7 +25,7 @@ class PreferencesView(model: AppModel, stage: Stage) extends ScrollPane {
 
           if (result != null) {
             model.libraryPath.value = result.getAbsolutePath
-            model.setLibraryPath(result.getAbsolutePath)
+            model setLibraryPath result.getAbsolutePath
           }
       }
     }

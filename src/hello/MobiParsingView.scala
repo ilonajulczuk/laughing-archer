@@ -185,8 +185,6 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
       }  )
   }
 
-
-
   val body = new SplitPane {
     items.addAll(
       left,
