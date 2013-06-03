@@ -1,6 +1,6 @@
 package hello
 
-import scalafx.scene.layout.VBox
+import scalafx.scene.layout.{TilePane, HBox, VBox}
 
 import scalafx.stage.Stage
 import scalafx.scene.control._
@@ -14,11 +14,14 @@ import javafx.{util => jfxu}
 import scalafx.Includes._
 import javafx.beans.{value => jfxbv}
 import scalafx.collections.ObservableBuffer
+import scalafx.geometry.{Pos, Insets}
+import scalafx.scene.Node
+
 
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   val organizer = new BookOrganizer
 
-  def createPriorityBookTable(books: ObservableBuffer[PrioritizedBook]) : TableView[PrioritizedBook] = {
+  def createPriorityBookTable(books: ObservableBuffer[PrioritizedBook], customPlaceholder: Node = null) : TableView[PrioritizedBook] = {
     val titleColumn = new TableColumn[PrioritizedBook, String]("Title") {
       prefWidth = 180
     }
@@ -53,6 +56,11 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     })
 
     val table = new TableView[PrioritizedBook]() {
+      prefHeight = 200
+      prefWidth = 700
+
+      if (customPlaceholder != null)
+        placeholder = customPlaceholder
       delegate.getColumns.addAll(
         titleColumn.delegate,
         priorityColumn.delegate,
@@ -69,18 +77,47 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   }
 
   val mainBox = new VBox {
+    padding = Insets(20, 10, 10, 20)
+    spacing = 10
     val nextToRead: ObservableBuffer[PrioritizedBook] =
       ObservableBuffer[PrioritizedBook](for (book <-
                                              organizer.getFirst(5)) yield book)
+
+    val tablePlaceholder = new VBox {
+      padding = Insets(20, 10, 20, 0)
+      spacing = 10
+      content = List(
+        new Label("There aren't any books added to your list"),
+        new Button("Add book")
+      )
+    }
+
+    tablePlaceholder.setAlignment(Pos.CENTER)
+
+    val buttons = new TilePane {
+      padding = Insets(20, 10, 20, 0)
+      content = List(
+        new Button("Show all") {
+          prefWidth = 100
+          minWidth = 100
+        },
+        new Button("Add new one"),
+        new Button("Weekly planner")
+      )
+
+    }
+    buttons.setHgap(8)
+    buttons.setVgap(10)
 
     content = List(
       new Label {
         text = "Next to be read:"
         font = new Font("Verdana", 20)
       },
-      createPriorityBookTable(nextToRead)
+      createPriorityBookTable(nextToRead, tablePlaceholder),
+      buttons
     )
   }
-
   content = mainBox
+  alignmentInParent = Pos.CENTER
 }
