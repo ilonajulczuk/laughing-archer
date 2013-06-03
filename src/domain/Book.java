@@ -3,7 +3,6 @@ package domain;
 
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class Book {

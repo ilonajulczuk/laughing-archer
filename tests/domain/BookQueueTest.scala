@@ -39,7 +39,7 @@ class BookQueueTest extends FunSuite with BeforeAndAfter {
     organizer removeBook books(1)
 
     val orderedByPriorities = organizer.getAll()
-    assert(orderedByPriorities.size == 2)
+    assert(orderedByPriorities.size === 2)
     assert(orderedByPriorities(0) === books(3))
     assert(orderedByPriorities(1) === books(2))
   }

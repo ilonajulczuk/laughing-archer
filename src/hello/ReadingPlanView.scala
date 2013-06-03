@@ -28,28 +28,28 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
         new StringProperty(this, "Title", param.getValue.title)
     })
 
-    val priorityColumn = new TableColumn[PrioritizedBook, String]("Title") {
+    val priorityColumn = new TableColumn[PrioritizedBook, String]("Priority") {
       prefWidth = 180
     }
     priorityColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[PrioritizedBook, String], jfxbv.ObservableValue[String]] {
       def call(param: CellDataFeatures[PrioritizedBook, String]) =
-        new StringProperty(this, "Title", param.getValue.title)
+        new StringProperty(this, "Priority", param.getValue.title)
     })
 
-    val deadlineColumn = new TableColumn[PrioritizedBook, String]("Title") {
+    val deadlineColumn = new TableColumn[PrioritizedBook, String]("Deadline") {
       prefWidth = 180
     }
     deadlineColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[PrioritizedBook, String], jfxbv.ObservableValue[String]] {
       def call(param: CellDataFeatures[PrioritizedBook, String]) =
-        new StringProperty(this, "Title", param.getValue.title)
+        new StringProperty(this, "Deadline", param.getValue.title)
     })
 
-    val progressColumn = new TableColumn[PrioritizedBook, String]("Title") {
+    val progressColumn = new TableColumn[PrioritizedBook, String]("Progress") {
       prefWidth = 180
     }
     progressColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[PrioritizedBook, String], jfxbv.ObservableValue[String]] {
       def call(param: CellDataFeatures[PrioritizedBook, String]) =
-        new StringProperty(this, "Title", param.getValue.title)
+        new StringProperty(this, "Progress", param.getValue.title)
     })
 
     val table = new TableView[PrioritizedBook]() {
