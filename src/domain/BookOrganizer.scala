@@ -5,8 +5,13 @@ import java.util.Date
 
 class BookOrganizer {
   val q = new BookQueue
+
   def addBook(book: PrioritizedBook) {
     q.enqueue(book)
+  }
+
+  def removeBook(book: PrioritizedBook) {
+    q.removeFromQueue(book)
   }
 
   def changeBookPriority(book: PrioritizedBook, newPriority: Int) {
@@ -28,10 +33,18 @@ class BookOrganizer {
     book.deadline = deadline
     q.enqueue(book)
   }
-  def get
-  First(k: Int) = {
+  def getFirst(k: Int) = {
     q.getFirst(k)
   }
 
   def getAll() = q.getAll()
+
+  def createNewQueue(books: List[PrioritizedBook]) {
+     if(q.nonEmpty()) {
+       q.dropAll()
+     }
+     for(book <- books) {
+       q.enqueue(book)
+     }
+  }
 }

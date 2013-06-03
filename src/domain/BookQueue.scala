@@ -23,4 +23,11 @@ class BookQueue {
     queue = queue.filterNot(b => b == book)
   }
 
+  def isEmpty() = queue.isEmpty
+
+  def nonEmpty() = queue.nonEmpty
+
+  def dropAll() {
+    queue.clear()
+  }
 }
