@@ -5,7 +5,7 @@ import scalafx.scene.layout.{TilePane, HBox, VBox}
 import scalafx.stage.Stage
 import scalafx.scene.control._
 import scalafx.scene.text.Font
-import domain.{PrioritizedBook, BookOrganizer}
+import domain.{Author, PrioritizedBook, BookOrganizer, Book}
 import javafx.scene.control.TableColumn.CellDataFeatures
 import scalafx.beans.property.StringProperty
 
@@ -13,13 +13,29 @@ import scalafx.beans.property.StringProperty
 import javafx.{util => jfxu}
 import scalafx.Includes._
 import javafx.beans.{value => jfxbv}
-import scalafx.collections.ObservableBuffer
+import scalafx.collections.{ObservableBuffer}
 import scalafx.geometry.{Pos, Insets}
 import scalafx.scene.Node
+import scalafx.event.ActionEvent
 
 
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   val organizer = new BookOrganizer
+
+  var nextToRead: ObservableBuffer[PrioritizedBook] =
+    ObservableBuffer[PrioritizedBook](for (book <-
+                                           organizer.getFirst(5)) yield book)
+   println(nextToRead)
+
+  def updateBuffer(buffer: ObservableBuffer[PrioritizedBook], newContent: List[PrioritizedBook]) {
+    buffer ++= newContent.toSet -- buffer.toSet
+    buffer --= buffer.toSet -- newContent.toSet
+  }
+
+  def updateNextToRead() {
+    val newList = organizer.getFirst(5)
+    updateBuffer(nextToRead, newList)
+  }
 
   def createPriorityBookTable(books: ObservableBuffer[PrioritizedBook], customPlaceholder: Node = null) : TableView[PrioritizedBook] = {
     val titleColumn = new TableColumn[PrioritizedBook, String]("Title") {
@@ -36,7 +52,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     }
     priorityColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[PrioritizedBook, String], jfxbv.ObservableValue[String]] {
       def call(param: CellDataFeatures[PrioritizedBook, String]) =
-        new StringProperty(this, "Priority", param.getValue.title)
+        new StringProperty(this, "Priority", param.getValue.priority.toString)
     })
 
     val deadlineColumn = new TableColumn[PrioritizedBook, String]("Deadline") {
@@ -44,7 +60,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     }
     deadlineColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[PrioritizedBook, String], jfxbv.ObservableValue[String]] {
       def call(param: CellDataFeatures[PrioritizedBook, String]) =
-        new StringProperty(this, "Deadline", param.getValue.title)
+        new StringProperty(this, "Deadline", param.getValue.deadline.toString)
     })
 
     val progressColumn = new TableColumn[PrioritizedBook, String]("Progress") {
@@ -52,12 +68,12 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     }
     progressColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[PrioritizedBook, String], jfxbv.ObservableValue[String]] {
       def call(param: CellDataFeatures[PrioritizedBook, String]) =
-        new StringProperty(this, "Progress", param.getValue.title)
+        new StringProperty(this, "Progress", param.getValue.progress.toString)
     })
 
-    val table = new TableView[PrioritizedBook]() {
-      prefHeight = 200
-      prefWidth = 700
+    val table = new TableView[PrioritizedBook](books) {
+      prefHeight = 180
+      prefWidth = 724
 
       if (customPlaceholder != null)
         placeholder = customPlaceholder
@@ -75,13 +91,20 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     )
     table
   }
+  var counter: Int = 0
+  def addBook(e: ActionEvent) {
+    println("Adding books isn't very easy")
+    val book = new Book("I like trains"+ counter, new Author("Jack"))
+    counter += 1
+    organizer.addBook(new PrioritizedBook(book, 3))
+    updateNextToRead()
+    println(nextToRead)
+  }
 
   val mainBox = new VBox {
     padding = Insets(20, 10, 10, 20)
     spacing = 10
-    val nextToRead: ObservableBuffer[PrioritizedBook] =
-      ObservableBuffer[PrioritizedBook](for (book <-
-                                             organizer.getFirst(5)) yield book)
+
 
     val tablePlaceholder = new VBox {
       padding = Insets(20, 10, 20, 0)
@@ -101,11 +124,13 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
           prefWidth = 100
           minWidth = 100
         },
-        new Button("Add new one"),
+        new Button("Add new one") {
+          onAction = addBook _
+        },
         new Button("Weekly planner")
       )
-
     }
+
     buttons.setHgap(8)
     buttons.setVgap(10)
 
@@ -114,7 +139,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
         text = "Next to be read:"
         font = new Font("Verdana", 20)
       },
-      createPriorityBookTable(nextToRead, tablePlaceholder),
+      createPriorityBookTable(nextToRead),
       buttons
     )
   }

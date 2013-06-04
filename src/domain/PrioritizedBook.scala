@@ -12,6 +12,21 @@ class PrioritizedBook( book: Book, prio: Int = 0, deadl : Date = new Date()) {
 
   def title = book.getTitle
 
+  def equals(that: PrioritizedBook): Boolean = {
+    if (that.priority != priority)  return false
+    if (that.title != title) return false
+    if(that.progress != progress) false
+    else true
+  }
+
+  override def hashCode: Int = {
+    var result: Int = title.hashCode
+    result = 31 * result + priority.hashCode
+    result = 31 * result + deadline.hashCode
+    result = 31 * result + progress.hashCode
+    result = 31 * result + title.hashCode
+    return result
+  }
   override
   def toString(): String = {
     "priority = " + priority + "\n" +
