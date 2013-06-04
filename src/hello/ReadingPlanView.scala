@@ -1,6 +1,6 @@
 package hello
 
-import scalafx.scene.layout.{TilePane, HBox, VBox}
+import scalafx.scene.layout.{HBox, TilePane, VBox}
 
 import scalafx.stage.Stage
 import scalafx.scene.control._
@@ -25,7 +25,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   var nextToRead: ObservableBuffer[PrioritizedBook] =
     ObservableBuffer[PrioritizedBook](for (book <-
                                            organizer.getFirst(5)) yield book)
-   println(nextToRead)
+  println(nextToRead)
 
   def updateBuffer(buffer: ObservableBuffer[PrioritizedBook], newContent: List[PrioritizedBook]) {
     buffer ++= newContent.toSet -- buffer.toSet
@@ -93,6 +93,8 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   }
   var counter: Int = 0
   def addBook(e: ActionEvent) {
+
+    StageUtil.showPageInWindow(addingBookPage(), "Add book", stage)
     println("Adding books isn't very easy")
     val book = new Book("I like trains"+ counter, new Author("Jack"))
     counter += 1
@@ -101,6 +103,35 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     println(nextToRead)
   }
 
+  def addingBookPage() = {
+    val form = new HBox() {
+      padding = Insets(20, 10, 10, 20)
+      spacing = 10
+      val list = new ChoiceBox[String] {
+        items = ObservableBuffer[String]("Elephants", "They")//model.namesOfAllBooks
+      }
+      val priority = new ChoiceBox[Int] {
+        items = ObservableBuffer[Int](0, 1, 2, 3, 4, 5)
+      }
+
+      content = List(
+        new Label("Title:"),
+        list,
+        new Label("Priority:"),
+        priority,
+        //TODO deadline - date picker
+        new Button("Add")
+      )
+    }
+
+    val pane = new ScrollPane {
+      prefHeight = 100
+      prefWidth = 600
+      content = form
+    }
+    pane
+
+  }
   val mainBox = new VBox {
     padding = Insets(20, 10, 10, 20)
     spacing = 10
@@ -146,3 +177,4 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   content = mainBox
   alignmentInParent = Pos.CENTER
 }
+

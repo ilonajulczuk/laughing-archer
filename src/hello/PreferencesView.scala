@@ -21,7 +21,7 @@ class PreferencesView(model: AppModel, stage: Stage) extends ScrollPane {
       onAction = {
         e: ActionEvent =>
           val chooser = new DirectoryChooser()
-          val result = chooser.showDialog(stage)
+          val result = chooser.showDialog(new Stage())
 
           if (result != null) {
             model.libraryPath.value = result.getAbsolutePath
@@ -40,7 +40,7 @@ class PreferencesView(model: AppModel, stage: Stage) extends ScrollPane {
         e: ActionEvent => {
           println(e.eventType + " occurred on MenuItem New")
           val chooser = new DirectoryChooser()
-          val result = chooser.showDialog(stage)
+          val result = chooser.showDialog(new Stage())
           if (result != null) {
             model.workspacePath.value = result.getAbsolutePath
             model.setWorkspacePath(result.getAbsolutePath)

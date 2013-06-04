@@ -117,7 +117,7 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
 
         def chooseFile() = {
           val fileChooser = new FileChooser()
-          val result = fileChooser.showOpenDialog(dialogStage)
+          val result = fileChooser.showOpenDialog(new Stage())
           try {
             result.getAbsolutePath
           }
@@ -131,8 +131,8 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
         }
 
         def loadFile(e: ActionEvent) {
-          (_: ActionEvent) =>
             try {
+              println("Choosing file")
               val pathToFile = chooseFile()
               if (pathToFile != "" &&
                 pathToFile.endsWith("mobi")
