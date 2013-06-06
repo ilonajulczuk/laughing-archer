@@ -18,14 +18,15 @@ import scalafx.geometry.{Pos, Insets}
 import scalafx.scene.Node
 import scalafx.event.ActionEvent
 import java.util.Date
+import javafx.scene.control.Dialogs
 
 
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
-  val organizer = new BookOrganizer
+
 
   var nextToRead: ObservableBuffer[PrioritizedBook] =
     ObservableBuffer[PrioritizedBook](for (book <-
-                                           organizer.getFirst(5)) yield book)
+                                           model.organizer.getFirst(5)) yield book)
   println(nextToRead)
 
   def updateBuffer(buffer: ObservableBuffer[PrioritizedBook], newContent: List[PrioritizedBook]) {
@@ -34,7 +35,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   }
 
   def updateNextToRead() {
-    val newList = organizer.getFirst(5)
+    val newList = model.organizer.getFirst(5)
     updateBuffer(nextToRead, newList)
     nextToRead.sort((lt, rt ) => lt.priority > rt.priority)
   }
@@ -100,12 +101,13 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   var counter: Int = 0
   def addBook(e: ActionEvent) {
 
-    StageUtil.showPageInWindow(addingBookPage(), "Add book", stage)
+    val showingStage = new Stage
+    StageUtil.showPageInWindow(addingBookPage(showingStage), "Add book", stage, showingStage)
 
     println(nextToRead)
   }
 
-  def addingBookPage() = {
+  def addingBookPage(stage: Stage) = {
     val form = new HBox() {
 
       padding = Insets(20, 10, 10, 20)
@@ -113,9 +115,11 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
       val list = new ChoiceBox[String] {
         items = model.freeBooks
       }
+      list.selectionModel.value.selectFirst()
       val priority = new ChoiceBox[Int] {
         items = ObservableBuffer[Int](0, 1, 2, 3, 4, 5)
       }
+      priority.selectionModel.value.selectFirst()
 
       content = List(
         new Label("Title:"),
@@ -127,13 +131,26 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
           onAction = { e: ActionEvent =>
             val title: String = list.value.value
             val _priority = priority.value.value
-            val deadline = new Date()
-            val bookFromDB: Book = model.db.findBook(title)
-            val prioritizedBook = new PrioritizedBook(bookFromDB, _priority, deadline)
-            organizer.addBook(prioritizedBook)
-            updateNextToRead()
-            updateListOfFreeBooksByRemovingAddedTitle(title)
-            println("Adding new book")
+            if(model.freeBooks.isEmpty) {
+              Dialogs.showWarningDialog(new Stage, "No books left", "No books are left", "No books left")
+            }
+            else {
+              if(title == "") {
+                Dialogs.showWarningDialog(new Stage, "Adding error", "Specify what you want to add first",
+                  "Book not added")
+              }
+              else {
+                val deadline = new Date()
+                val bookFromDB: Book = model.db.findBook(title)
+                val prioritizedBook = new PrioritizedBook(bookFromDB, _priority, deadline)
+
+                model.organizer.addBook(prioritizedBook)
+                updateNextToRead()
+                updateListOfFreeBooksByRemovingAddedTitle(title)
+                model.db.addPrioritizedBook(prioritizedBook)
+                stage.close
+              }
+            }
           }
         }
       )

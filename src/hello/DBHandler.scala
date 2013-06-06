@@ -5,7 +5,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import scala.collection.JavaConversions._
 
-import domain.{Book, Author, Tag, Category}
+import domain._
 
 
 class DBHandler(dbFile: String) {
@@ -301,6 +301,18 @@ class DBHandler(dbFile: String) {
     authors
   }
 
+  def savePrioritizedBooks(booksToSave: List[PrioritizedBook]) {
+
+  }
+
+  def addPrioritizedBook(book: PrioritizedBook) {
+
+  }
+
+  def getPrioritizedBooks() = {
+    List[PrioritizedBook]()
+  }
+
   def addAuthor(author: Author) {
     val connection = prepareConnection()
     println(author.getName)
@@ -399,6 +411,14 @@ class DBHandler(dbFile: String) {
           id integer primary key autoincrement,
           book_id integer,
           tag_id integer
+        );
+
+        create table if not exists priority_books
+        (
+          id integer primary key autoincrement,
+          book_id integer,
+          priority integer,
+          deadline string
         );
       """.stripMargin)
     connection.close()

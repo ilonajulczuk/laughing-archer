@@ -16,6 +16,8 @@ import domain.{Book, Author, Category, Tag}
 
 
 class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPane {
+
+
   var usingAlreadyAddedAuthor = false
   var usingAlreadyAddedCategory = false
   val dialogStage = new Stage()
@@ -23,12 +25,14 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
     items = model.namesOfAuthors
     editable = true
   }
+  authors.selectionModel.value.selectFirst()
 
   val categories =  new ComboBox[String]() {
     items = model.namesOfAllCategories
     editable = true
   }
 
+  categories.selectionModel.value.selectFirst()
   val title = new TextField {
     promptText = "Title"
     text = ""

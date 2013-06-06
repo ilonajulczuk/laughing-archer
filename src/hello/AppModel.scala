@@ -3,18 +3,33 @@ package hello
 import mobireader.{Mobi, MobiContentParser}
 import odt.OpenOfficeParser
 import scalafx.collections.{ObservableBuffer}
-import java.io.{File, RandomAccessFile, BufferedWriter, FileWriter}
+import java.io._
 import scalafx.Includes._
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import java.util.prefs.Preferences
-import domain.{Category, CategoryTree, Book, Author}
+import domain._
 import scala.collection.mutable.ListBuffer
 
 
 class AppModel {
   val db = new DBHandler("laughing.db")
   db.createTablesInDB()
+
+
+  def savePriorityBooksInDB() {
+     val booksToSave = organizer.getAll()
+     db.savePrioritizedBooks(booksToSave)
+  }
+
+  def loadPriorityBooksFromDB(): List[PrioritizedBook] = {
+    db.getPrioritizedBooks()
+  }
+
+  def initialiseBookOrganizer(organizer: BookOrganizer) {
+    for( book <- loadPriorityBooksFromDB())
+    organizer.addBook(book)
+  }
 
   def addDummyLibrary() {
     def createLibrary() = {
@@ -52,6 +67,8 @@ class AppModel {
   val bookInfoUtility = new BookInfoUtility
   var mobi: Mobi = null
 
+  val organizer: BookOrganizer = new BookOrganizer()
+  initialiseBookOrganizer(organizer)
 
   var myBooks = db.getAllBooks
 
@@ -115,9 +132,8 @@ class AppModel {
   val listViewItems = new ObservableBuffer[String]()
   var categories = new CategoryTree
   categories.addSubcategories(List("Science", "Fiction", "Art"))
-  categories("Science").addSubcategories(List("Math", "Physics", "Biology", "Computer Science"))
   categories("Fiction").addSubcategories(List("Science Fiction", "Soap operas", "Horror", "Fantasy"))
-  categories("Fiction")("Science Fiction").addSubcategories(List("Hard", "Ambitious", "Voyage"))
+  categories("Science").addSubcategories(List("Computer science", "Biology"))
 
   var namesOfAllCategories: ObservableBuffer[String] = ObservableBuffer(for (category <-
                                                                              categories.allNames) yield category)

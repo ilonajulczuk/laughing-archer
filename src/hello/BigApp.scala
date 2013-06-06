@@ -8,7 +8,8 @@ import scalafx.scene.input.KeyCombination
 import scalafx.scene.layout.{VBox, BorderPane}
 import scalafx.scene.{Node, Scene}
 import scalafx.application.JFXApp.PrimaryStage
-
+import javafx.stage.WindowEvent
+import javafx.event.EventHandler
 
 object BigApp extends JFXApp {
 
@@ -31,6 +32,10 @@ object BigApp extends JFXApp {
     scene = createScene()
     title = "Laughing archer"
   }
+
+
+
+
 
   private def createMenus() = new MenuBar {
     menus = List(
