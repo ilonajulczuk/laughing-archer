@@ -44,7 +44,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     model.busyBooks += title
     model.freeBooks -= title
   }
-  def createPriorityBookTable(books: ObservableBuffer[PrioritizedBook], customPlaceholder: Node = null) : TableView[PrioritizedBook] = {
+  def createPriorityBookTable(books: ObservableBuffer[PrioritizedBook], preferredHeight: Int = 180) : TableView[PrioritizedBook] = {
     val titleColumn = new TableColumn[PrioritizedBook, String]("Title") {
       prefWidth = 180
     }
@@ -79,11 +79,10 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     })
 
     val table = new TableView[PrioritizedBook](books) {
-      prefHeight = 180
+      prefHeight = preferredHeight
       prefWidth = 724
 
-      if (customPlaceholder != null)
-        placeholder = customPlaceholder
+
       delegate.getColumns.addAll(
         titleColumn.delegate,
         priorityColumn.delegate,
@@ -105,6 +104,18 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     StageUtil.showPageInWindow(addingBookPage(showingStage), "Add book", stage, showingStage)
 
     println(nextToRead)
+  }
+
+  def allBookPage() = {
+    val allBooksBuffer = ObservableBuffer[PrioritizedBook](model.organizer.getAll())
+
+    val table = createPriorityBookTable(allBooksBuffer, 725)
+    val pane = new ScrollPane {
+      prefHeight = 480
+      prefWidth = 730
+      content = table
+    }
+    pane
   }
 
   def addingBookPage(stage: Stage) = {
@@ -186,6 +197,10 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
         new Button("Show all") {
           prefWidth = 100
           minWidth = 100
+          onAction = {e: ActionEvent => {
+            val page = allBookPage()
+            StageUtil.showPageInWindow(page,"All books", stage)
+          }}
         },
         new Button("Add new one") {
           onAction = addBook _
