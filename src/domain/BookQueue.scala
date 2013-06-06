@@ -13,6 +13,8 @@ class BookQueue {
 
   def dequeue () = queue.dequeue()
 
+  def contains(b: PrioritizedBook) = queue.toSet.contains(b)
+
   def getFirst(k: Int) = {
      queue.toList.slice(0, k)
   }

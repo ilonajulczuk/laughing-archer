@@ -7,7 +7,12 @@ class BookOrganizer {
   val q = new BookQueue
 
   def addBook(book: PrioritizedBook) {
-    q.enqueue(book)
+      q.enqueue(book)
+  }
+
+  def getBookByTitle(title: String): Option[PrioritizedBook] = {
+    val books = q.getAll()
+    books.find(b => b.title == title)
   }
 
   def removeBook(book: PrioritizedBook) {

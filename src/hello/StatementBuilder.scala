@@ -51,7 +51,7 @@ class StatementBuilder {
     prepareStatement(connection, "select b.title, a.name," +
       " b.path_to_content, b.description, b.category_id,"
       + " a.additional_info from books b left join book_authors r on"
-      + " r.author_id = b.author_id left join authors a on r.author_id = a.id where b.title=?")
+      + " r.book_id = b.id left join authors a on r.author_id = a.id where b.title=?")
 
   def findBookIDByTitleAndAuthorStatement(connection: Connection) =
     prepareStatement(connection, "select b.id"

@@ -13,6 +13,9 @@ class DBHandler(dbFile: String) {
   val driver = "org.sqlite.JDBC"
   val statBld = new StatementBuilder()
 
+  class BookNotFound extends Exception {
+  }
+
   def this() = {
     this("sample.db")
   }
@@ -210,7 +213,7 @@ class DBHandler(dbFile: String) {
     new Author(name, additionalInfo)
   }
 
-  def findBook(title: String) = {
+  def findBook(title: String): Book = {
     val connection = prepareConnection()
     val stat = statBld.findBookStatement(connection)
     stat.setString(1, title)
@@ -222,7 +225,7 @@ class DBHandler(dbFile: String) {
       book
     }
     else
-      None
+      throw new BookNotFound()
   }
 
   def findBooksByAuthor(author: Author) = {

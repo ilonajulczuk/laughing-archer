@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import java.util.prefs.Preferences
 import domain.{Category, CategoryTree, Book, Author}
+import scala.collection.mutable.ListBuffer
 
 
 class AppModel {
@@ -74,6 +75,17 @@ class AppModel {
   }
 
   val books = getBooks()
+  val busyBooks = ListBuffer[String]()
+  val freeBooks = getNamesOfFreeBooks()
+
+  def getNamesOfFreeBooks() = {
+    val names = new ObservableBuffer[String]()
+    for(book <- books) {
+      if(! (busyBooks contains book.getTitle )  )
+        names += book.getTitle
+    }
+    names
+  }
 
   //Updates authors in model. Check if any authors should be removed or added compared to DB
   def updateNamesOfAuthors() {
@@ -94,6 +106,9 @@ class AppModel {
     val newBooks = getBooks()
     books ++= newBooks
     books.retainAll(newBooks)
+    val newNames = getNamesOfFreeBooks()
+    freeBooks ++= newNames
+    freeBooks.retainAll(newNames)
   }
 
 

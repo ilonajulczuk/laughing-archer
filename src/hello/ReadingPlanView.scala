@@ -17,6 +17,7 @@ import scalafx.collections.{ObservableBuffer}
 import scalafx.geometry.{Pos, Insets}
 import scalafx.scene.Node
 import scalafx.event.ActionEvent
+import java.util.Date
 
 
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
@@ -35,8 +36,13 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   def updateNextToRead() {
     val newList = organizer.getFirst(5)
     updateBuffer(nextToRead, newList)
+    nextToRead.sort((lt, rt ) => lt.priority > rt.priority)
   }
 
+  def updateListOfFreeBooksByRemovingAddedTitle(title: String) {
+    model.busyBooks += title
+    model.freeBooks -= title
+  }
   def createPriorityBookTable(books: ObservableBuffer[PrioritizedBook], customPlaceholder: Node = null) : TableView[PrioritizedBook] = {
     val titleColumn = new TableColumn[PrioritizedBook, String]("Title") {
       prefWidth = 180
@@ -95,20 +101,17 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   def addBook(e: ActionEvent) {
 
     StageUtil.showPageInWindow(addingBookPage(), "Add book", stage)
-    println("Adding books isn't very easy")
-    val book = new Book("I like trains"+ counter, new Author("Jack"))
-    counter += 1
-    organizer.addBook(new PrioritizedBook(book, 3))
-    updateNextToRead()
+
     println(nextToRead)
   }
 
   def addingBookPage() = {
     val form = new HBox() {
+
       padding = Insets(20, 10, 10, 20)
       spacing = 10
       val list = new ChoiceBox[String] {
-        items = ObservableBuffer[String]("Elephants", "They")//model.namesOfAllBooks
+        items = model.freeBooks
       }
       val priority = new ChoiceBox[Int] {
         items = ObservableBuffer[Int](0, 1, 2, 3, 4, 5)
@@ -120,7 +123,19 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
         new Label("Priority:"),
         priority,
         //TODO deadline - date picker
-        new Button("Add")
+        new Button("Add") {
+          onAction = { e: ActionEvent =>
+            val title: String = list.value.value
+            val _priority = priority.value.value
+            val deadline = new Date()
+            val bookFromDB: Book = model.db.findBook(title)
+            val prioritizedBook = new PrioritizedBook(bookFromDB, _priority, deadline)
+            organizer.addBook(prioritizedBook)
+            updateNextToRead()
+            updateListOfFreeBooksByRemovingAddedTitle(title)
+            println("Adding new book")
+          }
+        }
       )
     }
 
