@@ -33,8 +33,10 @@ class AppModel {
   }
 
   def initialiseBookOrganizer(organizer: BookOrganizer) {
-    for( book <- loadPriorityBooksFromDB())
-    organizer.addBook(book)
+    for( book <- loadPriorityBooksFromDB()) {
+      organizer.addBook(book)
+      busyBooks += book.title
+    }
   }
 
   def addDummyLibrary() {
@@ -73,8 +75,7 @@ class AppModel {
   val bookInfoUtility = new BookInfoUtility
   var mobi: Mobi = null
 
-  val organizer: BookOrganizer = new BookOrganizer()
-  initialiseBookOrganizer(organizer)
+
 
   var myBooks = db.getAllBooks
 
@@ -99,6 +100,8 @@ class AppModel {
 
   val books = getBooks()
   val busyBooks = ListBuffer[String]()
+  val organizer: BookOrganizer = new BookOrganizer()
+  initialiseBookOrganizer(organizer)
   val freeBooks = getNamesOfFreeBooks()
 
   def getNamesOfFreeBooks() = {

@@ -25,7 +25,7 @@ class BookStatementBuilder extends StatementBuilder {
     prepareStatement(connection, "delete from book_authors where book_id = ? and author_id = ?")
 
   def findBookStatement(connection: Connection) =
-    prepareStatement(connection, "select b.title, a.name," +
+    prepareStatement(connection, "select b.id, b.title, a.name," +
       " b.path_to_content, b.description, b.category_id,"
       + " a.additional_info from books b left join book_authors r on"
       + " r.book_id = b.id left join authors a on r.author_id = a.id where b.title=?")

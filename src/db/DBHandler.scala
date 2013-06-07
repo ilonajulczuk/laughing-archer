@@ -1,12 +1,11 @@
 package db
 
-import java.sql.DriverManager
-import java.sql.ResultSet
-import java.sql.SQLException
+import java.sql.{Connection, DriverManager, ResultSet, SQLException}
 import scala.collection.JavaConversions._
 
 import domain._
-
+import scala.collection.mutable.ListBuffer
+import java.util.Date
 
 class DBHandler(dbFile: String) {
 
@@ -226,6 +225,7 @@ class DBHandler(dbFile: String) {
     val rs = stat.executeQuery()
     if(rs.next()) {
       val book = makeBookFromResultSet(rs)
+      book.id = rs.getInt("id")
       rs.close()
       connection.close()
       book
@@ -308,15 +308,52 @@ class DBHandler(dbFile: String) {
   }
 
   def savePrioritizedBooks(booksToSave: List[PrioritizedBook]) {
-
+    for(book <- booksToSave) {
+      addPrioritizedBook(book)
+    }
   }
 
-  def addPrioritizedBook(book: PrioritizedBook) {
+  def addPrioritizedBook(prioritizedBook: PrioritizedBook) {
+    val connection = prepareConnection()
+    val stat = prioritizedBookStmt.addPrioritizedBook(connection)
 
+    var bookID: Int = -1
+    if(prioritizedBook.book.id != -1)
+    {
+      bookID = findBook(prioritizedBook.book.getTitle).id
+    }
+    else {
+      bookID = prioritizedBook.book.id
+    }
+    stat.setInt(1, bookID)
+    stat.setInt(2, prioritizedBook.priority)
+    stat.setString(3, prioritizedBook.deadline.toString)
+    stat.executeUpdate()
+    connection.close()
+  }
+
+  def convertStringToDate(dateString: String) = {
+    new Date()
   }
 
   def getPrioritizedBooks() = {
-    List[PrioritizedBook]()
+
+    val connection = prepareConnection()
+    val stat = prioritizedBookStmt.getAllPrioritizedBooks(connection)
+    val rs = stat.executeQuery()
+    var prioritizedBooks = ListBuffer[PrioritizedBook]()
+    while (rs.next()) {
+      val title = rs.getString("title")
+      val book = findBook(title)
+      val priority = rs.getInt("priority")
+      val deadlineString = rs.getString("deadline")
+      val deadline = convertStringToDate(deadlineString)
+      val priorityBook = new PrioritizedBook(book, priority, deadline)
+      prioritizedBooks += priorityBook
+    }
+    rs.close()
+    connection.close()
+    prioritizedBooks.toList
   }
 
   def addAuthor(author: Author) {

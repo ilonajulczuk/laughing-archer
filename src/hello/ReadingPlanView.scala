@@ -15,7 +15,6 @@ import scalafx.Includes._
 import javafx.beans.{value => jfxbv}
 import scalafx.collections.{ObservableBuffer}
 import scalafx.geometry.{Pos, Insets}
-import scalafx.scene.Node
 import scalafx.event.ActionEvent
 import java.util.Date
 import javafx.scene.control.Dialogs

@@ -3,7 +3,7 @@ package domain
 import java.util.Date
 
 
-class PrioritizedBook( book: Book, prio: Int = 0, deadl : Date = new Date()){
+class PrioritizedBook(val book: Book, prio: Int = 0, deadl : Date = new Date()){
   require(prio >= 0)
   require(book != null)
   var priority = prio
