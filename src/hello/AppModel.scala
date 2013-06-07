@@ -10,6 +10,7 @@ import javafx.collections.FXCollections
 import java.util.prefs.Preferences
 import domain._
 import scala.collection.mutable.ListBuffer
+import db.DBHandler
 
 
 class AppModel {
@@ -236,24 +237,4 @@ class AppModel {
 }
 
 
-class BookInfoUtility {
-  val supportedBookFormats = List("mobi", "bin", "odt", "txt")
-  val fileSeparator = "/"
-
-  def extractLastWordFromPath(path: String) = {
-    path.split(fileSeparator).last
-  }
-
-  def extractFormatFromPath(path: String) = {
-    extractLastWordFromPath(path).split("\\.").last
-  }
-
-  def extractTitleFromPath(path: String) = {
-    extractLastWordFromPath(path).split("\\.").head
-  }
-
-  def isFormatSupported(format: String) = {
-    supportedBookFormats contains format
-  }
-}
 	

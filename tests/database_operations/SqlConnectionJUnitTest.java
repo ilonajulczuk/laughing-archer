@@ -6,7 +6,7 @@ package database_operations;
 
 import java.sql.SQLException;
 
-import hello.DBHandler;
+import db.DBHandler;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -1,9 +1,9 @@
 package database_operations
 
-import hello.DBHandler
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 import domain.{Book, Author}
+import db.DBHandler
 
 class DBHandlerRemovalTest extends FunSuite with BeforeAndAfter {
   var db: DBHandler = _
