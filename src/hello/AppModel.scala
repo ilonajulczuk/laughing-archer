@@ -17,6 +17,11 @@ class AppModel {
   db.createTablesInDB()
 
 
+  def replaceBufferContent[T](buffer: ObservableBuffer[T], newContent: List[T]) {
+    buffer ++= newContent.toSet diff buffer.toSet
+    buffer --= buffer.toSet diff newContent.toSet
+  }
+
   def savePriorityBooksInDB() {
      val booksToSave = organizer.getAll()
      db.savePrioritizedBooks(booksToSave)
@@ -107,8 +112,7 @@ class AppModel {
   //Updates authors in model. Check if any authors should be removed or added compared to DB
   def updateNamesOfAuthors() {
     val authorsNamesFromDB = for (author <- db.getAllAuthors()) yield author.getName
-    namesOfAuthors ++= authorsNamesFromDB
-    namesOfAuthors.retainAll(authorsNamesFromDB)
+    replaceBufferContent(namesOfAuthors, authorsNamesFromDB)
   }
 
   def getBooks() = {
@@ -121,11 +125,9 @@ class AppModel {
 
   def updateBooks() {
     val newBooks = getBooks()
-    books ++= newBooks
-    books.retainAll(newBooks)
+    replaceBufferContent(books, newBooks.toList)
     val newNames = getNamesOfFreeBooks()
-    freeBooks ++= newNames
-    freeBooks.retainAll(newNames)
+    replaceBufferContent(freeBooks, newNames.toList)
   }
 
 
