@@ -23,26 +23,21 @@ import javafx.scene.control.Dialogs
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
 
-  var nextToRead: ObservableBuffer[PrioritizedBook] =
-    ObservableBuffer[PrioritizedBook](for (book <-
-                                           model.organizer.getFirst(5)) yield book)
-  println(nextToRead)
+
+    println(model.nextToRead)
 
   def updateBuffer(buffer: ObservableBuffer[PrioritizedBook], newContent: List[PrioritizedBook]) {
     buffer ++= newContent.toSet -- buffer.toSet
     buffer --= buffer.toSet -- newContent.toSet
   }
 
-  def updateNextToRead() {
-    val newList = model.organizer.getFirst(5)
-    updateBuffer(nextToRead, newList)
-    nextToRead.sort((lt, rt ) => lt.priority > rt.priority)
-  }
+
 
   def updateListOfFreeBooksByRemovingAddedTitle(title: String) {
     model.busyBooks += title
     model.freeBooks -= title
   }
+
   def createPriorityBookTable(books: ObservableBuffer[PrioritizedBook], preferredHeight: Int = 180) : TableView[PrioritizedBook] = {
     val titleColumn = new TableColumn[PrioritizedBook, String]("Title") {
       prefWidth = 180
@@ -77,10 +72,19 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
         new StringProperty(this, "Progress", param.getValue.progress.toString)
     })
 
+    def createPriorityManagementPage(book: PrioritizedBook, dialogStage: Stage) = {
+      new PriorityManagementPage(book, dialogStage, model)
+    }
+
+    def showPriorityBookManagement(book: PrioritizedBook) {
+      val dialogStage = new Stage()
+      val page = createPriorityManagementPage(book, dialogStage)
+      StageUtil.showPageInWindow(page, "Book Management", dialogStage)
+    }
+
     val table = new TableView[PrioritizedBook](books) {
       prefHeight = preferredHeight
       prefWidth = 724
-
 
       delegate.getColumns.addAll(
         titleColumn.delegate,
@@ -92,6 +96,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     table.getSelectionModel.selectedItemProperty.onChange(
       (_, _, newValue) => {
         println(newValue)
+        showPriorityBookManagement(newValue)
       }
     )
     table
@@ -102,13 +107,13 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     val showingStage = new Stage
     StageUtil.showPageInWindow(addingBookPage(showingStage), "Add book", stage, showingStage)
 
-    println(nextToRead)
+    println(model.nextToRead)
   }
 
   def allBookPage() = {
-    val allBooksBuffer = ObservableBuffer[PrioritizedBook](model.organizer.getAll())
+    model.updateAllToRead()
 
-    val table = createPriorityBookTable(allBooksBuffer, 725)
+    val table = createPriorityBookTable(model.allToRead, 725)
     val pane = new ScrollPane {
       prefHeight = 480
       prefWidth = 730
@@ -155,7 +160,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
                 val prioritizedBook = new PrioritizedBook(bookFromDB, _priority, deadline)
 
                 model.organizer.addBook(prioritizedBook)
-                updateNextToRead()
+                model.updateNextToRead()
                 updateListOfFreeBooksByRemovingAddedTitle(title)
                 model.db.addPrioritizedBook(prioritizedBook)
                 stage.close
@@ -177,18 +182,6 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   val mainBox = new VBox {
     padding = Insets(20, 10, 10, 20)
     spacing = 10
-
-
-    val tablePlaceholder = new VBox {
-      padding = Insets(20, 10, 20, 0)
-      spacing = 10
-      content = List(
-        new Label("There aren't any books added to your list"),
-        new Button("Add book")
-      )
-    }
-
-    tablePlaceholder.setAlignment(Pos.CENTER)
 
     val buttons = new TilePane {
       padding = Insets(20, 10, 20, 0)
@@ -216,7 +209,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
         text = "Next to be read:"
         font = new Font("Verdana", 20)
       },
-      createPriorityBookTable(nextToRead),
+      createPriorityBookTable(model.nextToRead),
       buttons
     )
   }

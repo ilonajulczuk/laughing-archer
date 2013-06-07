@@ -182,6 +182,14 @@ class DBHandler(dbFile: String) {
     connection.close()
   }
 
+  def removePrioritizedBook(book: PrioritizedBook) {
+    val connection = prepareConnection()
+    val stat = prioritizedBookStmt.removePrioritizedBook(connection)
+    stat.setInt(1, book.book.id)
+    stat.executeUpdate()
+    connection.close()
+  }
+
   def getCategoryByID(categoryID: Int) = {
 
     val connection = prepareConnection()

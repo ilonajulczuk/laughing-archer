@@ -20,4 +20,6 @@ class PrioritizedBookStatementBuilder extends StatementBuilder {
     prepareStatement(connection, "insert into " +
       "priority_books(book_id, priority, deadline) values( ?, ?, ?)")
 
+  def removePrioritizedBook(connection: Connection) =
+    prepareStatement(connection, "delete from priority_books where book_id = ?")
 }

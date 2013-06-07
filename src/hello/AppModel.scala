@@ -143,6 +143,23 @@ class AppModel {
 
   var namesOfAllCategories: ObservableBuffer[String] = ObservableBuffer(for (category <-
                                                                              categories.allNames()) yield category)
+  var nextToRead: ObservableBuffer[PrioritizedBook] =
+    ObservableBuffer[PrioritizedBook](for (book <-
+                                          organizer.getFirst(5)) yield book)
+
+  val allToRead = ObservableBuffer[PrioritizedBook](organizer.getAll())
+
+  def updateNextToRead() {
+    val newList = organizer.getFirst(5)
+    replaceBufferContent(nextToRead, newList)
+    nextToRead.sort((lt, rt ) => lt.priority > rt.priority)
+  }
+
+  def updateAllToRead() {
+    val newList = organizer.getAll
+    replaceBufferContent(nextToRead, newList)
+    nextToRead.sort((lt, rt ) => lt.priority > rt.priority)
+  }
 
   def authors = db.getAllAuthors()
   var namesOfAuthors = FXCollections.observableArrayList((for (author <- authors) yield author.getName):_*)

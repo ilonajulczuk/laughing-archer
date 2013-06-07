@@ -9,7 +9,7 @@ class PrioritizedBook(val book: Book, prio: Int = 0, deadl : Date = new Date()){
   var priority = prio
   var deadline = deadl
   var progress = 0.0
-
+  var id = -1
   def title = book.getTitle
 
   def equals(that: PrioritizedBook): Boolean = {
