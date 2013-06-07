@@ -13,6 +13,12 @@ class DBHandler(dbFile: String) {
   val driver = "org.sqlite.JDBC"
   val statBld = new StatementBuilder()
 
+  val authorStmt = new AuthorStatementBuilder()
+  val bookStmt = new BookStatementBuilder()
+  val categoryStmt = new CategoryStatementBuilder()
+  val tagStmt = new TagStatementBuilder()
+  val prioritizedBookStmt = new PrioritizedBookStatementBuilder()
+
   class BookNotFound extends Exception {
   }
 
@@ -28,7 +34,7 @@ class DBHandler(dbFile: String) {
 
   def addTag(tag: Tag) {
     val connection = prepareConnection()
-    val stat = statBld.addTagStatement(connection)
+    val stat = tagStmt.addTagStatement(connection)
     stat.setString(1, tag.tag)
     stat.executeUpdate()
 
@@ -41,7 +47,7 @@ class DBHandler(dbFile: String) {
 
   def findCategoryID(category: Category) = {
     val connection = prepareConnection()
-    val stat = statBld.findCategoryStatement(connection)
+    val stat = categoryStmt.findCategoryStatement(connection)
     stat.setString(1, category.category)
     val rs: ResultSet = stat.executeQuery()
     var id = -1
@@ -56,7 +62,7 @@ class DBHandler(dbFile: String) {
     val id = findCategoryID(category)
     if(id == -1) {
       val connection = prepareConnection()
-      val stat = statBld.addCategoryStatement(connection)
+      val stat = categoryStmt.addCategoryStatement(connection)
       stat.setString(1, category.category)
       stat.executeUpdate()
 
@@ -74,7 +80,7 @@ class DBHandler(dbFile: String) {
 
   def addBookAuthorRelation(book: Book, author: Author)  {
     val connection = prepareConnection()
-    val stat = statBld.addBookAuthorRelation(connection)
+    val stat = bookStmt.addBookAuthorRelation(connection)
     stat.setInt(1, book.id)
     stat.setInt(2, author.id)
     stat.executeUpdate()
@@ -83,7 +89,7 @@ class DBHandler(dbFile: String) {
 
   def addBookTagRelation(book: Book, tag: Tag)  {
     val connection = prepareConnection()
-    val stat = statBld.addBookTagRelation(connection)
+    val stat = bookStmt.addBookTagRelation(connection)
     stat.setInt(1, book.id)
     stat.setInt(2, tag.id)
     stat.executeUpdate()
@@ -116,7 +122,7 @@ class DBHandler(dbFile: String) {
         if (tag.id == -1)
           addTag(tag)
       }
-      val stat = statBld.addBookStatement(connection)
+      val stat = bookStmt.addBookStatement(connection)
       stat.setString(1, book.getTitle)
       stat.setString(2, book.getPathToContent)
       stat.setString(3, book.description)
@@ -142,7 +148,7 @@ class DBHandler(dbFile: String) {
 
   def removeBook(book: Book) {
     val connection = prepareConnection()
-    val stat = statBld.removeBookStatement(connection)
+    val stat = bookStmt.removeBookStatement(connection)
     stat.setInt(1, book.id)
     stat.executeUpdate()
     val author = book.getAuthor
@@ -156,7 +162,7 @@ class DBHandler(dbFile: String) {
 
   def removeBookAuthorRelation(book: Book, author: Author) {
     val connection = prepareConnection()
-    val stat = statBld.removeBookAuthorRelationStatement(connection)
+    val stat = bookStmt.removeBookAuthorRelationStatement(connection)
     stat.setInt(1, book.id)
     stat.setInt(2, author.id)
     stat.executeUpdate()
@@ -168,7 +174,7 @@ class DBHandler(dbFile: String) {
   def removeAuthor(author: Author) {
     val connection = prepareConnection()
     val books = findBooksByAuthor(author)
-    val stat = statBld.removeAuthorStatement(connection)
+    val stat = authorStmt.removeAuthorStatement(connection)
     stat.setString(1, author.getName)
     stat.executeUpdate()
     for (book <- books) {
@@ -180,7 +186,7 @@ class DBHandler(dbFile: String) {
   def getCategoryByID(categoryID: Int) = {
 
     val connection = prepareConnection()
-    val stat = statBld.findCategoryByIDStatement(connection)
+    val stat = categoryStmt.findCategoryByIDStatement(connection)
     stat.setInt(1, categoryID)
     val rs = stat.executeQuery()
     var category = "Not found"
@@ -215,7 +221,7 @@ class DBHandler(dbFile: String) {
 
   def findBook(title: String): Book = {
     val connection = prepareConnection()
-    val stat = statBld.findBookStatement(connection)
+    val stat = bookStmt.findBookStatement(connection)
     stat.setString(1, title)
     val rs = stat.executeQuery()
     if(rs.next()) {
@@ -230,7 +236,7 @@ class DBHandler(dbFile: String) {
 
   def findBooksByAuthor(author: Author) = {
     val connection = prepareConnection()
-    val stat = statBld.findBookByAuthorStatement(connection)
+    val stat = bookStmt.findBookByAuthorStatement(connection)
     stat.setString(1, author.getName)
     val rs = stat.executeQuery()
     var books = List[Book]()
@@ -246,7 +252,7 @@ class DBHandler(dbFile: String) {
 
   def findBookByTitleAndAuthor(title: String, authorName: String) = {
     val connection = prepareConnection()
-    val stat = statBld.findBookIDByTitleAndAuthorStatement(connection)
+    val stat = bookStmt.findBookIDByTitleAndAuthorStatement(connection)
     stat.setString(1, title)
     stat.setString(2, authorName)
     val rs = stat.executeQuery()
@@ -261,7 +267,7 @@ class DBHandler(dbFile: String) {
 
   def findBooksByCategory(category: String) = {
     val connection = prepareConnection()
-    val stat = statBld.findBookByCategoryStatement(connection)
+    val stat = bookStmt.findBookByCategoryStatement(connection)
     stat.setString(1, category)
     val rs = stat.executeQuery()
     var books = List[Book]()
@@ -275,7 +281,7 @@ class DBHandler(dbFile: String) {
 
   def getAllBooks() = {
     val connection = prepareConnection()
-    val stat = statBld.getAllBooksStatement(connection)
+    val stat = bookStmt.getAllBooksStatement(connection)
     val rs = stat.executeQuery()
     var books = List[Book]()
     while (rs.next()) {
@@ -290,7 +296,7 @@ class DBHandler(dbFile: String) {
 
   def getAllAuthors() = {
     val connection = prepareConnection()
-    val stat = statBld.getAllAuthorsStatement(connection)
+    val stat = authorStmt.getAllAuthorsStatement(connection)
     val rs = stat.executeQuery()
     var authors = List[Author]()
     while (rs.next()) {
@@ -319,7 +325,7 @@ class DBHandler(dbFile: String) {
     val authorFromDB = findAuthor(author.getName)
     if (authorFromDB.getName == "Unknown") {
       println("Author not found, adding.")
-      val stat = statBld.addAuthorStatement(connection)
+      val stat = authorStmt.addAuthorStatement(connection)
       stat.setString(1, author.getName)
       stat.setString(2, author.getAdditionalInfo)
       stat.executeUpdate()
@@ -340,7 +346,7 @@ class DBHandler(dbFile: String) {
   def findAuthor(name: String) = {
     try {
       val connection = prepareConnection()
-      val stat = statBld.findAuthorByNameStatement(connection)
+      val stat = authorStmt.findAuthorByNameStatement(connection)
       stat.setString(1, name)
       stat.executeQuery()
       val rs = stat.executeQuery()
