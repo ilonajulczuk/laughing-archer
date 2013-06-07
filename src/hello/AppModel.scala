@@ -2,7 +2,7 @@ package hello
 
 import mobireader.{Mobi, MobiContentParser}
 import odt.OpenOfficeParser
-import scalafx.collections.{ObservableBuffer}
+import scalafx.collections.ObservableBuffer
 import java.io._
 import scalafx.Includes._
 import javafx.beans.property.SimpleStringProperty
@@ -57,7 +57,7 @@ class AppModel {
 
       )
     }
-    db.addBooks(createLibrary)
+    db addBooks createLibrary()
   }
 
   def normalizePath(path: String, maxSize: Int) = {
@@ -77,7 +77,7 @@ class AppModel {
 
 
 
-  var myBooks = db.getAllBooks
+  var myBooks = db.getAllBooks()
 
   def isBookFormatSupported(path: String) = {
     val format = bookInfoUtility.extractFormatFromPath(path)
@@ -98,13 +98,13 @@ class AppModel {
     bookInfoUtility.extractFormatFromPath(path)
   }
 
-  val books = getBooks()
+  val books = getBooks
   val busyBooks = ListBuffer[String]()
   val organizer: BookOrganizer = new BookOrganizer()
   initialiseBookOrganizer(organizer)
-  val freeBooks = getNamesOfFreeBooks()
+  val freeBooks = getNamesOfFreeBooks
 
-  def getNamesOfFreeBooks() = {
+  def getNamesOfFreeBooks = {
     val names = new ObservableBuffer[String]()
     for(book <- books) {
       if(! (busyBooks contains book.getTitle )  )
@@ -116,10 +116,10 @@ class AppModel {
   //Updates authors in model. Check if any authors should be removed or added compared to DB
   def updateNamesOfAuthors() {
     val authorsNamesFromDB = for (author <- db.getAllAuthors()) yield author.getName
-    replaceBufferContent(namesOfAuthors, authorsNamesFromDB)
+    replaceBufferContent(observableList2ObservableBuffer(namesOfAuthors), authorsNamesFromDB)
   }
 
-  def getBooks() = {
+  def getBooks = {
     val books = new ObservableBuffer[Book]()
     for (book <- db.getAllBooks()) {
       books += book
@@ -128,9 +128,9 @@ class AppModel {
   }
 
   def updateBooks() {
-    val newBooks = getBooks()
+    val newBooks = getBooks
     replaceBufferContent(books, newBooks.toList)
-    val newNames = getNamesOfFreeBooks()
+    val newNames = getNamesOfFreeBooks
     replaceBufferContent(freeBooks, newNames.toList)
   }
 
@@ -142,9 +142,9 @@ class AppModel {
   categories("Science").addSubcategories(List("Computer science", "Biology"))
 
   var namesOfAllCategories: ObservableBuffer[String] = ObservableBuffer(for (category <-
-                                                                             categories.allNames) yield category)
+                                                                             categories.allNames()) yield category)
 
-  def authors = db.getAllAuthors
+  def authors = db.getAllAuthors()
   var namesOfAuthors = FXCollections.observableArrayList((for (author <- authors) yield author.getName):_*)
 
   var filePath: String = ""
@@ -156,8 +156,8 @@ class AppModel {
 
   def shortenBookText = {
     val paragraphs = bookText.split("\n\n")
-    val chosenParagraphs = paragraphs.slice(0, 20) ++ paragraphs.slice(paragraphs.size - 50, paragraphs.size - 20)
-    chosenParagraphs.mkString("\n\n")
+    val chosenParagraphs = (paragraphs slice (0, 20)) ++ (paragraphs slice (paragraphs.size - 50, paragraphs.size - 20))
+    chosenParagraphs mkString "\n\n"
   }
 
   def updateBookText(path: String) {
@@ -165,7 +165,7 @@ class AppModel {
       val mobiParser = new Mobi(path)
       mobiParser.parse()
       val mobiContentParser = new MobiContentParser(mobiParser.readAllRecords())
-      bookText = mobiContentParser.bodyWithParagraphs
+      bookText = mobiContentParser.bodyWithParagraphs()
     }
     else if (bookFormat == "odt") {
       val odtParser = new OpenOfficeParser()
