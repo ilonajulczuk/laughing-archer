@@ -94,9 +94,11 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
       )
     }
     table.getSelectionModel.selectedItemProperty.onChange(
-      (_, _, newValue) => {
-        println(newValue)
-        showPriorityBookManagement(newValue)
+      (_, oldValue, newValue) => {
+
+        if(oldValue == null && newValue != null)
+          showPriorityBookManagement(newValue)
+
       }
     )
     table
@@ -163,7 +165,10 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
                 model.updateNextToRead()
                 updateListOfFreeBooksByRemovingAddedTitle(title)
                 model.db.addPrioritizedBook(prioritizedBook)
+
                 stage.close
+                println("Updating next to read")
+                model.updateNextToRead()
               }
             }
           }

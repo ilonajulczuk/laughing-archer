@@ -161,6 +161,15 @@ class AppModel {
     nextToRead.sort((lt, rt ) => lt.priority > rt.priority)
   }
 
+  def removeFromReadingBuffers(priorityBook: PrioritizedBook) {
+     nextToRead -= priorityBook
+    allToRead -= priorityBook
+  }
+
+  def addToReadingBuffers(priorityBook: PrioritizedBook) {
+    nextToRead += priorityBook
+    allToRead += priorityBook
+  }
   def authors = db.getAllAuthors()
   var namesOfAuthors = FXCollections.observableArrayList((for (author <- authors) yield author.getName):_*)
 
