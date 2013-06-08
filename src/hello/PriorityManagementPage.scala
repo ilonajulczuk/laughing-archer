@@ -132,6 +132,7 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
                 priorityBook.priority = newPriority
 
                 model.updateNextToRead()
+                model.updateAllToRead()
                 model.db.addPrioritizedBook(priorityBook)
               }
               else {
@@ -140,6 +141,7 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
                   priorityBook.title, "Congratulation", "Task completed" )
                 dialogStage.close
                 model.updateNextToRead()
+                model.updateAllToRead()
               }
             }}
         }

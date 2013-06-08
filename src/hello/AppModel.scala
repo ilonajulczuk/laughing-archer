@@ -157,8 +157,8 @@ class AppModel {
 
   def updateAllToRead() {
     val newList = organizer.getAll
-    replaceBufferContent(nextToRead, newList)
-    nextToRead.sort((lt, rt ) => lt.priority > rt.priority)
+    replaceBufferContent(allToRead, newList)
+    allToRead.sort((lt, rt ) => lt.priority > rt.priority)
   }
 
   def removeFromReadingBuffers(priorityBook: PrioritizedBook) {

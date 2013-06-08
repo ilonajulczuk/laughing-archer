@@ -211,7 +211,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
     content = List(
       new Label {
-        text = "Next to be read:"
+        text = "Next to read:"
         font = new Font("Verdana", 20)
       },
       createPriorityBookTable(model.nextToRead),
