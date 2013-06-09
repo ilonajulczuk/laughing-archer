@@ -4,6 +4,7 @@ import scalafx.scene.layout.{HBox, TilePane, VBox}
 
 import scalafx.stage.Stage
 import scalafx.scene.control._
+import scalafx.scene.Node
 import scalafx.scene.text.Font
 import domain.{Author, PrioritizedBook, BookOrganizer, Book}
 import javafx.scene.control.TableColumn.CellDataFeatures
@@ -12,11 +13,11 @@ import scalafx.beans.property.StringProperty
 
 import javafx.{util => jfxu}
 import scalafx.Includes._
-import javafx.beans.{value => jfxbv}
+import javafx.beans.{value => jfxbv, Observable, InvalidationListener}
 import scalafx.collections.{ObservableBuffer}
 import scalafx.geometry.{Pos, Insets}
 import scalafx.event.ActionEvent
-import java.util.Date
+import java.util.{ Locale, Date}
 import javafx.scene.control.Dialogs
 
 
@@ -125,7 +126,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   }
 
   def addingBookPage(stage: Stage) = {
-    val form = new HBox() {
+    val form = new VBox() {
 
       padding = Insets(20, 10, 10, 20)
       spacing = 10
@@ -138,12 +139,31 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
       }
       priority.selectionModel.value.selectFirst()
 
+
+      val datePickingSection = new HBox {
+        spacing = 10
+
+        content = List[Node](
+          new Label("Deadline:"),
+          new ChoiceBox[String] {
+            items = ObservableBuffer("today", "tomorrow", "next five days", "next week", "month from now",
+            "year from now", "none" )
+            selectionModel.value.selectFirst()
+          }
+        )
+      }
       content = List(
-        new Label("Title:"),
-        list,
-        new Label("Priority:"),
-        priority,
-        //TODO deadline - date picker
+        new HBox {
+          spacing = 10
+          content = List(
+            new Label("Title:"),
+            list,
+            new Label("Priority:"),
+            priority
+          )
+        }
+        ,
+        datePickingSection,
         new Button("Add") {
           onAction = { e: ActionEvent =>
             val title: String = list.value.value
@@ -177,8 +197,8 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     }
 
     val pane = new ScrollPane {
-      prefHeight = 100
-      prefWidth = 600
+      prefHeight = 130
+      prefWidth = 500
       content = form
     }
     pane
@@ -201,8 +221,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
         },
         new Button("Add new one") {
           onAction = addBook _
-        },
-        new Button("Weekly planner")
+        }
       )
     }
 

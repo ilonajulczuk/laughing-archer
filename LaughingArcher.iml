@@ -375,6 +375,17 @@
     </orderEntry>
     <orderEntry type="library" name="scala-compiler" level="project" />
     <orderEntry type="library" name="scala-library" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/studia/semestr4/Java/resources/schudt-javafx-datepicker-0.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/studia/semestr4/Java/resources/schudt-javafx-datepicker-0.0.2.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
 
