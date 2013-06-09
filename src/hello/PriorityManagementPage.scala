@@ -21,6 +21,16 @@ import javafx.beans.property.{SimpleStringProperty}
  */
 
 class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, model: AppModel) extends ScrollPane {
+
+  dialogStage.onCloseRequest.value = defaultClosing _
+
+  def defaultClosing(e: ActionEvent) {
+    //suppraisingly it doesn't fire
+    model.updateNextToRead()
+    model.updateAllToRead()
+    println("Priority mangement is closing...")
+  }
+
   val mainBox = new VBox {
     spacing = 10
     padding = Insets(20, 10, 10, 20)

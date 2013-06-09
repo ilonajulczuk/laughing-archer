@@ -10,6 +10,8 @@ import scalafx.beans.property.StringProperty
 import scalafx.stage.Stage
 import scalafx.scene.Node
 import domain.Book
+import scalafx.event.ActionEvent
+import javafx.scene.control.Dialogs
 
 
 class TableOfBooksView(model: AppModel, stage: Stage) {
@@ -52,15 +54,17 @@ class TableOfBooksView(model: AppModel, stage: Stage) {
       new StringProperty(this, "Category", param.getValue.category.category)
   })
 
-  def createManagementPage(book: Book, dialogStage: Stage): Node = {
-    new BookManagementPage(book, dialogStage, model)
+  def createChangePage(book: Book, dialogStage: Stage): Node = {
+    new BookChangePage(book, dialogStage, model)
   }
 
-  def showBookManagement(book: Book) {
+  def showBookChangePage(book: Book) {
     val dialogStage = new Stage()
-    val page = createManagementPage(book, dialogStage)
-    StageUtil.showPageInWindow(page, "Book Management", dialogStage)
+    val page = createChangePage(book, dialogStage)
+    StageUtil.showPageInWindow(page, "Change your book", dialogStage)
   }
+
+
 
   val table = new TableView[Book](model.books) {
     delegate.getColumns.addAll(
@@ -70,10 +74,50 @@ class TableOfBooksView(model: AppModel, stage: Stage) {
       pathColumn.delegate,
       categoryColumn.delegate
     )
-  }
-  table.getSelectionModel.selectedItemProperty.onChange(
-    (_, _, newValue) => {
-      showBookManagement(newValue)
+
+    val bookOptions = new ContextMenu {
+      val change = new MenuItem("Change") {
+        onAction = {
+          e: ActionEvent =>  {
+            showBookChangePage(selectionModel.value.selectedItemProperty().value)
+          }
+        }
+      }
+
+      val remove = new MenuItem("Remove") {
+        onAction = {
+          e: ActionEvent =>  {
+
+            val dialogResponse = Dialogs.showConfirmDialog(new Stage,
+              "Remove a book",
+              "Are you sure, that you want to remove this book?", "Remove confirmation")
+            if (dialogResponse == Dialogs.DialogResponse.YES) {
+              val book = selectionModel.value.selectedItemProperty().value
+              model.db.removeBook(book)
+              model.books.remove(book)
+              model.updateNamesOfAuthors()
+              Dialogs.showInformationDialog(new Stage, "Book was removed", "Removal complete", "Book removal info")
+            }
+
+          }
+        }
+      }
+
+      val moreInfo =  new MenuItem("More info") {
+        onAction = {
+          e: ActionEvent =>  {
+            println("More info isn't available yet")
+          }
+        }
+      }
+
+      items ++= List(
+        remove,
+        change,
+        moreInfo
+      )
     }
-  )
+    contextMenu = bookOptions
+
+  }
 }

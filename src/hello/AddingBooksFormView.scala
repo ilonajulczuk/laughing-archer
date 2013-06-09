@@ -12,7 +12,7 @@ import scalafx.Includes._
 
 import scalafx.scene.control._
 import scalafx.stage.Stage
-import domain.{Book, Author, Category, Tag}
+import domain.{Book, Author, Category}
 
 
 class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPane {

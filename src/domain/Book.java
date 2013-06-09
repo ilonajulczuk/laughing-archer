@@ -1,13 +1,12 @@
 
 package domain;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.ArrayList;
 
 
 public class Book {
-    String title;
+    public String title;
     Author author;
     public Integer id = -1;
     Date timestamp;

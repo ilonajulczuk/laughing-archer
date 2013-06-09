@@ -1,7 +1,6 @@
 package hello
 
 import scalafx.scene.layout.{HBox, TilePane, VBox}
-
 import scalafx.stage.Stage
 import scalafx.scene.control._
 import scalafx.scene.Node
@@ -9,8 +8,6 @@ import scalafx.scene.text.Font
 import domain.{PrioritizedBook, Book}
 import javafx.scene.control.TableColumn.CellDataFeatures
 import scalafx.beans.property.StringProperty
-
-
 import javafx.{util => jfxu}
 import scalafx.Includes._
 import javafx.beans.{value => jfxbv}
@@ -25,16 +22,12 @@ import java.text.SimpleDateFormat
 
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
-
-
-    println(model.nextToRead)
+  println(model.nextToRead)
 
   def updateBuffer(buffer: ObservableBuffer[PrioritizedBook], newContent: List[PrioritizedBook]) {
     buffer ++= newContent.toSet -- buffer.toSet
     buffer --= buffer.toSet -- newContent.toSet
   }
-
-
 
   def updateListOfFreeBooksByRemovingAddedTitle(title: String) {
     model.busyBooks += title
@@ -108,18 +101,15 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     )
     table
   }
-  var counter: Int = 0
-  def addBook(e: ActionEvent) {
 
+  def addBook(e: ActionEvent) {
     val showingStage = new Stage
     StageUtil.showPageInWindow(addingBookPage(showingStage), "Add book", stage, showingStage)
-
     println(model.nextToRead)
   }
 
   def allBookPage() = {
     model.updateAllToRead()
-
     val table = createPriorityBookTable(model.allToRead, 725)
     val pane = new ScrollPane {
       prefHeight = 480
@@ -131,7 +121,6 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
   def addingBookPage(stage: Stage) = {
     val form = new VBox() {
-
       padding = Insets(20, 10, 10, 20)
       spacing = 10
       val list = new ChoiceBox[String] {
