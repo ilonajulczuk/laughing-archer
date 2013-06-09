@@ -6,18 +6,18 @@ import scalafx.stage.Stage
 import scalafx.scene.control._
 import scalafx.scene.Node
 import scalafx.scene.text.Font
-import domain.{Author, PrioritizedBook, BookOrganizer, Book}
+import domain.{PrioritizedBook, Book}
 import javafx.scene.control.TableColumn.CellDataFeatures
 import scalafx.beans.property.StringProperty
 
 
 import javafx.{util => jfxu}
 import scalafx.Includes._
-import javafx.beans.{value => jfxbv, Observable, InvalidationListener}
+import javafx.beans.{value => jfxbv}
 import scalafx.collections.{ObservableBuffer}
 import scalafx.geometry.{Pos, Insets}
 import scalafx.event.ActionEvent
-import java.util.{ Locale, Date}
+import java.util.{ Date}
 import javafx.scene.control.Dialogs
 import org.joda.time.DateTime
 import java.text.SimpleDateFormat

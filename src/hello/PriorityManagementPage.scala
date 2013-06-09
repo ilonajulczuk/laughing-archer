@@ -11,7 +11,7 @@ import javafx.scene.control.Dialogs
 import scalafx.scene.control._
 
 import scalafx.Includes._
-import javafx.beans.property.{SimpleStringProperty, SimpleDoubleProperty}
+import javafx.beans.property.{SimpleStringProperty}
 
 /**
  * Created with IntelliJ IDEA.
