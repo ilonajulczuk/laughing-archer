@@ -19,6 +19,8 @@ import scalafx.geometry.{Pos, Insets}
 import scalafx.event.ActionEvent
 import java.util.{ Locale, Date}
 import javafx.scene.control.Dialogs
+import org.joda.time.DateTime
+import java.text.SimpleDateFormat
 
 
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
@@ -57,12 +59,14 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
         new StringProperty(this, "Priority", param.getValue.priority.toString)
     })
 
+    val dateFormat = new SimpleDateFormat("dd/MM/yyyy")
+
     val deadlineColumn = new TableColumn[PrioritizedBook, String]("Deadline") {
       prefWidth = 180
     }
     deadlineColumn.setCellValueFactory(new jfxu.Callback[CellDataFeatures[PrioritizedBook, String], jfxbv.ObservableValue[String]] {
       def call(param: CellDataFeatures[PrioritizedBook, String]) =
-        new StringProperty(this, "Deadline", param.getValue.deadline.toString)
+        new StringProperty(this, "Deadline", dateFormat.format(param.getValue.deadline))
     })
 
     val progressColumn = new TableColumn[PrioritizedBook, String]("Progress") {
@@ -139,17 +143,32 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
       }
       priority.selectionModel.value.selectFirst()
 
+      def createDateBasedOnDescription(description: String):Date = {
+        val today: DateTime = new DateTime()
+        println("Description is: " + description)
+        val result = description match {
+          case "today" =>  today
+          case "tomorrow" => today.plusDays(1)
+          case "next five days" => today.plusDays(5)
+          case "next week" => today.plusWeeks(1)
+          case "month from now" => today.plusMonths(1)
+          case "year from now" => today.plusYears(1)
+          case "far future" => today.plusYears(20)
+        }
+        result.toDate
+      }
 
       val datePickingSection = new HBox {
         spacing = 10
+        val dateChoiceBox = new ChoiceBox[String] {
+          items = ObservableBuffer("today", "tomorrow", "next five days", "next week", "month from now",
+            "year from now", "far future" )
+          selectionModel.value.selectFirst()
+        }
 
         content = List[Node](
           new Label("Deadline:"),
-          new ChoiceBox[String] {
-            items = ObservableBuffer("today", "tomorrow", "next five days", "next week", "month from now",
-            "year from now", "none" )
-            selectionModel.value.selectFirst()
-          }
+          dateChoiceBox
         )
       }
       content = List(
@@ -177,7 +196,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
                   "Book not added")
               }
               else {
-                val deadline = new Date()
+                val deadline = createDateBasedOnDescription(datePickingSection.dateChoiceBox.value.value)
                 val bookFromDB: Book = model.db.findBook(title)
                 val prioritizedBook = new PrioritizedBook(bookFromDB, _priority, deadline)
 

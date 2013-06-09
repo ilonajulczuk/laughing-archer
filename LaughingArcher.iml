@@ -283,33 +283,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="joda-time-2.2-sources.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/studia/semestr4/Java/resources/joda-time-2.2/joda-time-2.2-sources.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="joda-time-2.2-javadoc.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/studia/semestr4/Java/resources/joda-time-2.2/joda-time-2.2-javadoc.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="joda-time-2.2.jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/studia/semestr4/Java/resources/joda-time-2.2/joda-time-2.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module-library">
       <library name="guava-14.0.1.jar">
         <CLASSES>
@@ -378,12 +351,10 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/studia/semestr4/Java/resources/schudt-javafx-datepicker-0.0.2.jar!/" />
+          <root url="jar://$USER_HOME$/libraries/joda-time-1.6.2/joda-time-1.6.2.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/studia/semestr4/Java/resources/schudt-javafx-datepicker-0.0.2.jar!/" />
-        </SOURCES>
+        <SOURCES />
       </library>
     </orderEntry>
   </component>

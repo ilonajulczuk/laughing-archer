@@ -1,6 +1,6 @@
 package db
 
-import java.sql.{Connection, DriverManager, ResultSet, SQLException}
+import java.sql.{Timestamp, DriverManager, ResultSet, SQLException}
 import scala.collection.JavaConversions._
 
 import domain._
@@ -338,14 +338,11 @@ class DBHandler(dbFile: String) {
     }
     stat.setInt(1, bookID)
     stat.setInt(2, prioritizedBook.priority)
-    stat.setString(3, prioritizedBook.deadline.toString)
+    stat.setTimestamp(3, new Timestamp(prioritizedBook.deadline.getTime()))
     stat.executeUpdate()
     connection.close()
   }
 
-  def convertStringToDate(dateString: String) = {
-    new Date()
-  }
 
   def getPrioritizedBooks() = {
 
@@ -357,8 +354,8 @@ class DBHandler(dbFile: String) {
       val title = rs.getString("title")
       val book = findBook(title)
       val priority = rs.getInt("priority")
-      val deadlineString = rs.getString("deadline")
-      val deadline = convertStringToDate(deadlineString)
+      val deadlineTimestamp = rs.getTimestamp("deadline")
+      val deadline = new Date(deadlineTimestamp.getTime())
       val priorityBook = new PrioritizedBook(book, priority, deadline)
       prioritizedBooks += priorityBook
     }
@@ -472,7 +469,7 @@ class DBHandler(dbFile: String) {
           id integer primary key autoincrement,
           book_id integer,
           priority integer,
-          deadline string
+          deadline timestamp
         );
       """.stripMargin)
     connection.close()
