@@ -7,6 +7,10 @@ import domain._
 import scala.collection.mutable.ListBuffer
 import java.util.Date
 
+class BookNotFound extends Exception {
+}
+
+
 class DBHandler(dbFile: String) {
 
   val driver = "org.sqlite.JDBC"
@@ -18,8 +22,6 @@ class DBHandler(dbFile: String) {
   val tagStmt = new TagStatementBuilder()
   val prioritizedBookStmt = new PrioritizedBookStatementBuilder()
 
-  class BookNotFound extends Exception {
-  }
 
   def this() = {
     this("sample.db")
@@ -173,6 +175,7 @@ class DBHandler(dbFile: String) {
   def removeAuthor(author: Author) {
     val connection = prepareConnection()
     val books = findBooksByAuthor(author)
+    println("Books by author", books)
     val stat = authorStmt.removeAuthorStatement(connection)
     stat.setString(1, author.getName)
     stat.executeUpdate()
@@ -245,7 +248,7 @@ class DBHandler(dbFile: String) {
   def findBooksByAuthor(author: Author) = {
     val connection = prepareConnection()
     val stat = bookStmt.findBookByAuthorStatement(connection)
-    stat.setString(1, author.getName)
+    stat.setInt(1, author.id)
     val rs = stat.executeQuery()
     var books = List[Book]()
     while (rs.next()) {

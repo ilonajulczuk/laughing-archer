@@ -33,12 +33,14 @@ class BookStatementBuilder extends StatementBuilder {
 
   def findBookByCategoryStatement(connection: Connection) =
     prepareStatement(connection, "select b.title, a.name, b.path_to_content," +
-      " b.description, b.category,"
+      " b.description, b.category_id,"
       + " a.additional_info from books b left join authors a on"
       + " b.author_name = a.name where b.category=?")
 
   def findBookByAuthorStatement(connection: Connection) =
-    prepareStatement(connection, "select * from books where author_id=?")
+    prepareStatement(connection, "select b.title, a.name, b.path_to_content, " +
+      "b.description, b.category_id, a.additional_info from books b left join book_authors r" +
+      " on b.id = r.book_id left join authors a on r.author_id = a.id where a.id=?")
 
   def getAllBooksStatement(connection: Connection) =
     prepareStatement(connection, "select b.title, b.path_to_content," +
