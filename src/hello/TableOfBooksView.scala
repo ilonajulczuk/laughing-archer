@@ -61,7 +61,7 @@ class TableOfBooksView(model: AppModel, stage: Stage) {
   def showBookChangePage(book: Book) {
     val dialogStage = new Stage()
     val page = createChangePage(book, dialogStage)
-    StageUtil.showPageInWindow(page, "Change your book", dialogStage)
+    StageUtil.showPageInWindow(page, "Change your book", stage,  dialogStage)
   }
 
 

@@ -11,7 +11,7 @@ import domain.{Category, Author, Book}
 
 
 class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends ScrollPane {
-
+  //TODO make sure that changing affects priorityBooks
   val bookChangingForm = new VBox() {
     spacing = 10
     padding = Insets(10, 10, 10, 10)

@@ -23,6 +23,7 @@ import javafx.beans.property.{SimpleStringProperty}
 class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, model: AppModel) extends ScrollPane {
 
   dialogStage.onCloseRequest.value = defaultClosing _
+  //TODO postponing doesn't postpone yet
 
   def defaultClosing(e: ActionEvent) {
     //suppraisingly it doesn't fire
