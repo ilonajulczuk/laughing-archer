@@ -26,7 +26,7 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
   //TODO postponing doesn't postpone yet
 
   def defaultClosing(e: ActionEvent) {
-    //suppraisingly it doesn't fire
+    //to my surprise it doesn't fire
     model.updateNextToRead()
     model.updateAllToRead()
     println("Priority mangement is closing...")
@@ -168,7 +168,7 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
     )
   }
 
-  prefHeight = 200
-  prefWidth = 524
+  prefHeight = 220
+  prefWidth = 450
   content = mainBox
 }

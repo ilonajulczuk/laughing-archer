@@ -61,10 +61,14 @@ class TableOfBooksView(model: AppModel, stage: Stage) {
   def showBookChangePage(book: Book) {
     val dialogStage = new Stage()
     val page = createChangePage(book, dialogStage)
-    StageUtil.showPageInWindow(page, "Change your book", stage,  dialogStage)
+    StageUtil.showPageInWindow(page, "Change book %s".format(book.title), stage,  dialogStage)
   }
 
-
+  def showBookInfoPage(book: Book) {
+    val dialogStage = new Stage()
+    val page = new BookInfoPage(book, model, stage)
+    StageUtil.showPageInWindow(page, "Info about %s".format(book.title), stage,  dialogStage)
+  }
 
   val table = new TableView[Book](model.books) {
     delegate.getColumns.addAll(
@@ -106,7 +110,7 @@ class TableOfBooksView(model: AppModel, stage: Stage) {
       val moreInfo =  new MenuItem("More info") {
         onAction = {
           e: ActionEvent =>  {
-            println("More info isn't available yet")
+            showBookInfoPage(selectionModel.value.selectedItemProperty().value)
           }
         }
       }

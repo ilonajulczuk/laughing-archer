@@ -206,7 +206,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
     val pane = new ScrollPane {
       prefHeight = 130
-      prefWidth = 500
+      prefWidth = 400
       content = form
     }
     pane

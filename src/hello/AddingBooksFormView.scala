@@ -88,7 +88,7 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
         "Book added.", "Adding complete")
       model.updateBooks()
       model.updateNamesOfAuthors()
-      model.storeBookTextOnDisk(book.getTitle, book.category.category)
+      model.storeBookTextOnDisk(book)
     }
   }
 

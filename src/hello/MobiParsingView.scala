@@ -17,55 +17,7 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
   val dialogStage = new Stage
 
   def createAnalysisPage(): Node = {
-    val analyzer = new BookAnalyzer
-    val summaryText = analyzer.makeSummary(model.shortenBookText)
-
-    val summary = new TextArea {
-      text = summaryText
-      wrapText = true
-      editable = false
-    }
-
-    val analysis = new VBox {
-      padding = Insets(10)
-      spacing = 10
-      margin = Insets(10, 10, 10, 10)
-      content = List(
-        new Label("Results of analysis") {
-          font = new Font("Verdana", 20)
-        },
-        new Label("Summary") {
-          font = new Font("Verdana", 14)
-        },
-        summary,
-        new Label("Most common words") {
-          font = new Font("Verdana", 14)
-        },
-        new Label("Assosiated categories") {
-          font = new Font("Verdana", 14)
-        },
-        new Label() {
-          var maxTextSize = model.bookText.size
-          if (maxTextSize > 1000) {
-            maxTextSize = 1000
-          }
-          val winningCategory = CategoryClassifier.matchCategory(model.bookText.slice(0, maxTextSize))
-          text = winningCategory._1 + " with " + winningCategory._2 + "% match"
-        }
-      )
-    }
-
-    summary.prefHeight.bind(analysis.prefHeightProperty)
-    summary.prefWidth.bind(analysis.prefWidthProperty)
-    summary.prefColumnCount = 35
-    summary.prefRowCount = 35
-
-    new ScrollPane {
-      margin = Insets(10, 10, 10, 10)
-      prefWidth = 500
-      prefHeight = 580
-      content = analysis
-    }
+    new AnalysisPage(model.bookText, model.shortenBookText(model.bookText), stage)
   }
 
   def showBookAnalysis() {
@@ -167,7 +119,7 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
 
         metadataButton.visible = false
 
-        val analyzeButton = new Button("Analyze content")
+        val analyzeButton = new Button("Show content analysis")
         analyzeButton.onAction_=({
           (_: ActionEvent) =>
             showBookAnalysis()

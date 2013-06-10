@@ -12,6 +12,8 @@ import domain._
 import scala.collection.mutable.ListBuffer
 import db.DBHandler
 
+import com.google.common.io.Files
+import com.google.common.base.Charsets
 
 class AppModel {
   val db = new DBHandler("laughing.db")
@@ -180,7 +182,8 @@ class AppModel {
 
   val bookTextPreview = new SimpleStringProperty("No preview available")
 
-  def shortenBookText = {
+
+  def shortenBookText(bookText: String) = {
     val paragraphs = bookText.split("\n\n")
     val chosenParagraphs = (paragraphs slice (0, 20)) ++ (paragraphs slice (paragraphs.size - 50, paragraphs.size - 20))
     chosenParagraphs mkString "\n\n"
@@ -217,7 +220,10 @@ class AppModel {
       else shortened.substring(0, lastSpace) + "...\n"
   }
 
-  def storeBookTextOnDisk(title: String, category: String) {
+  def storeBookTextOnDisk(book: Book) {
+    val title = book.title
+    val authorName = book.getAuthor.name
+    val category = book.category.category
     if(bookText.nonEmpty) {
       val pathToCategory = libraryPath.value + "/" + category
       val directoryOfCategory: File = new File(pathToCategory)
@@ -225,11 +231,23 @@ class AppModel {
         directoryOfCategory.mkdirs()
       }
       val out = new BufferedWriter(new FileWriter(pathToCategory +
-        "/" + title + ".txt"))
+        "/" + title + '-' + authorName +  ".txt"))
       out.write(bookText)
       out.close()
     }
   }
+
+  def fetchBookText(book: Book) =  {
+    val title = book.title
+    val authorName = book.getAuthor.name
+    val category = book.category.category
+    val pathToCategory = libraryPath.value + "/" + category +
+      "/" + title + '-' + authorName +  ".txt"
+    val in =  new File(pathToCategory)
+    Files.toString(in, Charsets.US_ASCII)
+  }
+
+
   def getLibraryPath: String = {
     val prefs = Preferences.userNodeForPackage(classOf[AppModel])
     prefs.get("libraryPath", null)
