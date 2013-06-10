@@ -8,6 +8,10 @@ public class Tag {
         this.tag = tag;
     }
 
+    public Tag(Integer id, String tag) {
+        this.tag = tag;
+        this.id = id;
+    }
     @Override
     public String toString() {
         return "Tag{" +

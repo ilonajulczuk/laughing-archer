@@ -46,6 +46,20 @@ class DBHandler(dbFile: String) {
     connection.close()
   }
 
+  def getAllTags() = {
+    val connection = prepareConnection()
+    val stat = tagStmt.addTagStatement(connection)
+    val allTags = ListBuffer[Tag]()
+    val rs = stat.executeQuery()
+    if (rs.next()){
+      val id = rs.getInt("id")
+      val tagText = rs.getString("tag")
+      allTags += new Tag(id, tagText)
+    }
+    connection.close()
+    allTags.toList
+  }
+
   def findCategoryID(category: Category) = {
     val connection = prepareConnection()
     val stat = categoryStmt.findCategoryStatement(connection)
@@ -323,6 +337,7 @@ class DBHandler(dbFile: String) {
       addPrioritizedBook(book)
     }
   }
+
 
   def addPrioritizedBook(prioritizedBook: PrioritizedBook) {
     val connection = prepareConnection()

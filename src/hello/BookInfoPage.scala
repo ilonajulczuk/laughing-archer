@@ -3,7 +3,6 @@ package hello
 import domain.Book
 import scalafx.scene.control.{Button, Label, ScrollPane}
 import scalafx.scene.layout.{TilePane, VBox}
-
 import scalafx.geometry.Insets
 import scalafx.stage.Stage
 import scalafx.scene.text.Font
@@ -18,6 +17,7 @@ import scalafx.Includes._
  * Date: 6/10/13
  * Time: 11:02 AM
  */
+
 class BookInfoPage(book: Book, model: AppModel, stage: Stage) extends ScrollPane {
 
   val mainBox = new VBox {

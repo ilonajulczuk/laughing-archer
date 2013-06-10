@@ -7,11 +7,22 @@ import scalafx.event.ActionEvent
 import javafx.scene.control.Dialogs
 import scalafx.stage.Stage
 import scalafx.Includes._
-import domain.{Category, Author, Book}
+import domain.{Tag, Category, Author, Book}
 
+import scala.collection.JavaConversions._
+
+
+import scalafx.collections.ObservableBuffer
+import java.util
 
 class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends ScrollPane {
   //TODO make sure that changing affects priorityBooks
+
+  val bufferOfSelectedTags = ObservableBuffer(for( tag <- book.tags) yield tag.tag)
+  val allPossibleTagsForAdding =  ObservableBuffer(for(
+    tag <- model.db.getAllTags if !(bufferOfSelectedTags contains tag.tag) )
+  yield tag.tag)
+
   val bookChangingForm = new VBox() {
     spacing = 10
     padding = Insets(10, 10, 10, 10)
@@ -53,6 +64,40 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
       )
     }
 
+    val tagSection = new HBox {
+
+      val selectedTags = new Label {
+        text = book.tags.mkString(", ")
+      }
+
+      val addTagButton = new Button("Add tag") {
+        onAction = {
+          e: ActionEvent => {
+            val tag = newTagComboBox.value.value
+            bufferOfSelectedTags += tag
+            allPossibleTagsForAdding -= tag
+          }
+        }
+      }
+
+      val newTagComboBox = new ComboBox[String]() {
+        items = allPossibleTagsForAdding
+        prefWidth = 80
+      }
+      val removeTagButton = new Button("Remove tag") {
+        onAction = {
+          e: ActionEvent => {
+            val tag = newTagComboBox.value.value
+            bufferOfSelectedTags -= tag
+            allPossibleTagsForAdding += tag
+          }
+        }
+      }
+      val oldTagComboBox = new ComboBox[String]() {
+        prefWidth = 80
+        items = bufferOfSelectedTags
+      }
+    }
     val descriptionSection = new HBox {
       spacing = 10
       val descriptionEdit = new TextArea() {
@@ -87,6 +132,9 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
               val categoryDescription = categorySection.categoryEdit.value.value
               val changedBook = new Book(title, new Author(authorName), book.getPathToContent,
               description, new Category(categoryDescription))
+              val tags: util.ArrayList[Tag] = new util.ArrayList( for (tagText <- bufferOfSelectedTags)
+                yield new Tag(tagText))
+              changedBook.tags = tags
               model.books += changedBook
               model.db.addBook(book)
               model.updateNamesOfAuthors()
