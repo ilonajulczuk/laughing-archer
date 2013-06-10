@@ -64,10 +64,15 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
       )
     }
 
-    val tagSection = new HBox {
-
+    val tagSection = new VBox {
+      spacing = 10
       val selectedTags = new Label {
-        text = book.tags.mkString(", ")
+
+        text = bufferOfSelectedTags.mkString(", ")
+      }
+
+      def updateTagsLabel() {
+        selectedTags.text = bufferOfSelectedTags.mkString(", ")
       }
 
       val addTagButton = new Button("Add tag") {
@@ -76,28 +81,51 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
             val tag = newTagComboBox.value.value
             bufferOfSelectedTags += tag
             allPossibleTagsForAdding -= tag
+            updateTagsLabel()
           }
         }
       }
 
       val newTagComboBox = new ComboBox[String]() {
         items = allPossibleTagsForAdding
-        prefWidth = 80
+        editable = true
+        prefWidth = 100
       }
+
       val removeTagButton = new Button("Remove tag") {
         onAction = {
           e: ActionEvent => {
             val tag = newTagComboBox.value.value
             bufferOfSelectedTags -= tag
             allPossibleTagsForAdding += tag
+            updateTagsLabel()
           }
         }
       }
       val oldTagComboBox = new ComboBox[String]() {
-        prefWidth = 80
+        prefWidth = 100
         items = bufferOfSelectedTags
       }
+
+      content = List(
+        new HBox {
+          spacing = 10
+          content = List(
+        new Label("Tags: "),
+        selectedTags)
+          },
+      new HBox {
+        spacing = 10
+        content = List(
+        newTagComboBox,
+        addTagButton,
+        oldTagComboBox,
+        removeTagButton
+        )
+       }
+      )
     }
+
     val descriptionSection = new HBox {
       spacing = 10
       val descriptionEdit = new TextArea() {
@@ -131,12 +159,14 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
               val description: String = descriptionSection.descriptionEdit.text.value
               val categoryDescription = categorySection.categoryEdit.value.value
               val changedBook = new Book(title, new Author(authorName), book.getPathToContent,
-              description, new Category(categoryDescription))
+                description, new Category(categoryDescription))
               val tags: util.ArrayList[Tag] = new util.ArrayList( for (tagText <- bufferOfSelectedTags)
                 yield new Tag(tagText))
+              println("Tags before update: %s".format(tags))
               changedBook.tags = tags
               model.books += changedBook
-              model.db.addBook(book)
+              model.db.addBook(changedBook)
+
               model.updateNamesOfAuthors()
               Dialogs.showInformationDialog(dialogStage, "Book was updated", "Update complete", "Book update info")
             }
@@ -156,6 +186,7 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
       titleSection,
       authorSection,
       descriptionSection,
+      tagSection,
       categorySection,
       decisionButtons
 
@@ -164,7 +195,7 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
 
   margin = Insets(10, 10, 10, 10)
   prefWidth = 500
-  prefHeight = 280
+  prefHeight = 300
 
   content = bookChangingForm
 

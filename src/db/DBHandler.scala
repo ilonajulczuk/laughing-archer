@@ -48,7 +48,7 @@ class DBHandler(dbFile: String) {
 
   def getAllTags() = {
     val connection = prepareConnection()
-    val stat = tagStmt.addTagStatement(connection)
+    val stat = tagStmt.getAllTagsStatement(connection)
     val allTags = ListBuffer[Tag]()
     val rs = stat.executeQuery()
     if (rs.next()){
@@ -122,42 +122,50 @@ class DBHandler(dbFile: String) {
 
   def addBook(book: Book, authors: List[Author]) {
     val bookIDFromDB = findBookByTitleAndAuthor(book.getTitle(), authors.head.getName)
-    if (bookIDFromDB == -1) {
-      println("Already in db")
-      val connection = prepareConnection()
-      for (author <- authors) {
-        if (author.id == -1) {
-          addAuthor(author)
-        }
-      }
-      if (book.category.id == -1) {
-        addCategory(book.category)
-      }
-      for (tag: Tag <- book.tags.toList) {
-        if (tag.id == -1)
-          addTag(tag)
-      }
-      val stat = bookStmt.addBookStatement(connection)
-      stat.setString(1, book.getTitle)
-      stat.setString(2, book.getPathToContent)
-      stat.setString(3, book.description)
-      stat.setInt(4, book.category.id)
-      stat.executeUpdate()
-
-      val rs = stat.getGeneratedKeys()
-      if (rs.next()){
-        book.id =rs.getInt(1)
-      }
-
-      for(author <- authors) {
-        addBookAuthorRelation(book, author)
-      }
-
-      for(tag: Tag <- book.tags) {
-        addBookTagRelation(book, tag)
-      }
-      connection.close()
+    if (bookIDFromDB != -1) {
+      println("already in db")
+      removeBook(book)
     }
+
+    val connection = prepareConnection()
+    for (author <- authors) {
+      if (author.id == -1) {
+        addAuthor(author)
+      }
+    }
+    if (book.category.id == -1) {
+      addCategory(book.category)
+    }
+    println("Tags are: %s".format(book.tags))
+    for (tag: Tag <- book.tags.toList) {
+      println(tag)
+      if (tag.id == -1)  {
+        addTag(tag)
+        println("adding tag: %s...".format(tag.tag))
+      }
+
+    }
+    val stat = bookStmt.addBookStatement(connection)
+    stat.setString(1, book.getTitle)
+    stat.setString(2, book.getPathToContent)
+    stat.setString(3, book.description)
+    stat.setInt(4, book.category.id)
+    stat.executeUpdate()
+
+    val rs = stat.getGeneratedKeys()
+    if (rs.next()){
+      book.id =rs.getInt(1)
+    }
+
+    for(author <- authors) {
+      addBookAuthorRelation(book, author)
+    }
+
+    for(tag: Tag <- book.tags) {
+      addBookTagRelation(book, tag)
+    }
+    connection.close()
+
 
   }
 
