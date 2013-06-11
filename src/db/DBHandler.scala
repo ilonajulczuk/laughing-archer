@@ -171,7 +171,6 @@ class DBHandler(dbFile: String) {
   def addBook(book: Book, authors: List[Author]) {
     val bookIDFromDB = findBookByTitleAndAuthor(book.getTitle(), authors.head.getName)
     if (bookIDFromDB != -1) {
-      println("already in db")
       removeBook(bookIDFromDB)
     }
 
@@ -184,12 +183,9 @@ class DBHandler(dbFile: String) {
     if (book.category.id == -1) {
       addCategory(book.category)
     }
-    println("Tags are: %s".format(book.tags))
     for (tag: Tag <- book.tags.toList) {
-      println(tag)
       if (tag.id == -1)  {
         addTag(tag)
-        println("adding tag: %s...".format(tag.tag))
       }
 
     }
@@ -275,7 +271,6 @@ class DBHandler(dbFile: String) {
   def removeAuthor(author: Author) {
     val connection = prepareConnection()
     val books = findBooksByAuthor(author)
-    println("Books by author", books)
     val stat = authorStmt.removeAuthorStatement(connection)
     stat.setString(1, author.getName)
     stat.executeUpdate()
@@ -489,10 +484,8 @@ class DBHandler(dbFile: String) {
 
   def addAuthor(author: Author) {
     val connection = prepareConnection()
-    println(author.getName)
     val authorFromDB = findAuthor(author.getName)
     if (authorFromDB.getName == "Unknown") {
-      println("Author not found, adding.")
       val stat = authorStmt.addAuthorStatement(connection)
       stat.setString(1, author.getName)
       stat.setString(2, author.getAdditionalInfo)
@@ -502,12 +495,10 @@ class DBHandler(dbFile: String) {
       if (rs.next()){
         author.id = rs.getInt(1)
       }
-      println("Last row id")
 
     }
     else
       author.id = authorFromDB.id
-    println(author.id)
     connection.close()
   }
 

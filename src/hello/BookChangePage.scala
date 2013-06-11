@@ -16,10 +16,8 @@ import scalafx.collections.ObservableBuffer
 import java.util
 
 class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends ScrollPane {
-  //TODO make sure that changing affects priorityBooks
 
   val bufferOfSelectedTags = ObservableBuffer(for( tag <- book.tags) yield tag.tag)
-  println("All tags " +  model.db.getAllTags)
   val allPossibleTagsForAdding =  ObservableBuffer(for(
     tag <- model.db.getAllTags if !(bufferOfSelectedTags contains tag.tag) )
   yield tag.tag)
@@ -27,7 +25,6 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
   val bookChangingForm = new VBox() {
     spacing = 10
     padding = Insets(10, 10, 10, 10)
-
     val titleSection = new HBox {
       spacing = 10
       val titleEdit = new TextField() {
@@ -99,11 +96,11 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
             val tag = oldTagComboBox.value.value
             bufferOfSelectedTags -= tag
             allPossibleTagsForAdding += tag
-            println("Removing %s tag".format(tag))
             updateTagsLabel()
           }
         }
       }
+
       val oldTagComboBox = new ComboBox[String]() {
         prefWidth = 100
         items = bufferOfSelectedTags
@@ -113,18 +110,18 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
         new HBox {
           spacing = 10
           content = List(
-        new Label("Tags: "),
-        selectedTags)
-          },
-      new HBox {
-        spacing = 10
-        content = List(
-        newTagComboBox,
-        addTagButton,
-        oldTagComboBox,
-        removeTagButton
-        )
-       }
+            new Label("Tags: "),
+            selectedTags)
+        },
+        new HBox {
+          spacing = 10
+          content = List(
+            newTagComboBox,
+            addTagButton,
+            oldTagComboBox,
+            removeTagButton
+          )
+        }
       )
     }
 
@@ -141,7 +138,7 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
       }
       content = List(
         new Label("Description: "),
-       descriptionEdit
+        descriptionEdit
       )
     }
 
@@ -163,8 +160,7 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
               val changedBook = new Book(title, new Author(authorName), book.getPathToContent,
                 description, new Category(categoryDescription))
               val tags: util.ArrayList[Tag] = new util.ArrayList( for (tagText <- bufferOfSelectedTags)
-                yield new Tag(tagText))
-              println("Tags before update: %s".format(tags))
+              yield new Tag(tagText))
               changedBook.tags = tags
               model.books += changedBook
               model.db.addBook(changedBook)
@@ -176,6 +172,7 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
           }
         }
       }
+
       val cancelButton = new Button("Cancel") {
         onAction = {
           e: ActionEvent =>
@@ -184,6 +181,7 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
       }
       content = List(updateButton, cancelButton)
     }
+
     content = List(
       titleSection,
       authorSection,
@@ -191,14 +189,11 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
       tagSection,
       categorySection,
       decisionButtons
-
     )
   }
 
   margin = Insets(10, 10, 10, 10)
   prefWidth = 500
   prefHeight = 300
-
   content = bookChangingForm
-
 }

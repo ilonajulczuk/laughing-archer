@@ -84,7 +84,6 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
 
         def loadFile(e: ActionEvent) {
             try {
-              println("Choosing file")
               val pathToFile = chooseFile()
               if (pathToFile != "" &&
                 pathToFile.endsWith("mobi")
@@ -110,7 +109,7 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
                   "File has to be in mobi format", "Reading failure")
             }
             catch {
-              case e: NullPointerException => println("WTF, null pointer? Probably problem with file chooser")
+              case e: NullPointerException => println("Null pointer, Probably problem with file chooser")
             }
         }
 

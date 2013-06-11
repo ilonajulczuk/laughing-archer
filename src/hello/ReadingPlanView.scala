@@ -22,8 +22,6 @@ import java.text.SimpleDateFormat
 
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
-  println(model.nextToRead)
-
   def updateBuffer(buffer: ObservableBuffer[PrioritizedBook], newContent: List[PrioritizedBook]) {
     buffer ++= newContent.toSet -- buffer.toSet
     buffer --= buffer.toSet -- newContent.toSet
@@ -105,7 +103,6 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
   def addBook(e: ActionEvent) {
     val showingStage = new Stage
     StageUtil.showPageInWindow(addingBookPage(showingStage), "Add book", stage, showingStage)
-    println(model.nextToRead)
   }
 
   def allBookPage() = {
@@ -134,7 +131,6 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
       def createDateBasedOnDescription(description: String):Date = {
         val today: DateTime = new DateTime()
-        println("Description is: " + description)
         val result = description match {
           case "today" =>  today
           case "tomorrow" => today.plusDays(1)
@@ -195,7 +191,6 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
                 model.db.addPrioritizedBook(prioritizedBook)
 
                 stage.close
-                println("Updating next to read")
                 model.updateNextToRead()
               }
             }

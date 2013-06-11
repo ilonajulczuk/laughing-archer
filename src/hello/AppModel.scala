@@ -19,15 +19,14 @@ class AppModel {
   val db = new DBHandler("laughing.db")
   db.createTablesInDB()
 
-
   def replaceBufferContent[T](buffer: ObservableBuffer[T], newContent: List[T]) {
     buffer ++= newContent.toSet diff buffer.toSet
     buffer --= buffer.toSet diff newContent.toSet
   }
 
   def savePriorityBooksInDB() {
-     val booksToSave = organizer.getAll()
-     db.savePrioritizedBooks(booksToSave)
+    val booksToSave = organizer.getAll()
+    db.savePrioritizedBooks(booksToSave)
   }
 
   def loadPriorityBooksFromDB(): List[PrioritizedBook] = {
@@ -56,7 +55,6 @@ class AppModel {
         new Book("Calculus for dummies", author2, path, "Easy", Math),
         new Book("Worms", author3, path, "Bleh", Biology),
         new Book("Algebra for dummies", author1, path, "Easy", Math)
-
       )
     }
     db addBooks createLibrary()
@@ -147,7 +145,7 @@ class AppModel {
                                                                              categories.allNames()) yield category)
   var nextToRead: ObservableBuffer[PrioritizedBook] =
     ObservableBuffer[PrioritizedBook](for (book <-
-                                          organizer.getFirst(5)) yield book)
+                                           organizer.getFirst(5)) yield book)
 
   val allToRead = ObservableBuffer[PrioritizedBook](organizer.getAll())
 
@@ -164,7 +162,7 @@ class AppModel {
   }
 
   def removeFromReadingBuffers(priorityBook: PrioritizedBook) {
-     nextToRead -= priorityBook
+    nextToRead -= priorityBook
     allToRead -= priorityBook
   }
 

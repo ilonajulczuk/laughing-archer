@@ -5,7 +5,6 @@ import java.sql.Connection
 
 class BookStatementBuilder extends StatementBuilder {
 
-  //TODO checkout, if replacing really works as supposed to
   def addBookStatement(connection: Connection) =
     prepareStatement(connection, "insert into books(title," +
       " path_to_content, description, category_id) values( ?, ?, ?, ?)")
