@@ -6,6 +6,7 @@ import scala.collection.JavaConversions._
 import domain._
 import scala.collection.mutable.ListBuffer
 import java.util.Date
+import java.util
 
 class BookNotFound extends Exception {
 }
@@ -32,18 +33,65 @@ class DBHandler(dbFile: String) {
     DriverManager.getConnection("jdbc:sqlite:" + dbFile)
   }
 
-
-  def addTag(tag: Tag) {
+  def removeTag(tag: Tag) {
     val connection = prepareConnection()
-    val stat = tagStmt.addTagStatement(connection)
-    stat.setString(1, tag.tag)
+    val stat = tagStmt.removeTagStatement(connection)
+    stat.setInt(1, tag.id)
     stat.executeUpdate()
+    connection.close()
+  }
 
-    val rs = stat.getGeneratedKeys()
+  def findTag(tagText: String): Tag = {
+    val connection = prepareConnection()
+    val stat = tagStmt.findTagStatement(connection)
+    stat.setString(1, tagText)
+    val rs = stat.executeQuery()
+    val tag = new Tag(tagText)
     if (rs.next()){
       tag.id =rs.getInt(1)
     }
+    else {
+      tag.id = -1
+    }
     connection.close()
+    tag
+  }
+
+  def findAllTagsByBookId(bookId: Int): List[Tag] = {
+    val connection = prepareConnection()
+    val stat = tagStmt.findTagsByBookIdStatement(connection)
+    stat.setInt(1, bookId)
+    val rs = stat.executeQuery()
+    val tags = ListBuffer[Tag]()
+    while (rs.next()){
+      val tag = new Tag(rs.getString("tag"))
+      tag.id =rs.getInt(1)
+      tags += tag
+    }
+
+    connection.close()
+    tags.toList
+  }
+
+
+  def addTag(tag: Tag) {
+    val tagFromDB = findTag(tag.tag)
+    if(tagFromDB.id != -1) {
+      tag.id = tagFromDB.id
+    }
+    else {
+      val connection = prepareConnection()
+      val stat = tagStmt.addTagStatement(connection)
+      stat.setString(1, tag.tag)
+      stat.executeUpdate()
+
+      val rs = stat.getGeneratedKeys()
+      if (rs.next()){
+        tag.id =rs.getInt(1)
+      }
+      connection.close()
+    }
+
   }
 
   def getAllTags() = {
@@ -51,7 +99,7 @@ class DBHandler(dbFile: String) {
     val stat = tagStmt.getAllTagsStatement(connection)
     val allTags = ListBuffer[Tag]()
     val rs = stat.executeQuery()
-    if (rs.next()){
+    while (rs.next()){
       val id = rs.getInt("id")
       val tagText = rs.getString("tag")
       allTags += new Tag(id, tagText)
@@ -124,7 +172,7 @@ class DBHandler(dbFile: String) {
     val bookIDFromDB = findBookByTitleAndAuthor(book.getTitle(), authors.head.getName)
     if (bookIDFromDB != -1) {
       println("already in db")
-      removeBook(book)
+      removeBook(bookIDFromDB)
     }
 
     val connection = prepareConnection()
@@ -179,6 +227,21 @@ class DBHandler(dbFile: String) {
     connection.close()
   }
 
+  def removeBook(id: Int) {
+    val connection = prepareConnection()
+    val book = findBookById(id)
+
+    val author = book.getAuthor
+    removeBookAuthorRelation(book, author)
+    for(tag <- book.tags) {
+      removeBookTagRelation(book, tag)
+    }
+    val stat = bookStmt.removeBookStatement(connection)
+    stat.setInt(1, id)
+    stat.executeUpdate()
+    connection.close()
+  }
+
   def isAuthorWithoutBooks(author: Author) = {
     false
   }
@@ -191,6 +254,21 @@ class DBHandler(dbFile: String) {
     stat.executeUpdate()
     if (isAuthorWithoutBooks(author))
       removeAuthor(author)
+    connection.close()
+  }
+
+  def isTagWithoutBooks(tag: Tag) = {
+    false
+  }
+
+  def removeBookTagRelation(book: Book, tag: Tag) {
+    val connection = prepareConnection()
+    val stat = bookStmt.removeBookTagRelationStatement(connection)
+    stat.setInt(1, book.id)
+    stat.setInt(2, tag.id)
+    stat.executeUpdate()
+    if (isTagWithoutBooks(tag))
+      removeTag(tag)
     connection.close()
   }
 
@@ -233,6 +311,7 @@ class DBHandler(dbFile: String) {
   }
 
   def makeBookFromResultSet(rs: ResultSet): Book = {
+    val bookId = rs.getInt("id")
     val path = rs.getString("path_to_content")
     val title = rs.getString("title")
     val category_id = rs.getInt("category_id")
@@ -240,8 +319,13 @@ class DBHandler(dbFile: String) {
     val description = rs.getString("description")
     val author_name = rs.getString("name")
     val info_about_author = rs.getString("additional_info")
+    val tags = findAllTagsByBookId(bookId)
+
     val author = new Author(author_name, info_about_author)
-    new Book(title, author, path, description, category)
+    val book = new Book(title, author, path, description, category)
+    book.id = bookId
+    book.tags = new util.ArrayList(tags)
+    book
 
   }
 
@@ -249,6 +333,22 @@ class DBHandler(dbFile: String) {
     val name = rs.getString("name")
     val additionalInfo = rs.getString("additional_info")
     new Author(name, additionalInfo)
+  }
+
+  def findBookById(id: Int): Book = {
+    val connection = prepareConnection()
+    val stat = bookStmt.findBookByIdStatement(connection)
+    stat.setInt(1, id)
+    val rs = stat.executeQuery()
+    if(rs.next()) {
+      val book = makeBookFromResultSet(rs)
+      book.id = id
+      rs.close()
+      connection.close()
+      book
+    }
+    else
+      throw new BookNotFound()
   }
 
   def findBook(title: String): Book = {

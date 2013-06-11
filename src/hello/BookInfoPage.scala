@@ -47,7 +47,7 @@ class BookInfoPage(book: Book, model: AppModel, stage: Stage) extends ScrollPane
         text = "There aren't any tags associated with this book"
       }
       else {
-        text = book.tags.mkString(", ")
+        text = (for( tag <- book.tags) yield tag.tag)mkString(", ")
       }
     }
 

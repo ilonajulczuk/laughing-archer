@@ -19,6 +19,7 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
   //TODO make sure that changing affects priorityBooks
 
   val bufferOfSelectedTags = ObservableBuffer(for( tag <- book.tags) yield tag.tag)
+  println("All tags " +  model.db.getAllTags)
   val allPossibleTagsForAdding =  ObservableBuffer(for(
     tag <- model.db.getAllTags if !(bufferOfSelectedTags contains tag.tag) )
   yield tag.tag)
@@ -95,9 +96,10 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
       val removeTagButton = new Button("Remove tag") {
         onAction = {
           e: ActionEvent => {
-            val tag = newTagComboBox.value.value
+            val tag = oldTagComboBox.value.value
             bufferOfSelectedTags -= tag
             allPossibleTagsForAdding += tag
+            println("Removing %s tag".format(tag))
             updateTagsLabel()
           }
         }

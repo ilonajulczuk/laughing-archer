@@ -23,12 +23,14 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
   val dialogStage = new Stage()
   val authors = new ComboBox[String]() {
     items = model.namesOfAuthors
+    prefWidth = 220
     editable = true
   }
   authors.selectionModel.value.selectFirst()
 
   val categories =  new ComboBox[String]() {
     items = model.namesOfAllCategories
+    prefWidth = 220
     editable = true
   }
 

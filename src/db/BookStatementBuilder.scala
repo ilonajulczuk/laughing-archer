@@ -24,26 +24,34 @@ class BookStatementBuilder extends StatementBuilder {
   def removeBookAuthorRelationStatement(connection: Connection) =
     prepareStatement(connection, "delete from book_authors where book_id = ? and author_id = ?")
 
+  def removeBookTagRelationStatement(connection: Connection) =
+    prepareStatement(connection, "delete from book_tags where book_id = ? and tag_id = ?")
+
   def findBookStatement(connection: Connection) =
     prepareStatement(connection, "select b.id, b.title, a.name," +
       " b.path_to_content, b.description, b.category_id,"
       + " a.additional_info from books b left join book_authors r on"
       + " r.book_id = b.id left join authors a on r.author_id = a.id where b.title=?")
 
+  def findBookByIdStatement(connection: Connection) =
+    prepareStatement(connection, "select b.id, b.title, a.name," +
+      " b.path_to_content, b.description, b.category_id,"
+      + " a.additional_info from books b left join book_authors r on"
+      + " r.book_id = b.id left join authors a on r.author_id = a.id where b.id=?")
 
   def findBookByCategoryStatement(connection: Connection) =
-    prepareStatement(connection, "select b.title, a.name, b.path_to_content," +
+    prepareStatement(connection, "select b.id, b.title, a.name, b.path_to_content," +
       " b.description, b.category_id,"
       + " a.additional_info from books b left join authors a on"
       + " b.author_name = a.name where b.category=?")
 
   def findBookByAuthorStatement(connection: Connection) =
-    prepareStatement(connection, "select b.title, a.name, b.path_to_content, " +
+    prepareStatement(connection, "select b.id, b.title, a.name, b.path_to_content, " +
       "b.description, b.category_id, a.additional_info from books b left join book_authors r" +
       " on b.id = r.book_id left join authors a on r.author_id = a.id where a.id=?")
 
   def getAllBooksStatement(connection: Connection) =
-    prepareStatement(connection, "select b.title, b.path_to_content," +
+    prepareStatement(connection, "select b.id, b.title, b.path_to_content," +
       " b.category_id, b.description,"
       + " a.name, a.additional_info from books b left join book_authors r on"
       + " r.book_id = b.id left join authors a on a.id = r.author_id")
