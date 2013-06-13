@@ -1,7 +1,9 @@
 
 package analysis
 
-import scala.collection.mutable.DoubleLinkedList
+/**
+ * SummaryTool makes summary of the given text.
+ */
 
 class SummaryTool {
 

@@ -1,10 +1,13 @@
 package mobireader
 
 import org.jsoup.Jsoup
-import org.jsoup.nodes._
 
+/**
+ *
+ * @param html
+ */
 class MobiContentParser(html: String) {
-  val doc = Jsoup.parse(html);
+  val doc = Jsoup.parse(html)
   val body = doc.body()
   val bodyText = body.text()
   lazy val paragraphs = body.select("p")

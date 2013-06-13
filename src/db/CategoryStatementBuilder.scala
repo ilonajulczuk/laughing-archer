@@ -2,13 +2,12 @@ package db
 
 import java.sql.Connection
 
+
 /**
- * Created with IntelliJ IDEA.
- * User: att
- * Date: 6/7/13
- * Time: 10:33 AM
- * To change this template use File | Settings | File Templates.
+ *CategoryStatementBuilder builds sql statements for categories which are later used
+ * in DB handler. DB handler has an instance of CategoryStatementBuilder.
  */
+
 class CategoryStatementBuilder extends StatementBuilder {
 
   def addCategoryStatement(connection: Connection) =

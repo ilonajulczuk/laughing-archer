@@ -6,6 +6,13 @@ import org.jdom.input.SAXBuilder
 import java.util.zip.ZipFile
 import java.util.zip.ZipEntry
 
+/**
+ * OpenOfficeParser parses odt files.
+ * The most important part of this class
+ * is a method getText which takes name of a file
+ * and returns its text in regular asci.
+ */
+
 class OpenOfficeParser {
   var TextBuffer = new StringBuffer
 
@@ -40,7 +47,6 @@ class OpenOfficeParser {
             processElement(nonTextChild)
           }
         }
-
       }
       case _ => null
     }
@@ -49,7 +55,6 @@ class OpenOfficeParser {
   def getText(fileName: String) = {
     val zipFile = new ZipFile(fileName)
     val entries = zipFile.entries()
-
     var contentFound = false
     while (entries.hasMoreElements && !contentFound) {
       val entry: ZipEntry = entries.nextElement()
@@ -64,5 +69,4 @@ class OpenOfficeParser {
     }
     TextBuffer.toString
   }
-
 }

@@ -10,7 +10,7 @@ import mobireader.{MobiDescriptor, MobiContentParser, Mobi}
 import javafx.scene.control.Dialogs
 import scalafx.Includes._
 import scalafx.scene.Node
-import analysis.{CategoryClassifier, BookAnalyzer}
+import analysis.{CategoryClassifier, BookAnalyser}
 
 class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
 
@@ -115,9 +115,7 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
 
         val metadataButton = new Button("Show metadata")
         metadataButton.onAction = showMetadata _
-
         metadataButton.visible = false
-
         val analyzeButton = new Button("Show content analysis")
         analyzeButton.onAction_=({
           (_: ActionEvent) =>
@@ -132,8 +130,8 @@ class MobiParsingView(model: AppModel, stage: Stage) extends SplitPane{
           metadataButton,
           analyzeButton
         )
-
-      }  )
+      }
+    )
   }
 
   val body = new SplitPane {

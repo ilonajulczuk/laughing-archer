@@ -1,6 +1,6 @@
 package hello
 
-import analysis.{CategoryClassifier, BookAnalyzer}
+import analysis.{CategoryClassifier, BookAnalyser}
 import scalafx.scene.control.{ScrollPane, Label, TextArea}
 import scalafx.scene.layout.VBox
 import scalafx.geometry.Insets
@@ -15,7 +15,7 @@ import scalafx.stage.Stage
  */
 class AnalysisPage(bookText: String, shortenBookText: String, stage: Stage) extends ScrollPane {
 
-  val analyzer = new BookAnalyzer
+  val analyzer = new BookAnalyser
   val summaryText = analyzer.makeSummary(shortenBookText)
 
   val summary = new TextArea {

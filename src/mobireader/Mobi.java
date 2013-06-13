@@ -16,8 +16,20 @@ import java.util.ArrayList;
 
 import unzipping.CustomLZ77;
 
-
-public class Mobi {
+/**
+ * Mobi is used to parse
+ * content of the mobi file and fetch all metada from it.
+ *
+ * Mobi format is binary format which usually
+ * uses some kind of compression. The most popular one
+ * is LZ77. (Look at CustomLZ77 class)
+ *
+ * For parsing binary Mobi class uses Preon Library and classes which
+ * resemble actual headers in the mobi format.
+ *
+ *
+ */
+ public class Mobi {
     File file;
     public String contents;
     public Header header;
@@ -25,7 +37,6 @@ public class Mobi {
     public MobiHeader mobiHeader;
     EXTHHeader exthHeader;
     public HeadersUtil headers = new HeadersUtil();
-    public int numberOfRecords;
     ArrayList<RecordInfo> recordsInfo;
     int currentOffset = 0;
 
