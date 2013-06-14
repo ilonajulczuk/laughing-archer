@@ -20,6 +20,12 @@ import org.joda.time.DateTime
 import java.text.SimpleDateFormat
 
 
+/**
+ * ReadingPlanView shows list of prioritized books.
+ * It enables to add, change and view all prioritized books.
+ * @param model
+ * @param stage
+ */
 class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
   def updateBuffer(buffer: ObservableBuffer[PrioritizedBook], newContent: List[PrioritizedBook]) {
@@ -72,6 +78,12 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
       new PriorityManagementPage(book, dialogStage, model)
     }
 
+    /**
+     * Priority book management enables user to change
+     * properties of a prioritized book. It gets book,
+     * displays it's properties an enables to change them.
+     * @param book
+     */
     def showPriorityBookManagement(book: PrioritizedBook) {
       val dialogStage = new Stage()
       val page = createPriorityManagementPage(book, dialogStage)
@@ -91,10 +103,8 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     }
     table.getSelectionModel.selectedItemProperty.onChange(
       (_, oldValue, newValue) => {
-
         if(oldValue == null && newValue != null)
           showPriorityBookManagement(newValue)
-
       }
     )
     table
@@ -116,6 +126,14 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
     pane
   }
 
+  /**
+   * AddingBookPage is a method which returns a page for
+   * adding prioritized books. It can be shown later.
+   * The actual page consist of forms such as title,
+   * deadline and priority choice box.
+   * @param stage
+   * @return
+   */
   def addingBookPage(stage: Stage) = {
     val form = new VBox() {
       prefHeight = 120
@@ -152,7 +170,6 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
             "year from now", "far future" )
           selectionModel.value.selectFirst()
         }
-
         content = List[Node](
           new Label("Deadline:"),
           dateChoiceBox
@@ -167,8 +184,7 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
             new Label("Priority:"),
             priority
           )
-        }
-        ,
+        },
         datePickingSection,
         new Button("Add") {
           onAction = { e: ActionEvent =>
@@ -186,12 +202,10 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
                 val deadline = createDateBasedOnDescription(datePickingSection.dateChoiceBox.value.value)
                 val bookFromDB: Book = model.db.findBook(title)
                 val prioritizedBook = new PrioritizedBook(bookFromDB, _priority, deadline)
-
                 model.organizer.addBook(prioritizedBook)
                 model.updateNextToRead()
                 updateListOfFreeBooksByRemovingAddedTitle(title)
                 model.db.addPrioritizedBook(prioritizedBook)
-
                 stage.close
                 model.updateNextToRead()
               }
@@ -207,7 +221,6 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
       content = form
     }
     pane
-
   }
   val mainBox = new VBox {
     padding = Insets(20, 10, 10, 20)

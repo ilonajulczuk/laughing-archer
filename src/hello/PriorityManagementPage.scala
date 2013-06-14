@@ -14,33 +14,21 @@ import scalafx.Includes._
 import javafx.beans.property.{SimpleStringProperty}
 
 /**
- * Created with IntelliJ IDEA.
- * User: att
- * Date: 6/7/13
- * Time: 2:03 PM
+ * This page is used to manage priority book.
+ * Change it priority, label it as done or change deadline.
+ * @param priorityBook
+ * @param dialogStage
+ * @param model
  */
-
 class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, model: AppModel) extends ScrollPane {
-
-  dialogStage.onCloseRequest.value = defaultClosing _
-  //TODO postponing doesn't postpone yet
-
-  def defaultClosing(e: ActionEvent) {
-    //to my surprise it doesn't fire
-    model.updateNextToRead()
-    model.updateAllToRead()
-    println("Priority mangement is closing...")
-  }
 
   val mainBox = new VBox {
     spacing = 10
     padding = Insets(20, 10, 10, 20)
-
     val priorityLabel = new Label(priorityBook.priority.toString)
     val progressNumber = new SimpleStringProperty(priorityBook.progress.toString)
     val prioritySection = new HBox {
       spacing = 10
-
       content = List (
         new Label("Priority:"),
         priorityLabel,
@@ -51,7 +39,6 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
             val newValue: Int = min(oldValue + 1, 5).intValue()
             priorityLabel.text.value = newValue.toString
           }
-
           }
         },
         new Button("Decrease")  {
@@ -60,12 +47,10 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
             val newValue: Int = max(oldValue - 1, 0).intValue()
             priorityLabel.text.value = newValue.toString
           }
-
           }
         }
       )
     }
-
     val progressSection = new HBox {
       spacing = 10
       val progressLabel = new Label(priorityBook.progress.toString)
@@ -117,7 +102,6 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
           }
           prefWidth = 100
           minWidth = 100
-
         },
         new Button("Postpone") {
           onAction = {
@@ -130,18 +114,13 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
         new Button("Update") {
           onAction = {
             e: ActionEvent => {
-              println("Updating...")
               val newPriority = priorityLabel.text.value.toInt
               val newProgress = progressNumber.value.toDouble
-
               if (newProgress == 0.0)  {
                 println(newPriority, newProgress)
-
                 model.organizer.changeBookPriority(priorityBook, newPriority )
                 model.db.removePrioritizedBook(priorityBook)
-
                 priorityBook.priority = newPriority
-
                 model.updateNextToRead()
                 model.updateAllToRead()
                 model.db.addPrioritizedBook(priorityBook)

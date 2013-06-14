@@ -8,10 +8,13 @@ import scalafx.scene.text.Font
 import scalafx.stage.Stage
 
 /**
- * Created with IntelliJ IDEA.
- * User: att
- * Date: 6/10/13
- * Time: 10:35 AM
+ * AnalysisPage is shown to show analysis of
+ * the books text.
+ * It displays summary, most common words and category
+ * to which this text was associated with mach percentage.
+ * @param bookText - text of a book
+ * @param shortenBookText - shorter version of the one above. Used for making summary
+ * @param stage  - just an ordinary stage
  */
 class AnalysisPage(bookText: String, shortenBookText: String, stage: Stage) extends ScrollPane {
 

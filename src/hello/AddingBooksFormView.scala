@@ -9,15 +9,17 @@ import javafx.stage.FileChooser
 import scalafx.scene.control.ScrollPane.ScrollBarPolicy
 import scalafx.scene.text.Font
 import scalafx.Includes._
-
 import scalafx.scene.control._
 import scalafx.stage.Stage
 import domain.{Book, Author, Category}
 
-
+/**
+ * AddingBooksFormView is a form in which user adds book.
+ *
+ * @param model
+ * @param stage
+ */
 class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPane {
-
-
   var usingAlreadyAddedAuthor = false
   var usingAlreadyAddedCategory = false
   val dialogStage = new Stage()
@@ -39,7 +41,6 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
     promptText = "Title"
     text = ""
     prefColumnCount = 16
-
   }
 
   val addingBox = new VBox() {
@@ -67,7 +68,6 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
       new Button("Add") {
         onAction = addBook _
       }
-
     )
   }
 
