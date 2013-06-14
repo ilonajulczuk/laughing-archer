@@ -14,7 +14,9 @@ def decompress(data: Array[Byte]): String= {
       text += ord.toChar
     }
     else if (ord <= 8) {
-      text += byteData.slice(offset, offset + ord)
+      val raw = byteData.slice(offset, offset + ord)
+      val prepared = (for(byte <-raw) yield byte.toChar).mkString("")
+      text += prepared
       offset += ord
     }
     else if (ord <= 0x7f) {

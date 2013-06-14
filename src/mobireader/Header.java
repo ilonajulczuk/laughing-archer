@@ -11,11 +11,12 @@ import nl.flotsam.preon.annotation.BoundString;
 import java.util.Date;
 
 /**
- * @author att
+ * Class Header describes real binary header in mobi format.
+ * More info about h
+ * //http://wiki.mobileread.com/wiki/PDB#Palm_Database_Format
+ *"32shhIIIIII4s4sIIH" data specification in python struct format
  */
 public class Header {
-    //http://wiki.mobileread.com/wiki/PDB#Palm_Database_Format
-    //"32shhIIIIII4s4sIIH"
     public
     @BoundString(size = "32")
     String name;

@@ -161,11 +161,6 @@ import unzipping.CustomLZ77;
         }
     }
 
-    public byte[] readImageRecord(int imgnum) throws IOException {
-        long recordnum = mobiHeader.firstImageIndex + imgnum;
-        return readRawRecord((int) recordnum);
-    }
-
     public String readAllRecords() throws IOException {
         String all = "";
         long upperBound = palmdocHeader.recordCount;
@@ -175,5 +170,4 @@ import unzipping.CustomLZ77;
         }
         return all;
     }
-
 }
