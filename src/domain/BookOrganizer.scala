@@ -2,7 +2,13 @@ package domain
 
 import java.util.Date
 
-
+/**
+ * BookOrganizer manages priority books in application.
+ * It contains of BookQueue which is specialised queue for books.
+ * BookOrganizer has some specialised methods which can be used
+ * to access PrioritizedBooks from inner queue and to alter the
+ * items in this queue.
+ */
 class BookOrganizer {
   val q = new BookQueue
 

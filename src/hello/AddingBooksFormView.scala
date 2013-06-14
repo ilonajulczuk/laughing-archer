@@ -105,6 +105,14 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
     emptyFields
   }
 
+  /**
+   * Reaction to event, bound to choose file button.
+   * This method shows user a Dialog to choose file and
+   * checks if a chosen file is in right format. If it isn't
+   * it displays warning dialog with message that this format
+   * isn't supported.
+   * @param e
+   */
   def chooseBookFile(e: ActionEvent) {
     val fileChooser = new FileChooser()
     val result = fileChooser.showOpenDialog(dialogStage)
@@ -150,8 +158,8 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
       }
       previewText.prefHeight.bind(left.prefHeightProperty)
       previewText.prefWidth.bind(left.prefWidthProperty)
-      previewText.prefColumnCount = 28
-      previewText.prefRowCount = 30
+      previewText.prefColumnCount = 29
+      previewText.prefRowCount = 31
       previewText.text.bind(model.bookTextPreview)
       content = List(
         previewTitle,

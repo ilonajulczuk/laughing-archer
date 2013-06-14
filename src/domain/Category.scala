@@ -7,12 +7,12 @@ class CategoryTree() {
   override def toString(): String = {
     var description = "Root"
     description += root.namesOfSubcategories.mkString("\n")
-    //TODO design and implement toString in Category tree
     description
   }
 
   def allNames(): List[String] = {
-    root.namesOfSubcategories.toList ::: (for (subcatName <- root.namesOfSubcategories)
+    root.namesOfSubcategories.toList ::: (for (subcatName <-
+                                               root.namesOfSubcategories)
     yield getNamesOfAllSubNodes(root(subcatName))).toList.flatten
   }
 
@@ -86,14 +86,19 @@ class Category(override val value: String)
     }
   }
 
+  /**
+   * Easy access to inner elements - its actually same as in regular collections.
+   * @param subcatName
+   * @return
+   */
   def apply(subcatName: String) = subcategories(subcatName)
 
   def replace(fn: Node => Node): Node = {
     val newSelf = fn(this)
     if (this eq newSelf) {
       this
-
-    } else {
+    }
+    else {
       newSelf
     }
   }

@@ -15,11 +15,22 @@ import java.io.{FileWriter, FileReader}
  */
 object CategoryClassifier {
 
+  /**
+   * This method when given some text, returns the copy of
+   * the text without punctuation marks.
+   * @param text
+   * @return text without punctuation marks
+   */
   def removePunctuation(text: String) = {
     val punct = ",.?;:!\""
     text.toList.filterNot(char => punct contains char).mkString("")
   }
 
+  /**
+   * Removes punctuation, lowers case and removes list of all words
+   * @param text
+   * @return
+   */
   def getWordsFromRawText(text: String) = {
     removePunctuation(text).toLowerCase.split("\\s+").toList
   }

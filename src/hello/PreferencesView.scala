@@ -51,7 +51,7 @@ class PreferencesView(model: AppModel, stage: Stage) extends ScrollPane {
 
   content = new VBox {
     spacing = 10
-    margin = Insets(20, 10, 10, 20)
+    margin = Insets(20, 20, 20, 20)
     content = List(
       new HBox {
         spacing = 10

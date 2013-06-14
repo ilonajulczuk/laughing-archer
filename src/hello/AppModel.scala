@@ -15,10 +15,23 @@ import db.DBHandler
 import com.google.common.io.Files
 import com.google.common.base.Charsets
 
+/**
+ * AppModel links all of the view/pages classes which should be
+ * able to access same objects.
+ * It also has lots of useful methods.
+ */
 class AppModel {
   val db = new DBHandler("laughing.db")
   db.createTablesInDB()
 
+  /**
+   * Helper method which replaces content of a buffer not removing items
+   * which are in current version and should be in future version.
+   *
+   * @param buffer
+   * @param newContent
+   * @tparam T
+   */
   def replaceBufferContent[T](buffer: ObservableBuffer[T], newContent: List[T]) {
     buffer ++= newContent.toSet diff buffer.toSet
     buffer --= buffer.toSet diff newContent.toSet
@@ -113,7 +126,10 @@ class AppModel {
     names
   }
 
-  //Updates authors in model. Check if any authors should be removed or added compared to DB
+  /**
+  * Updates authors in model. Check if any authors should be removed or added compared to DB
+  *
+  **/
   def updateNamesOfAuthors() {
     val authorsNamesFromDB = for (author <- db.getAllAuthors()) yield author.getName
     replaceBufferContent(observableList2ObservableBuffer(namesOfAuthors), authorsNamesFromDB)
