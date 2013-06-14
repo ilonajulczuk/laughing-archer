@@ -47,7 +47,7 @@ object CategoryClassifier {
    * @param normalVocabulary  - list of words we want to exclude when counting
    * @return list of words sorted on how many times they occur
    */
-  def rankWords(words: List[String], normalVocabulary: Set[String]) = {
+  def rankWords(words: List[String], normalVocabulary: Set[String] = commonNormalVoc) = {
     val wordOccurences = new HashMap[String, Int]()
     for (word <- words if !(normalVocabulary contains word)) {
       if (wordOccurences contains word) {

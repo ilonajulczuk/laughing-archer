@@ -15,8 +15,8 @@ import scalafx.stage.Stage
  */
 class AnalysisPage(bookText: String, shortenBookText: String, stage: Stage) extends ScrollPane {
 
-  val analyzer = new BookAnalyser
-  val summaryText = analyzer.makeSummary(shortenBookText)
+  val analyser = new BookAnalyser
+  val summaryText = analyser.makeSummary(shortenBookText)
 
   val summary = new TextArea {
     text = summaryText
@@ -39,6 +39,9 @@ class AnalysisPage(bookText: String, shortenBookText: String, stage: Stage) exte
       new Label("Most common words") {
         font = new Font("Verdana", 14)
       },
+      new Label() {
+        text = analyser.mostCommonWords(bookText).slice(0, 5).mkString(", ")
+      },
       new Label("Associated categories") {
         font = new Font("Verdana", 14)
       },
@@ -48,7 +51,7 @@ class AnalysisPage(bookText: String, shortenBookText: String, stage: Stage) exte
           maxTextSize = 1000
         }
         val winningCategory = CategoryClassifier.matchCategory(bookText.slice(0, maxTextSize))
-        text = "%s, with %1.0f percent match?".format(winningCategory._1, winningCategory._2)
+        text = "%s, with %1.0f percent match".format(winningCategory._1, winningCategory._2)
       }
     )
   }

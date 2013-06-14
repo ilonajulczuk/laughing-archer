@@ -12,4 +12,10 @@ class BookAnalyser {
     val sentencesMap = summaryTool.getSentecesRanks(text)
     summaryTool.getSummary(text, sentencesMap)
   }
+
+  def mostCommonWords(text: String) = {
+    val words = CategoryClassifier.getWordsFromRawText(text)
+    (for (wordTuple <- CategoryClassifier.rankWords(words).slice(0, 20)
+         if wordTuple._1.size > 1 && ! wordTuple._1.contains("=") ) yield wordTuple._1).toList
+  }
 }

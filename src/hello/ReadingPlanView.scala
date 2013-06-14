@@ -118,6 +118,8 @@ class ReadingPlanView(model: AppModel, stage: Stage) extends ScrollPane {
 
   def addingBookPage(stage: Stage) = {
     val form = new VBox() {
+      prefHeight = 120
+      prefWidth = 390
       padding = Insets(20, 10, 10, 20)
       spacing = 10
       val list = new ChoiceBox[String] {
