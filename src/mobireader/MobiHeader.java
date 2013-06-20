@@ -11,7 +11,8 @@ import nl.flotsam.preon.annotation.BoundString;
 import nl.flotsam.preon.buffer.ByteOrder;
 
 /**
- * @author att
+ * Describes mobi header, more information on:
+ * http://wiki.mobileread.com/wiki/MOBI
  */
 public class MobiHeader {
     //headerfmt = '> IIII II 40s III IIIII IIII I 36s IIII 8s HHIIIII'

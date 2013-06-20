@@ -9,7 +9,8 @@ import nl.flotsam.preon.annotation.BoundNumber;
 import nl.flotsam.preon.buffer.ByteOrder;
 
 /**
- * @author att
+ * Describes palmdoc header, more information on:
+ * http://wiki.mobileread.com/wiki/MOBI
  */
 public class PalmDocHeader {
     //headerfmt = '>HHIHHHH'

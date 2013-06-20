@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * Class Header describes real binary header in mobi format.
- * More info about h
+ * More info about header:
  * //http://wiki.mobileread.com/wiki/PDB#Palm_Database_Format
  *"32shhIIIIII4s4sIIH" data specification in python struct format
  */

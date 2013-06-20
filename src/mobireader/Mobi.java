@@ -27,7 +27,8 @@ import unzipping.CustomLZ77;
  * For parsing binary Mobi class uses Preon Library and classes which
  * resemble actual headers in the mobi format.
  *
- *
+ * More information about mobi is here:
+ * http://wiki.mobileread.com/wiki/MOBI
  */
  public class Mobi {
     File file;

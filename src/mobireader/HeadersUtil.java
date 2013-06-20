@@ -1,5 +1,9 @@
 package mobireader;
 
+/**
+ * Class HeadersUtil stores formats of particular headers and
+ * their sizes.
+ */
 public class HeadersUtil {
 
     String headerFormat = "32shhIIIIII4s4sIIH";
@@ -11,6 +15,11 @@ public class HeadersUtil {
     String exthHeaderFormat = "III";
     public int exthHeaderSize = calcsize(exthHeaderFormat);
 
+    /**
+     * Computes size in bytes of given format string.
+     * @param headerFormat
+     * @return
+     */
     public int calcsize(String headerFormat) {
         int size = 0;
         boolean is_number = false;

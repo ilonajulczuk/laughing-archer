@@ -8,7 +8,8 @@ import nl.flotsam.preon.annotation.BoundNumber;
 import nl.flotsam.preon.buffer.ByteOrder;
 
 /**
- * @author att
+ * Describes exth header, more information on:
+ * http://wiki.mobileread.com/wiki/MOBI
  */
 public class EXTHHeader {
     //headerfmt = '>III'
