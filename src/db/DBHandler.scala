@@ -288,6 +288,14 @@ class DBHandler(dbFile: String) {
     connection.close()
   }
 
+  def removePrioritizedBook(id: Int) {
+    val connection = prepareConnection()
+    val stat = prioritizedBookStmt.removePrioritizedBook(connection)
+    stat.setInt(1, id)
+    stat.executeUpdate()
+    connection.close()
+  }
+
   def getCategoryByID(categoryID: Int) = {
 
     val connection = prepareConnection()
@@ -463,19 +471,27 @@ class DBHandler(dbFile: String) {
 
 
   def getPrioritizedBooks() = {
-
     val connection = prepareConnection()
     val stat = prioritizedBookStmt.getAllPrioritizedBooks(connection)
     val rs = stat.executeQuery()
     var prioritizedBooks = ListBuffer[PrioritizedBook]()
     while (rs.next()) {
-      val title = rs.getString("title")
-      val book = findBook(title)
-      val priority = rs.getInt("priority")
-      val deadlineTimestamp = rs.getTimestamp("deadline")
-      val deadline = new Date(deadlineTimestamp.getTime())
-      val priorityBook = new PrioritizedBook(book, priority, deadline)
-      prioritizedBooks += priorityBook
+
+      try {
+        val title = rs.getString("title")
+        val book = findBook(title)
+        val priority = rs.getInt("priority")
+        val deadlineTimestamp = rs.getTimestamp("deadline")
+        val deadline = new Date(deadlineTimestamp.getTime())
+        val priorityBook = new PrioritizedBook(book, priority, deadline)
+        prioritizedBooks += priorityBook
+      }
+      catch {
+        case e: BookNotFound => {
+          val prioritizedBookId = rs.getInt("id")
+          removePrioritizedBook(prioritizedBookId)
+        }
+      }
     }
     rs.close()
     connection.close()
@@ -534,6 +550,7 @@ class DBHandler(dbFile: String) {
   def createTablesInDB() {
     val connection = prepareConnection()
     val stat = connection.createStatement()
+
     stat.executeUpdate(
       """
         create table if not exists books

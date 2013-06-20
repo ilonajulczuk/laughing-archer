@@ -164,7 +164,6 @@ import unzipping.CustomLZ77;
     public String readAllRecords() throws IOException {
         String all = "";
         long upperBound = palmdocHeader.recordCount;
-        System.out.println("The biggest record is: " + upperBound);
         for (int i = 1; i <= upperBound; i++) {
             all += readRecord(i, false);
         }

@@ -12,6 +12,7 @@ import scalafx.scene.control._
 
 import scalafx.Includes._
 import javafx.beans.property.{SimpleStringProperty}
+import db.BookNotFound
 
 /**
  * This page is used to manage priority book.
@@ -25,6 +26,8 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
   val mainBox = new VBox {
     spacing = 10
     padding = Insets(20, 10, 10, 20)
+    prefHeight = 210
+    prefWidth = 440
     val priorityLabel = new Label(priorityBook.priority.toString)
     val progressNumber = new SimpleStringProperty(priorityBook.progress.toString)
     val prioritySection = new HBox {
@@ -93,7 +96,12 @@ class PriorityManagementPage(priorityBook: PrioritizedBook, dialogStage: Stage, 
                 priorityBook.title + " from your tasks?", "Delete task", "Deleting task")
               if(confirmation == Dialogs.DialogResponse.YES) {
                 println("Removing book")
-                removeBook(priorityBook)
+                try {
+                  removeBook(priorityBook)
+                }
+                catch {
+                  case e: BookNotFound => println("You already deleted this book.")
+                }
                 dialogStage.close
                 Dialogs.showInformationDialog(dialogStage, "Book has been deleted", "Book deleted",
                   "Task to read this book was removed")

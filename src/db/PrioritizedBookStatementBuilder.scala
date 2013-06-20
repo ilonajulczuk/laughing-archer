@@ -18,7 +18,7 @@ import java.sql.Connection
 class PrioritizedBookStatementBuilder extends StatementBuilder {
 
   def getAllPrioritizedBooks(connection: Connection) =
-    prepareStatement(connection, "select p.priority, p.deadline, b.title from priority_books p left join books b on" +
+    prepareStatement(connection, "select p.id, p.priority, p.deadline, b.title from priority_books p left join books b on" +
       " p.book_id = b.id ")
 
   def addPrioritizedBook(connection: Connection) =

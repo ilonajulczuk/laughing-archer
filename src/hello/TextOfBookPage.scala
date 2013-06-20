@@ -18,13 +18,13 @@ class TextOfBookPage(textToShow: String) extends ScrollPane {
   val mainBox = new VBox {
     content = bookText
     prefHeight = 590
-    prefWidth = 442
+    prefWidth = 482
   }
 
   bookText.prefHeight.bind(mainBox.prefHeightProperty)
   bookText.prefWidth.bind(mainBox.prefWidthProperty)
 
   prefHeight = 600
-  prefWidth = 450
+  prefWidth = 490
   content = mainBox
 }

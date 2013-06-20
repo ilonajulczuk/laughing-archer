@@ -244,10 +244,9 @@ class AppModel {
       if (!directoryOfCategory.exists()){
         directoryOfCategory.mkdirs()
       }
-      val out = new BufferedWriter(new FileWriter(pathToCategory +
-        "/" + title + '-' + authorName +  ".txt"))
-      out.write(bookText)
-      out.close()
+      val output = new File(pathToCategory +
+        "/" + title + '-' + authorName +  ".txt")
+      Files.write(bookText, output, Charsets.UTF_16)
     }
   }
 
@@ -258,7 +257,7 @@ class AppModel {
     val pathToCategory = libraryPath.value + "/" + category +
       "/" + title + '-' + authorName +  ".txt"
     val in =  new File(pathToCategory)
-    Files.toString(in, Charsets.US_ASCII)
+    Files.toString(in, Charsets.UTF_16)
   }
 
 

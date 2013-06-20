@@ -34,7 +34,7 @@ object BigApp extends JFXApp {
           closable = false
         },
         new Tab {
-          text = "Parse a mobi"
+          text = "Parse mobi"
           content = createMobiParsingView()
           closable = false
         },

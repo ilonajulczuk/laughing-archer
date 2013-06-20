@@ -66,6 +66,6 @@ class AnalysisPage(bookText: String, shortenBookText: String, stage: Stage) exte
 
   margin = Insets(10, 10, 10, 10)
   prefWidth = 500
-  prefHeight = 580
+  prefHeight = 550
   content = analysis
 }
