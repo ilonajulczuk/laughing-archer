@@ -21,7 +21,7 @@ import com.google.common.base.Charsets
  * It also has lots of useful methods.
  */
 class AppModel {
-  val db = new DBHandler("laughing.db")
+  val db = new DBHandler(getWorkspacePath + "/laughing.db")
   db.createTablesInDB()
 
   /**
@@ -82,13 +82,16 @@ class AppModel {
       path
   }
 
-  var libraryPath = new SimpleStringProperty("./library/")
-  var workspacePath = new SimpleStringProperty("./workspace/")
+  var libraryPath = new SimpleStringProperty(getLibraryPath)
+  if (libraryPath.value == null)
+    libraryPath = new SimpleStringProperty("./workspace/")
+
+  var workspacePath = new SimpleStringProperty(getWorkspacePath)
+  if (workspacePath.value == null)
+    workspacePath = new SimpleStringProperty("./workspace/")
 
   val bookInfoUtility = new BookInfoUtility
   var mobi: Mobi = null
-
-
 
   var myBooks = db.getAllBooks()
 
@@ -186,16 +189,14 @@ class AppModel {
     nextToRead += priorityBook
     allToRead += priorityBook
   }
-  def authors = db.getAllAuthors()
-  var namesOfAuthors = FXCollections.observableArrayList((for (author <- authors) yield author.getName):_*)
 
+  def authors = db.getAllAuthors()
+
+  var namesOfAuthors = FXCollections.observableArrayList((for (author <- authors) yield author.getName):_*)
   var filePath: String = ""
   var file: File = _
-
   var bookText = ""
-
   val bookTextPreview = new SimpleStringProperty("No preview available")
-
 
   def shortenBookText(bookText: String) = {
     val paragraphs = bookText.split("\n\n")
@@ -235,8 +236,6 @@ class AppModel {
   }
 
   def storeBookTextOnDisk(book: Book) {
-    val title = book.title
-    val authorName = book.getAuthor.name
     val category = book.category.category
     if(bookText.nonEmpty) {
       val pathToCategory = libraryPath.value + "/" + category
@@ -244,22 +243,15 @@ class AppModel {
       if (!directoryOfCategory.exists()){
         directoryOfCategory.mkdirs()
       }
-      val output = new File(pathToCategory +
-        "/" + title + '-' + authorName +  ".txt")
+      val output = new File(book.getPathToContent)
       Files.write(bookText, output, Charsets.UTF_16)
     }
   }
 
   def fetchBookText(book: Book) =  {
-    val title = book.title
-    val authorName = book.getAuthor.name
-    val category = book.category.category
-    val pathToCategory = libraryPath.value + "/" + category +
-      "/" + title + '-' + authorName +  ".txt"
-    val in =  new File(pathToCategory)
+    val in =  new File(book.getPathToContent)
     Files.toString(in, Charsets.UTF_16)
   }
-
 
   def getLibraryPath: String = {
     val prefs = Preferences.userNodeForPackage(classOf[AppModel])

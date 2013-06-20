@@ -9,7 +9,6 @@ import scalafx.application.JFXApp.PrimaryStage
 object BigApp extends JFXApp {
 
   private val model = new AppModel()
-  model.updateWorkspacePath()
   def createScene() = {
     new Scene(900, 600) {
       root = new BorderPane {

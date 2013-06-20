@@ -72,7 +72,6 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
   }
 
   def addBook(e: ActionEvent) {
-    println("Adding book")
     val emptyFields = getEmptyFields()
     if (!emptyFields.isEmpty) {
       val capitalizedEmptyFields = emptyFields(0)(0).toUpper +
@@ -84,7 +83,10 @@ class AddingBooksFormView(model: AppModel, stage: PrimaryStage) extends SplitPan
     else {
       val author = new Author(authors.value.value)
       val category = new Category(categories.value.value)
-      val book = new Book(title.text.value, author, model.filePath, "", category)
+      val bookTitle = title.text.value
+      val pathToContent = model.libraryPath.value + "/" + category.category + "/" +
+          bookTitle + author.getName + ".txt"
+      val book = new Book(bookTitle, author, pathToContent, "", category)
       model.db.addBook(book)
       Dialogs.showInformationDialog(dialogStage, "You successfully added book to the library",
         "Book added.", "Adding complete")

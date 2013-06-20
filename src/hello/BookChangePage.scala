@@ -164,8 +164,8 @@ class BookChangePage(book: Book, dialogStage: Stage, model: AppModel) extends Sc
               changedBook.tags = tags
               model.books += changedBook
               model.db.addBook(changedBook)
-
               model.updateNamesOfAuthors()
+              model.updateAllToRead()
               Dialogs.showInformationDialog(dialogStage, "Book was updated", "Update complete", "Book update info")
             }
 

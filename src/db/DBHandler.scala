@@ -13,10 +13,8 @@ class BookNotFound extends Exception {
 
 
 class DBHandler(dbFile: String) {
-
   val driver = "org.sqlite.JDBC"
   val statBld = new StatementBuilder()
-
   val authorStmt = new AuthorStatementBuilder()
   val bookStmt = new BookStatementBuilder()
   val categoryStmt = new CategoryStatementBuilder()
